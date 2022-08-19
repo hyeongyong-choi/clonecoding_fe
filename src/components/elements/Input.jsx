@@ -1,7 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
 import Form from 'react-bootstrap/Form';
+import { css } from 'styled-components';
+import styled from 'styled-components';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
+
 
 const Input = (props) => {
   const {
@@ -19,7 +20,8 @@ const Input = (props) => {
     ariaDescribedby,
     controlId,
     label,
-    height
+    height,
+    variant,
   } = props;
   return (
     <StInput>
@@ -38,6 +40,7 @@ const Input = (props) => {
           height={height}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedby}
+          variant = {variant}
         />
       </StInputLabel>
     </StInput>
@@ -46,7 +49,7 @@ const Input = (props) => {
 
 export default Input;
 
-const StInput = styled.div``;
+const StInput = styled.form``;
 
 const StInputLabel = styled(FloatingLabel)``;
 
@@ -59,4 +62,17 @@ const StInputForm = styled(Form.Control)`
   word-wrap: break-word;
   box-sizing: border-box;
   text-overflow: ellipsis;
+
+  ${(props) => {
+    return (
+      props.variant === `Register` &&
+      css`
+        border : 1px solid rgba(var(--ca6,219,219,219),1);
+        background : rgba(var(--b3f,250,250,250),1);
+        margin: 10px 0;
+        height: 30px;
+      `
+    )
+  }}
+
 `;

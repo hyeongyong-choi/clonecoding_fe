@@ -1,8 +1,8 @@
-import Router from './shared/Router'
-
+import Router from "./shared/Router";
+import Modal from "./components/ModalDetail";
 function App() {
   return (
-    <div>
+    <div className="App">
       <Router/>
 
     </div>
