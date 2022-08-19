@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const Input = (props) => {
   const {
