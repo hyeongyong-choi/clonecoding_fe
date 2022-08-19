@@ -1,9 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
-
+import FormPage from "../pages/FormPage";
 
 const Router = () => {
   return (
@@ -12,6 +12,7 @@ const Router = () => {
         <Route path="/register" element={<RegisterPage />}></Route>
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/" element={<MainPage />}></Route>
+        <Route path="/form" element={<FormPage />}></Route>
       </Routes>
     </BrowserRouter>
   );
