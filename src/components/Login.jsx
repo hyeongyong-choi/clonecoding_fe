@@ -75,8 +75,8 @@ export default Login;
 const StLogin = styled.div`
   /* width: 100%; */
   height: 100vh;
-  border: 1px solid #f9f9f9;
-  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  background-color: #eee;
   /* display: flex; */
   /* justify-content: center; */
   /* align-items: center; */
