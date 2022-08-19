@@ -3,8 +3,8 @@ import Modal from "./components/ModalDetail";
 function App() {
   return (
     <div className="App">
-      <Router/>
-
+      {/* <Router/> */}
+      <Modal></Modal>
     </div>
   );
 }
