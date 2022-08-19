@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import Text from "./elements/Text"
+import Input from "./elements/Input";
 import Profile from "../assets/img/Profile.jpg"
 import {AiOutlineMenu} from "react-icons/ai";
 import Insta from '../assets/img/Login_PhoneImg2.png';
+import { BiMessageRounded } from "react-icons/bi";
+import { BsHeart, BsBookmark } from "react-icons/bs";
+import { HiOutlinePaperAirplane } from "react-icons/hi";
 
 
 const Modal = () => {
@@ -27,7 +31,27 @@ const Modal = () => {
                     <ModalComment>
                         {/* comment map */}
                     </ModalComment>
-
+                    <ModalIcon>
+                        <Iconbox>
+                            <Icon>
+                                <BsHeart size="25" />
+                            </Icon>
+                            <Icon>
+                                <BiMessageRounded size="28" />
+                            </Icon>
+                            <Icon>
+                                <HiOutlinePaperAirplane size="28" />
+                            </Icon>
+                            <Icon style={{marginLeft : 'auto'}}>
+                                <BsBookmark size="25"></BsBookmark>
+                            </Icon>
+                        </Iconbox>
+                    </ModalIcon>
+                    <TextboxLike>
+                        <Text fontSize="15px" color="black" fontWeight="bold">좋아요 OOO개</Text>
+                        <Text fontSize="8px" color="gray" >날짜</Text>
+                    </TextboxLike>
+                    <InputSubmit></InputSubmit>
                 </ModalCommentBox>
             </ModalContain>
         </ModalBg>
@@ -71,7 +95,7 @@ const ModalImg = styled.div`
 const ModalCommentBox = styled.div`
     width:50%;
     height:100%;
-    background-color: yellow;
+    background-color: #fff;
 `
 const ModalTitle = styled.div`
     /* width:90%; */
@@ -100,9 +124,34 @@ const ModalMenu = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 `
 const ModalComment = styled.div`
     background: #eee;
     width:100%;
-    height:92%;
+    height:75%;
 `
+const ModalIcon = styled.div`
+    width:100%;
+    height: 55px;
+`
+const Iconbox = styled.div`
+    display: flex;
+    margin-left:10px;
+    
+`
+const Icon = styled.div`
+    width:30px;
+    /* padding:5px; */
+    margin: 10px 5px 0px;
+    cursor:pointer;
+`
+const TextboxLike = styled.div`
+    padding: 0px 0px 5px 15px;
+`
+const InputSubmit = styled.div`
+    
+
+`
+
+
