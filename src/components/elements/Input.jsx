@@ -6,6 +6,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 
 const Input = (props) => {
   const {
+    style,
     maxLength,
     title,
     id,
@@ -22,11 +23,13 @@ const Input = (props) => {
     label,
     height,
     variant,
+    ref
   } = props;
   return (
     <StInput>
       <StInputLabel controlId={controlId} label={label}>
         <StInputForm
+          style={style}
           maxLength={maxLength}
           title={title}
           id={id}
@@ -41,6 +44,7 @@ const Input = (props) => {
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedby}
           variant = {variant}
+          ref={ref}
         />
       </StInputLabel>
     </StInput>
