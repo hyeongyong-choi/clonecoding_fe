@@ -1,5 +1,7 @@
+
 import React from "react";
 import InstaList from "../components/InstaList";
+
 
 const MainPage = () => {
   return (
@@ -9,4 +11,6 @@ const MainPage = () => {
   );
 };
 
+
 export default MainPage;
+
