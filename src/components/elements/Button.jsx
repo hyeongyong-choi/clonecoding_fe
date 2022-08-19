@@ -1,7 +1,6 @@
-
-import styled from 'styled-components';
-import Buttonn from 'react-bootstrap/Button';
-import { colors } from '../../theme/theme';
+import styled from "styled-components";
+import Buttonn from "react-bootstrap/Button";
+import { colors } from "../../theme/theme";
 
 const Button = (props) => {
   const {
@@ -14,10 +13,11 @@ const Button = (props) => {
     width,
     height,
     bgchover,
+    fchover,
     fz,
     fw,
     margin,
-    display
+    display,
   } = props;
   return (
     <StBtn
@@ -29,6 +29,7 @@ const Button = (props) => {
       width={width}
       height={height}
       bgchover={bgchover}
+      fchover={fchover}
       fz={fz}
       fw={fw}
       margin={margin}
@@ -53,9 +54,9 @@ const StBtn = styled(Buttonn)`
   margin: ${(props) => props.margin};
   :hover {
     background-color: ${(props) => props.bgchover};
+    color: ${(props) => props.fchover};
+    font-weight: bold;
   }
-  
 `;
 
 export default Button;
-

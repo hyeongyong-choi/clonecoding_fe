@@ -1,4 +1,3 @@
-
 import React from "react";
 import InstaList from "../components/InstaList";
 import NavBar from '../components/NavBar';
@@ -12,6 +11,4 @@ const MainPage = () => {
   );
 };
 
-
 export default MainPage;
-
