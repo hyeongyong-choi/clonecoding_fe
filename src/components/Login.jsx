@@ -4,7 +4,9 @@ import styled from 'styled-components';
 const Login = () => {
     return (
         <StLogin>
-            ddd
+            <StLoginContainer>
+                
+            </StLoginContainer>
         </StLogin>
     );
 };
@@ -12,7 +14,9 @@ const Login = () => {
 export default Login;
 
 const StLogin = styled.div`
-    width: 350px;
+    width: 100px;
     align-items: center;
     background-color: #eee;
 `
+
+const StLoginContainer = styled.div``
