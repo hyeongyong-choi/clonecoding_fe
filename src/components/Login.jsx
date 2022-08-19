@@ -60,7 +60,7 @@ const Login = () => {
         </p>
       </StLoginContainer2>
       <StWrap>
-        <Text>앱을 다운로드하세요.</Text>
+        <Text margin='10px'>앱을 다운로드하세요.</Text>
         <StImg>
           <AppleImg src={AppStore} alt='AppStore' />
           <GoogleImg src={GooglePlay} alt='GooglePlay' />
