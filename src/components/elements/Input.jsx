@@ -19,6 +19,7 @@ const Input = (props) => {
     ariaDescribedby,
     controlId,
     label,
+    height
   } = props;
   return (
     <StInput>
@@ -34,6 +35,7 @@ const Input = (props) => {
           placeholder={placeholder}
           width={width}
           margin={margin}
+          height={height}
           aria-label={ariaLabel}
           aria-describedby={ariaDescribedby}
         />
@@ -52,8 +54,9 @@ const StInputForm = styled(Form.Control)`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   margin: ${(props) => props.margin};
-  border-radius: 8px;
+  border-radius: 5px;
   font-size: 16px;
   word-wrap: break-word;
   box-sizing: border-box;
+  text-overflow: ellipsis;
 `;

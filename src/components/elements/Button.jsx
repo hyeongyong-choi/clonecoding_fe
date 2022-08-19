@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from 'react-bootstrap/Button';
+import Buttonn from 'react-bootstrap/Button';
 import { colors } from '../../theme/theme';
 
-const Button = () => {
+const Button = (props) => {
   const {
     onClick,
     type,
@@ -15,6 +15,7 @@ const Button = () => {
     height,
     bgchover,
     fz,
+    fw,
     margin,
   } = props;
   return (
@@ -28,6 +29,7 @@ const Button = () => {
       height={height}
       bgchover={bgchover}
       fz={fz}
+      fw={fw}
       margin={margin}
     >
       {text}
@@ -35,7 +37,7 @@ const Button = () => {
   );
 };
 
-const StBtn = styled(Button)`
+const StBtn = styled(Buttonn)`
   cursor: pointer;
   box-sizing: border-box;
   border-radius: 8px;
@@ -45,6 +47,7 @@ const StBtn = styled(Button)`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   font-size: ${(props) => props.fz};
+  font-weight: ${(props) => props.fw};
   margin: ${(props) => props.margin};
   :hover {
     background-color: ${(props) => props.bgchover};
