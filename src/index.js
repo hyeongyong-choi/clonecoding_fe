@@ -5,11 +5,12 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Provider } from 'react-redux';
 import store from './redux/config/ConfigStore'
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  
-    <Provider store={store}>
-    <App />
-    </Provider>
-);
 
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <div>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </div>
+);
