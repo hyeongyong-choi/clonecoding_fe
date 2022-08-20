@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import instagram from "../assets/instagram.jpg";
-
 import { BsHeart, BsChat, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
+import { useNavigate } from 'react-router-dom';
 
 const InstaCard = () => {
+
+  const navigate = useNavigate();
+
   return (
     <StCard>
       <StHead>

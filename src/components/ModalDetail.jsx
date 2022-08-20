@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import Text from "./elements/Text"
-import Input from "./elements/Input";
+import Button from "./elements/Button";
 import Profile from "../assets/img/Profile.jpg"
-import {AiOutlineMenu} from "react-icons/ai";
+import { AiOutlineMenu } from "react-icons/ai";
 import Insta from '../assets/img/Login_PhoneImg2.png';
 import { BiMessageRounded } from "react-icons/bi";
-import { BsHeart, BsBookmark } from "react-icons/bs";
+import { BsHeart, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
+import DetailComment from "./DetailComment"
 
 
 const Modal = () => {
@@ -18,18 +19,24 @@ const Modal = () => {
                 <ModalCommentBox>
                     <ModalTitle>
                         <Titlebox>
-                            <TitleImg/>
+                            <TitleImg />
                             <Textbox>
                                 <Text color="black" fontSize="14px">사용자명</Text>
                                 <Text color="black" fontSize="12px">파일형태</Text>
                             </Textbox>
                         </Titlebox>
                         <ModalMenu>
-                            <AiOutlineMenu/>
+                            <AiOutlineMenu />
                         </ModalMenu>
                     </ModalTitle>
                     <ModalComment>
-                        {/* comment map */}
+                        
+                            <Postboxme>
+                                <TitleImg />
+                                <PostText>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, quia! Ipsam neque doloremque nam deleniti, optio quo eligendi sit ab molestias unde, magni odit, minus animi? Excepturi quod saepe consequatur?lo</PostText>
+                            </Postboxme>
+                            <DetailComment></DetailComment>
+                        
                     </ModalComment>
                     <ModalIcon>
                         <Iconbox>
@@ -42,7 +49,7 @@ const Modal = () => {
                             <Icon>
                                 <HiOutlinePaperAirplane size="28" />
                             </Icon>
-                            <Icon style={{marginLeft : 'auto'}}>
+                            <Icon style={{ marginLeft: 'auto' }}>
                                 <BsBookmark size="25"></BsBookmark>
                             </Icon>
                         </Iconbox>
@@ -51,7 +58,11 @@ const Modal = () => {
                         <Text fontSize="15px" color="black" fontWeight="bold">좋아요 OOO개</Text>
                         <Text fontSize="8px" color="gray" >날짜</Text>
                     </TextboxLike>
-                    <InputSubmit></InputSubmit>
+                    <SubmitBox>
+                        <BsEmojiSmile size="24" style={{ marginLeft: "-5px" }} />
+                        <InputSubmit placeholder="댓글달기..."></InputSubmit>
+                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff"></Button>
+                    </SubmitBox>
                 </ModalCommentBox>
             </ModalContain>
         </ModalBg>
@@ -80,7 +91,7 @@ const ModalContain = styled.div`
     width: 1000px;
     height: 90%;
     /* padding: 10px; */
-    background: rgb(25, 31, 44);
+    /* background: rgb(25, 31, 44); */
     border-radius: 10px;
     text-align: center;
 `
@@ -130,7 +141,23 @@ const ModalComment = styled.div`
     background: #eee;
     width:100%;
     height:75%;
+    padding:14px;
 `
+const Postboxme = styled.div`
+    display:flex;
+`
+
+
+const PostText = styled.div`
+    background-color: inherit;
+    margin-left:15px;
+    width:85%;
+    height:150px;
+    background: white;
+    font-size:15px;
+
+`
+
 const ModalIcon = styled.div`
     width:100%;
     height: 55px;
@@ -149,9 +176,17 @@ const Icon = styled.div`
 const TextboxLike = styled.div`
     padding: 0px 0px 5px 15px;
 `
-const InputSubmit = styled.div`
-    
-
+const SubmitBox = styled.div`
+ 
+ border-top:1px solid rgba(var(--b6a,219,219,219),1);
+ padding:10px;
 `
+const InputSubmit = styled.input`
+  width:85%;
+  padding:5px;
+  border:none;
+    
+`
+
 
 
