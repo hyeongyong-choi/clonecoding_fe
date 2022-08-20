@@ -76,10 +76,10 @@ const StCard = styled.div`
   /* border: 1px solid black; */
   box-shadow: 0px 0px 2px 2px lightgray;
   border-radius: 20px;
+  background-color: white;
 `;
 
 const StHead = styled.div`
-  background-color: white;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   height: 60px;
