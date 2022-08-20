@@ -5,6 +5,8 @@ import { BsHeart, BsChat, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
+import ModalDetail from "./ModalDetail";
+
 import { useNavigate } from "react-router-dom";
 
 const InstaCard = ({ item }) => {
@@ -23,6 +25,7 @@ const InstaCard = ({ item }) => {
     e.target.src = instagram;
   };
   console.log("moreView", moreView);
+
   return (
     <StCard>
       <StHead>
@@ -78,6 +81,10 @@ const InstaCard = ({ item }) => {
         <div>{item.createAt}</div>
       </StContent>
       <StBorder></StBorder>
+
+
+      {isModal ? <ModalDetail ModalHandler={ModalHandler}/> : null}
+
 
       <StFormDiv>
         <StForm>
