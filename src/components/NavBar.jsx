@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import instagramLogo from '../assets/img/instagramLogo.png';
 import { MdHomeFilled } from 'react-icons/md';
@@ -9,14 +9,17 @@ import { BiHeart } from 'react-icons/bi';
 import { CgSearch } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import Text from './elements/Text';
+import Form from './Form';
+import Profile from '../assets/img/Profile.jpg'
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const [isModal , setIsModal] = useState(false)
+  const ModalHandler = () =>{
+    setIsModal(!isModal)
+  }
   const logoClick = () => {
     navigate('/');
-  };
-  const AddClick = () => {
-    navigate('/form');
   };
   return (
     <StNav>
@@ -37,15 +40,17 @@ const NavBar = () => {
           <IconHiOutlinePaperAirplane>
             <HiOutlinePaperAirplane size='25' />
           </IconHiOutlinePaperAirplane>
-          <IconCgAddR onClick={AddClick}>
+          <IconCgAddR onClick={ModalHandler}>
             <CgAddR size='27' />
           </IconCgAddR>
+          {isModal ? <Form ModalHandler={ModalHandler}/> : null}
           <IconTiCompass>
             <TiCompass size='32' />
           </IconTiCompass>
           <IconBiHeart>
             <BiHeart size='26' />
           </IconBiHeart>
+          <ProfileImg />
         </Icons>
       </StNavContainer>
     </StNav>
@@ -66,7 +71,7 @@ const StNav = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 0;
+  z-index: 1;
 `;
 
 const StNavContainer = styled.div`
@@ -77,7 +82,7 @@ const StNavContainer = styled.div`
   flex-direction: row;
   flex-shrink: 0;
   width: 100%;
-  z-index: 10;
+  z-index: 0;
   max-width: 975px;
   justify-content: space-between;
 `;
@@ -150,6 +155,16 @@ const IconBiHeart = styled.div`
   display: block;
   position: relative;
   margin-left: 24px;
+  margin-right: 24px;
   color: #000000;
   cursor: pointer;
+`;
+
+const ProfileImg = styled.div`
+  width: 24px;
+  height: 24px;
+  background-image: url(${Profile});
+  background-position: center;
+  background-size: 100% 100%;
+  margin: 0 auto;
 `;
