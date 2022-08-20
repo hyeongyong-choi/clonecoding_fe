@@ -1,26 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import AddPhoto from '../assets/img/AddPhoto.png';
-import Input from './elements/Input';
 import Button from './elements/Button';
-import Text from './elements/Text';
 
 
 const Form = () => {
-//   const inputRef = useRef(null);
-//   const handleClick = () => {
-//     inputRef.click();
-//   };
-//   const handleFileChange = (event) => {
-//     event.preventDefault();
-//     setSelectedImage(event.target.files[0])
-//     inputRef.current.click();
-//     const fileObj = event.target.files && event.target.files[0];
-//     if (!fileObj) {
-//       return;
-//     }
-//     event.target.value = null;
-//   };
+  const selectFile = useRef('');
+
+  const handleClick = () => {
+    selectFile.current.click();
+  };
 
   return (
     <div>
@@ -31,15 +20,17 @@ const Form = () => {
           </FormTitle>
           <FormWrap />
           <FormPhoto>
-            <img src={AddPhoto} alt=''/>
-            <Text fontSize='20px' margin='0 auto'>사진과 동영상을 여기에서 선택하세요</Text>
-            <Input
+            <img src={AddPhoto} alt='' />
+            <StText>
+              사진과 동영상을 여기에서 선택하세요
+            </StText>
+            <input
               type='file'
-            //   style={{ display: 'none' }}
-            //   onChange={handleFileChange}
-            //   ref={inputRef}
+              style={{ display: 'none' }}
+              ref={selectFile}
+              accept='image/*'
             />
-            {/* <Button onClick={handleClick} text="Open file upload box" /> */}
+            <Button onClick={handleClick} text='컴퓨터에서 선택' />
           </FormPhoto>
         </FormModal>
       </StForm>
@@ -62,14 +53,13 @@ const StForm = styled.div`
 
 const FormModal = styled.div`
   position: fixed;
-  /* display: flex; */
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   max-height: 90%;
   width: 564px;
   height: 90%;
-  /* padding: 10px; */
+  padding: 10px;
   background: #fff;
   border-radius: 10px;
   text-align: center;
@@ -105,8 +95,12 @@ const FormWrap = styled.div`
 const FormPhoto = styled.div`
     height: 100%;
     width: 100%;
-    margin: 200px auto;
+    margin: 170px auto;
     /* justify-content:center;
     align-items:center;
     display: flex; */
 `;
+
+const StText= styled.p`
+  font-size:20px;
+`
