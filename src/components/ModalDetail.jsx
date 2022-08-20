@@ -11,7 +11,10 @@ import { HiOutlinePaperAirplane } from "react-icons/hi";
 import DetailComment from "./DetailComment"
 
 
-const Modal = () => {
+const ModalDetail = () => {
+
+    
+
     return (
         <ModalBg>
             <ModalContain>
@@ -33,7 +36,7 @@ const Modal = () => {
                         
                             <Postboxme>
                                 <TitleImg />
-                                <PostText>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, quia! Ipsam neque doloremque nam deleniti, optio quo eligendi sit ab molestias unde, magni odit, minus animi? Excepturi quod saepe consequatur?lo</PostText>
+                            <PostText>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, quia! Ipsam neque doloremque nam deleniti, optio quo eligendi sit ab molestias unde, magni odit, minus animi? Excepturi quod saepe consequatur?lo</PostText>
                             </Postboxme>
                             <DetailComment></DetailComment>
                         
@@ -69,7 +72,7 @@ const Modal = () => {
     );
 };
 
-export default Modal;
+export default ModalDetail;
 
 const ModalBg = styled.div`
     position: fixed;

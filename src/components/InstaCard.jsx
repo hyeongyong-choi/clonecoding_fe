@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import instagram from "../assets/instagram.jpg";
 import { BsHeart, BsChat, BsBookmark, BsEmojiSmile } from "react-icons/bs";
@@ -9,7 +9,14 @@ import { useNavigate } from 'react-router-dom';
 
 const InstaCard = () => {
 
+  const [isModal , setIsModal] = useState(false)
   const navigate = useNavigate();
+  
+  console.log(isModal)
+  const ModalHandler = () =>{
+    setIsModal(!isModal)
+  }
+
 
   return (
     <StCard>
@@ -41,10 +48,14 @@ const InstaCard = () => {
       <StContent>
         <span>UserName</span>
         <span>게시글 내용...</span>
-        <div>댓글 30개</div>
+        <div onClick={ModalHandler}>댓글 30개</div>
         <div>10시간 전</div>
       </StContent>
       <StBorder></StBorder>
+      
+
+      
+
 
       <StFormDiv>
         <StForm>
