@@ -6,18 +6,12 @@ import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
 import { useNavigate } from 'react-router-dom';
+import ModalDetail from "./ModalDetail";
 
-const InstaCard = () => {
-
-  const [isModal , setIsModal] = useState(false)
+const InstaCard = ({isModal,ModalHandler}) => {
+  
   const navigate = useNavigate();
   
-  console.log(isModal)
-  const ModalHandler = () =>{
-    setIsModal(!isModal)
-  }
-
-
   return (
     <StCard>
       <StHead>
@@ -52,10 +46,8 @@ const InstaCard = () => {
         <div>10시간 전</div>
       </StContent>
       <StBorder></StBorder>
-      
 
-      
-
+      {isModal ? <ModalDetail ModalHandler={ModalHandler}/> : null}
 
       <StFormDiv>
         <StForm>

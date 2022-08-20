@@ -41,6 +41,7 @@ const Login = () => {
           bgcolor='white'
           bgchover='white'
           margin='0 0 10px 0'
+          bgchoverhover = '#0d6efd'
         />
         <Text fontSize='12px' color='#00376b' fontWeight='400'>
           비밀번호를 잊으셨나요?
@@ -53,7 +54,8 @@ const Login = () => {
             onClick={() => {
               navigate('/register');
             }}
-            style={{ color: '#00376b' }}
+            style={{ color: '#00376b' , cursor:'pointer'}}
+            
           >
             가입하기
           </span>

@@ -6,8 +6,12 @@ import Input from './elements/Input';
 import Apple from '../assets/img/AppStore.png';
 import Google from '../assets/img/GooglePlay.png';
 import HorizonLine from "../utils/HorizonLine";
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
+
+    const navigate = useNavigate()
+
     return (
         <RegisterBG>
         <RegisterContain>
@@ -25,7 +29,8 @@ const Register = () => {
             <Button width='268px' margin='0px auto' display='block' text='가입'></Button>
         </RegisterContain>
             <Loginbox>
-                <LoginP>계정이 있으신가요? <span style={{color:'#0d6efd'}}>로그인</span></LoginP>
+                <LoginP>계정이 있으신가요? <span onClick={() => {navigate('/login');}} 
+                style={{color:'#0d6efd' , cursor:'pointer'}}>로그인</span></LoginP>
             </Loginbox>
             <FootRegister>
                 <p>앱을 다운로드하세요.</p>

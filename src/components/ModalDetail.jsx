@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Text from "./elements/Text"
 import Button from "./elements/Button";
 import Profile from "../assets/img/Profile.jpg"
-import { AiOutlineMenu } from "react-icons/ai";
+import { FiMoreHorizontal } from "react-icons/fi";
 import Insta from '../assets/img/Login_PhoneImg2.png';
 import { BiMessageRounded } from "react-icons/bi";
 import { BsHeart, BsBookmark, BsEmojiSmile } from "react-icons/bs";
@@ -12,8 +12,6 @@ import DetailComment from "./DetailComment"
 
 
 const ModalDetail = () => {
-
-    
 
     return (
         <ModalBg>
@@ -29,7 +27,7 @@ const ModalDetail = () => {
                             </Textbox>
                         </Titlebox>
                         <ModalMenu>
-                            <AiOutlineMenu />
+                            <FiMoreHorizontal />
                         </ModalMenu>
                     </ModalTitle>
                     <ModalComment>
@@ -80,8 +78,9 @@ const ModalBg = styled.div`
     left: 0;
     bottom: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.10);
-    z-index: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1.5px);
+    z-index: 1;
     box-sizing:border-box;
 `
 const ModalContain = styled.div`
@@ -105,6 +104,7 @@ const ModalImg = styled.div`
     background-repeat: no-repeat;
     background-size : cover;
     background-position: center;
+    
 `
 const ModalCommentBox = styled.div`
     width:50%;
