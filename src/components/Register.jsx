@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import InstaLogo from '../assets/img/instagramLogo.png'
+import InstaLogo from '../assets/img/instagramLogo.png';
 import Button from './elements/Button';
 import Input from './elements/Input';
-import Apple from '../assets/img/AppStore.png'
-import Google from '../assets/img/GooglePlay.png'
-
+import Apple from '../assets/img/AppStore.png';
+import Google from '../assets/img/GooglePlay.png';
+import HorizonLine from "../utils/HorizonLine";
 
 const Register = () => {
     return (
@@ -15,7 +15,7 @@ const Register = () => {
             <RegisterH2>친구들의 사진과 동영상을 보려면 가입하세요.</RegisterH2>
             <Button width='268px' margin='0px auto' display='block' text='Facebook으로 로그인'></Button>
             <SpanBox>
-                <SpanLine></SpanLine> <SpanP>또는</SpanP> <SpanLine></SpanLine>
+                <HorizonLine text="또는"/>
             </SpanBox>
                 <Input variant='Register' type='email' placeholder='이메일 주소' label='이메일 주소'></Input>
                 <Input variant='Register' type='text' placeholder='성명' label='성명'></Input>
