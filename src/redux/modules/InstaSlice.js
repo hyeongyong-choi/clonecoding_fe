@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from "../../shared/cookies.js";
 
 const initialState = {
-  devtools: [],
+  articles: [],
   devtool: {
     comments: [],
   },
@@ -12,17 +12,19 @@ const initialState = {
 };
 
 export const __getInstaList = createAsyncThunk(
-  "getDevTools",
+  "getInstaList",
   async (payload, thunkAPI) => {
+    console.log("__getInstaList 동작");
     try {
       const response = await axios({
         method: "get",
-        url: `/api/articles`,
+        url: "http://localhost:3001/articles",
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
         },
       });
+      console.log(response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -31,7 +33,7 @@ export const __getInstaList = createAsyncThunk(
 );
 
 export const __postInstaCard = createAsyncThunk(
-  "postDevTools",
+  "postInstaCard",
   async (payload, thunkAPI) => {
     try {
       const response = await axios({
@@ -51,7 +53,7 @@ export const __postInstaCard = createAsyncThunk(
 );
 
 export const __updateInstaCard = createAsyncThunk(
-  "updateDevTools",
+  "updateInstaCard",
   async (payload, thunkAPI) => {
     try {
       const response = await axios({
@@ -70,8 +72,8 @@ export const __updateInstaCard = createAsyncThunk(
   }
 );
 
-export const __deleteInsta = createAsyncThunk(
-  "deleteDevTools",
+export const __deleteInstaCard = createAsyncThunk(
+  "deleteInstaCard",
   async (payload, thunkAPI) => {
     try {
       const response = await axios({
@@ -133,73 +135,74 @@ export const InstaSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    // [__getDevTools.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__getDevTools.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.devtools = payload;
-    // },
-    // [__getDevTools.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload;
-    // },
-    // [__postDevTools.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__postDevTools.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    // },
-    // [__postDevTools.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload.response.data.error;
-    // },
-    // [__updateDevTools.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__updateDevTools.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.devtool.content = payload.content;
-    // },
-    // [__updateDevTools.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload.response.data.error;
-    // },
-    // [__deleteDevTools.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__deleteDevTools.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.devtools = state.devtools.filter(
-    //     (val) => val.articleId !== payload
-    //   );
-    // },
-    // [__deleteDevTools.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload.response.data.error;
-    // },
-    // [__getDetail.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__getDetail.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.devtool = payload;
-    // },
-    // [__getDetail.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload.response.data.error;
-    // },
-    // [__postComments.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [__postComments.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.devtool.comments.unshift(payload);
-    // },
-    // [__postComments.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload.response.data.error;
-    // },
+    [__getInstaList.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getInstaList.fulfilled]: (state, { payload }) => {
+      console.log("payload", payload);
+      state.isLoading = false;
+      state.articles = payload;
+    },
+    [__getInstaList.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
+    [__postInstaCard.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__postInstaCard.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+    },
+    [__postInstaCard.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+    [__updateInstaCard.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__updateInstaCard.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.devtool.content = payload.content;
+    },
+    [__updateInstaCard.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+    [__deleteInstaCard.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteInstaCard.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.devtools = state.devtools.filter(
+        (val) => val.articleId !== payload
+      );
+    },
+    [__deleteInstaCard.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+    [__getDetail.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__getDetail.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.devtool = payload;
+    },
+    [__getDetail.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+    [__postComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__postComments.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.devtool.comments.unshift(payload);
+    },
+    [__postComments.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
   },
 });
 
