@@ -71,7 +71,7 @@ const InstaCard = () => {
             text="게시"
             width="70px"
             bgcolor="transparent"
-            fontcolor="blue"
+            fontcolor="gray"
             bgchover="transparent"
             fchover="red"
           ></Button>
@@ -86,7 +86,7 @@ export default InstaCard;
 const StCard = styled.div`
   width: 472px;
   height: 880px;
-  margin: 100px auto 50px auto;
+  margin: 20px auto 0px auto;
   /* border: 1px solid black; */
   box-shadow: 0px 0px 2px 2px lightgray;
   border-radius: 20px;
