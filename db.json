@@ -1,19 +1,32 @@
 {
-  "images": [
+  "articles": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
+      "image": "https://t1.daumcdn.net/cfile/tistory/99086B3C5B9B75C431",
+      "userName": "홍창형",
+      "likeCount": 521,
+      "content": "내 셀카 사진1ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ",
+      "createAt": "20분 전",
+      "commentcount": 15
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": 2,
+      "image": "https://t1.daumcdn.net/cfile/tistory/99086B3C5B9B75C431",
+      "userName": "정우창",
+      "likeCount": 746,
+      "content": "내 셀카 사진2 입니다. ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
+      "createAt": "45분 전",
+      "commentcount": 45
+    },
+    {
+      "id": 3,
+      "image": "asdf",
+      "userName": "신지영",
+      "likeCount": 659,
+      "content": "내 셀카 사진3ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ",
+      "createAt": "17분 전",
+      "commentcount": 78
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
+

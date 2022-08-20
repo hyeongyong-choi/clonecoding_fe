@@ -1,24 +1,38 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import instagram from "../assets/instagram.jpg";
+import instagram from "../assets/instagram2.jpg";
 import { BsHeart, BsChat, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
-import { useNavigate } from 'react-router-dom';
 import ModalDetail from "./ModalDetail";
 
-const InstaCard = ({isModal,ModalHandler}) => {
-  
+import { useNavigate } from "react-router-dom";
+
+const InstaCard = ({ item }) => {
+  const [isModal, setIsModal] = useState(false);
+  const [moreView, setMoreView] = useState(false);
   const navigate = useNavigate();
-  
+
+  // console.log(isModal)
+  const ModalHandler = () => {
+    setIsModal(!isModal);
+  };
+  const onClickMoreViewHandler = () => {
+    setMoreView(!moreView);
+  };
+  const handleImgError = (e) => {
+    e.target.src = instagram;
+  };
+  console.log("moreView", moreView);
+
   return (
     <StCard>
       <StHead>
-        <StHeadImage src={instagram}></StHeadImage>
+        <StHeadImage src={item.image} onError={handleImgError}></StHeadImage>
         <div>UserName</div>
       </StHead>
-      <img src={instagram}></img>
+      <StBodyImage src={item.image} onError={handleImgError}></StBodyImage>
       <StSection>
         <StButtonDiv>
           <StHeartButton onClick={() => console.log("버튼동작")}>
@@ -35,19 +49,42 @@ const InstaCard = ({isModal,ModalHandler}) => {
           <BsBookmark size="28"></BsBookmark>
         </StHeartButton>
       </StSection>
-      <div>
-        <StContent>좋아요 100개</StContent>
-      </div>
 
       <StContent>
-        <span>UserName</span>
-        <span>게시글 내용...</span>
-        <div onClick={ModalHandler}>댓글 30개</div>
-        <div>10시간 전</div>
+        <div>좋아요 {item.likeCount}개</div>
+        <StUserContent>
+          {moreView ? (
+            <div>
+              <div>{item.userName}</div>
+              {item.content}{" "}
+              <StMoreButton onClick={onClickMoreViewHandler}>
+                내용접기
+              </StMoreButton>
+            </div>
+          ) : (
+            <div>
+              <div>{item.userName}</div>
+              {item.content.length < 24 ? (
+                item.content
+              ) : (
+                <StContentMoreDiv>
+                  <div>{item.content.slice(0, 23) + "..."}</div>
+                  <StMoreButton onClick={onClickMoreViewHandler}>
+                    더보기
+                  </StMoreButton>
+                </StContentMoreDiv>
+              )}
+            </div>
+          )}
+        </StUserContent>
+        <div onClick={ModalHandler}>댓글 {item.commentcount}개 모두보기</div>
+        <div>{item.createAt}</div>
       </StContent>
       <StBorder></StBorder>
 
+
       {isModal ? <ModalDetail ModalHandler={ModalHandler}/> : null}
+
 
       <StFormDiv>
         <StForm>
@@ -77,7 +114,8 @@ export default InstaCard;
 
 const StCard = styled.div`
   width: 472px;
-  height: 880px;
+  /* height: 880px; */
+  height: auto;
   margin: 20px auto 0px auto;
   /* border: 1px solid black; */
   box-shadow: 0px 0px 2px 2px lightgray;
@@ -101,6 +139,11 @@ const StHeadImage = styled.img`
   height: 42px;
   border-radius: 100px;
   /* background-image: url(${instagram}); */
+`;
+
+const StBodyImage = styled.img`
+  width: 472px;
+  height: 520px;
 `;
 
 const StSection = styled.section`
@@ -129,9 +172,14 @@ const StHeartButton = styled.button`
 `;
 
 const StContent = styled.div`
-  padding: 15px;
+  padding: 20px;
 `;
 
+const StUserContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+`;
 const StBorder = styled.div`
   border: 1px solid #eeecec;
 `;
@@ -145,4 +193,16 @@ const StForm = styled.form`
   display: flex;
   flex-direction: row;
   align-items: center;
+`;
+
+const StContentMoreDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+`;
+
+const StMoreButton = styled.button`
+  background-color: transparent;
+  border: none;
+  color: gray;
 `;
