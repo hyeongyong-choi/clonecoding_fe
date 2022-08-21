@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import instagramLogo from '../assets/img/instagramLogo.png';
 import AppStore from '../assets/img/AppStore.png';
@@ -8,9 +8,64 @@ import Button from '../components/elements/Button';
 import Text from '../components/elements/Text';
 import HorizonLine from '../utils/HorizonLine';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { __loginUser } from '../redux/modules/userSlice';
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  
+  // const [userTitle , setUserTitle] = useState('')
+  // const [userId , setUserId] = useState('')
+  // const [userEmail , setUserEmail] = useState('')
+  // const [password , setPassword] = useState('')
+  
+  const [formValue, setFormValue] = useState({
+    userId: '',
+    // userEmail: '',
+    password : ''
+  });
+
+  const {userId ,userEmail, password } = formValue
+
+  const onChangeIdHandler =(e)=>{
+    setFormValue((prev)=>{
+        return{
+            ...prev,
+            userId : e.target.value
+        }
+    })
+}
+
+const onChangeEmailHandler =(e)=>{
+  setFormValue((prev)=>{
+      return{
+          ...prev,
+          userEmail : e.target.value
+      }
+  })
+}
+
+const onChangePasswordHandler =(e)=>{
+  setFormValue((prev)=>{
+      return{
+          ...prev,
+          password : e.target.value
+      }
+  })
+}
+
+
+const handleSubmit = async (formValue) => {
+  dispatch(__loginUser(formValue)).then(() => {
+    navigate('/');
+    window.location.reload();
+  });
+};
+
+
+ 
+  console.log('userId' ,userId ,'password' , password)
   return (
     <StLogin>
       <StLoginContainer>
@@ -23,15 +78,21 @@ const Login = () => {
             label='사용자 이름 또는 이메일'
             width='100%'
             margin='0 0 10px 0'
+            value = {userId}
+            onChange = {onChangeIdHandler}
           />
           <Input
+            type='password'
             placeholder='비밀번호'
             label='비밀번호'
             width='100%'
             margin='0 0 10px 0'
+            value = {password}
+            onChange={onChangePasswordHandler}
+
           />
         </StLoginInput>
-        <Button text='로그인' width='100%' margin='0 0 10px 0' />
+        <Button text='로그인' width='100%' margin='0 0 10px 0' onClick={handleSubmit}/>
         <HorizonLine text='또는' />
         <Button
           text='Facebook으로 로그인'
@@ -52,11 +113,8 @@ const Login = () => {
           계정이 없으신가요?
           <span
             onClick={() => {
-              navigate('/register');
-            }}
-            style={{ color: '#00376b' , cursor:'pointer'}}
-            
-          >
+              navigate('/register');}}
+            style={{ color: '#00376b' , cursor:'pointer'}}>
             가입하기
           </span>
         </p>

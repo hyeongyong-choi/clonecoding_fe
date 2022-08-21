@@ -23,7 +23,10 @@ const Input = (props) => {
     label,
     height,
     variant,
-    ref
+    ref,
+    text,
+    refs,
+    onBlur
   } = props;
   return (
     <StInput>
@@ -45,7 +48,9 @@ const Input = (props) => {
           aria-describedby={ariaDescribedby}
           variant = {variant}
           ref={ref}
-        />
+          refs={refs}
+          onBlur={onBlur}
+        />{text}
       </StInputLabel>
     </StInput>
   );

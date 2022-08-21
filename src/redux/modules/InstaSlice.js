@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getCookie } from "../../shared/cookies.js";
+import { getCookie , setCookie} from "../../shared/cookies.js";
+
 
 const initialState = {
   articles: [],

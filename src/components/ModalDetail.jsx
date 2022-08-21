@@ -11,18 +11,20 @@ import { HiOutlinePaperAirplane } from "react-icons/hi";
 import DetailComment from "./DetailComment"
 
 
-const ModalDetail = () => {
+const ModalDetail = ({item}) => {
+
+    console.log(item)
 
     return (
         <ModalBg>
             <ModalContain>
-                <ModalImg></ModalImg>
+                <ModalImg item={item.image}></ModalImg>
                 <ModalCommentBox>
                     <ModalTitle>
                         <Titlebox>
                             <TitleImg />
                             <Textbox>
-                                <Text color="black" fontSize="14px">사용자명</Text>
+                                <Text color="black" fontSize="14px">{item.userName}</Text>
                                 <Text color="black" fontSize="12px">파일형태</Text>
                             </Textbox>
                         </Titlebox>
@@ -34,7 +36,7 @@ const ModalDetail = () => {
                         
                             <Postboxme>
                                 <TitleImg />
-                            <PostText>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima, quia! Ipsam neque doloremque nam deleniti, optio quo eligendi sit ab molestias unde, magni odit, minus animi? Excepturi quod saepe consequatur?lo</PostText>
+                            <PostText>{item.content}</PostText>
                             </Postboxme>
                             <DetailComment></DetailComment>
                         
@@ -56,8 +58,8 @@ const ModalDetail = () => {
                         </Iconbox>
                     </ModalIcon>
                     <TextboxLike>
-                        <Text fontSize="15px" color="black" fontWeight="bold">좋아요 OOO개</Text>
-                        <Text fontSize="8px" color="gray" >날짜</Text>
+                        <Text fontSize="15px" color="black" fontWeight="bold">좋아요 {item.likeCount}개</Text>
+                        <Text fontSize="8px" color="gray" >{item.createAt}</Text>
                     </TextboxLike>
                     <SubmitBox>
                         <BsEmojiSmile size="24" style={{ marginLeft: "-5px" }} />
@@ -100,7 +102,7 @@ const ModalContain = styled.div`
 const ModalImg = styled.div`
     width:50%;
     height:100%;
-    background-image: url(${Insta});
+    background-image: url(${props => props.item});
     background-repeat: no-repeat;
     background-size : cover;
     background-position: center;
