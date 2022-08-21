@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import styled from "styled-components";
 import instagram from "../assets/instagram2.jpg";
 import {
@@ -14,14 +14,15 @@ import Button from "./elements/Button";
 import ModalDetail from "./ModalDetail";
 
 import { useNavigate } from "react-router-dom";
-import { __postLike } from "../redux/modules/InstaSlice";
+import { __postComments, __postLike } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const InstaCard = ({ item }) => {
   const [isModal, setIsModal] = useState(false);
   const [heart, setHeart] = useState(false);
   const [moreView, setMoreView] = useState(false);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
+  const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
 
@@ -47,11 +48,19 @@ const InstaCard = ({ item }) => {
   };
 
   const onChangeCommentHandler = (e) => {
-    setValue(e.target.value);
+    setValue(e.target.value.substr(0, 100));
+    setTextareaHeight(e.target.value.split("\n").length - 1);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch(
+      __postComments({
+        id: item.id,
+        comment: value,
+      })
+    );
+    setValue("");
   };
 
   console.log("댓글", value);
@@ -119,23 +128,26 @@ const InstaCard = ({ item }) => {
       </StContent>
       <StBorder></StBorder>
 
-
-      {isModal ? <ModalDetail ModalHandler={ModalHandler} item={item}/> : null}
-
+      {isModal ? <ModalDetail ModalHandler={ModalHandler} item={item} /> : null}
 
       <StFormDiv>
-        <StForm>
+        <StForm onSubmit={handleSubmit}>
           <BsEmojiSmile size="24" />
           <TextArea
             width="370px"
-            height="25px"
+            // height={`${textAreaHeight}px`}
+            height={
+              textareaHeight <= 2
+                ? `${(textareaHeight + 1) * 25}px`
+                : `${(2 + 1) * 25}px`
+            }
             margin="0px 0px 0px 10px"
             border="none"
             placeholder="댓글 달기..."
             value={value}
             onChange={onChangeCommentHandler}
           />
-          <StButton type="submit" disabled="disabled">
+          <StButton type="submit" disabled={value.length >= 1 ? false : true}>
             게시
           </StButton>
         </StForm>
@@ -148,7 +160,7 @@ export default InstaCard;
 const StButton = styled.button`
   width: 70px;
   background-color: transparent;
-  color: lightblue;
+  color: ${({ disabled }) => (disabled ? "lightblue" : `#003cff`)};
   border: none;
 `;
 const StCard = styled.div`
