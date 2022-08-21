@@ -9,7 +9,7 @@ import { BiHeart } from 'react-icons/bi';
 import { CgSearch } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
 import Text from './elements/Text';
-import Form from './Form';
+import ModalForm from './ModalForm';
 import Profile from '../assets/img/Profile.jpg'
 
 const NavBar = () => {
@@ -43,7 +43,7 @@ const NavBar = () => {
           <IconCgAddR onClick={ModalHandler}>
             <CgAddR size='27' />
           </IconCgAddR>
-          {isModal ? <Form ModalHandler={ModalHandler}/> : null}
+          {isModal ? <ModalForm ModalHandler={ModalHandler}/> : null}
           <IconTiCompass>
             <TiCompass size='32' />
           </IconTiCompass>
