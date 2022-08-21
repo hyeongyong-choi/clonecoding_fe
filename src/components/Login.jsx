@@ -22,17 +22,19 @@ const Login = () => {
   
   const [formValue, setFormValue] = useState({
     userId: '',
-    // userEmail: '',
-    password : ''
+    userEmail: '',
+    password : '',
   });
 
   const {userId ,userEmail, password } = formValue
+  
 
-  const onChangeIdHandler =(e)=>{
+  const onChangeHandler =(e)=>{
     setFormValue((prev)=>{
         return{
             ...prev,
-            userId : e.target.value
+            userId : e.target.value,
+            userEmail : e.target.value
         }
     })
 }
@@ -56,16 +58,38 @@ const onChangePasswordHandler =(e)=>{
 }
 
 
-const handleSubmit = async (formValue) => {
-  dispatch(__loginUser(formValue)).then(() => {
-    navigate('/');
-    window.location.reload();
-  });
+const handleSubmit = (e) => {
+    const { value } =e.target;
+    
+    const Idform = {
+      userId : userId ,
+      password : password
+    }
+    const Emailform = {
+      userEmail : userEmail ,
+      password : password
+    }
+    if(userId.indexOf('@') === -1){
+      console.log(userId.indexOf('@'))
+      dispatch(__loginUser(Idform))
+      // .then(() => {
+      //   navigate('/');
+      //   window.location.reload();
+      // })
+    }else{
+      // console.log(value.indexOf('@'))
+      dispatch(__loginUser(Emailform))
+      // .then(() => {
+      //   navigate('/');
+      //   window.location.reload();
+      // })
+    }
+    
 };
 
 
  
-  console.log('userId' ,userId ,'password' , password)
+  // console.log(handleSubmit)
   return (
     <StLogin>
       <StLoginContainer>
@@ -79,8 +103,9 @@ const handleSubmit = async (formValue) => {
             width='100%'
             margin='0 0 10px 0'
             value = {userId}
-            onChange = {onChangeIdHandler}
+            onChange = {onChangeHandler}
           />
+
           <Input
             type='password'
             placeholder='비밀번호'

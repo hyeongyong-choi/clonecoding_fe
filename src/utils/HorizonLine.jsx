@@ -1,6 +1,6 @@
 import React from "react";
 
-const HorizonLine = ({ text }) => {
+const HorizonLine = ({ text , margin}) => {
   return (
     <div
       style={{
@@ -11,7 +11,7 @@ const HorizonLine = ({ text }) => {
         margin: "10px 0 20px",
       }}
     >
-      <span style={{ background: "#fff", padding: "0 10px" }}>{text}</span>
+      <span style={{ background: "#fff", padding: "0 10px" } }>{text}</span>
     </div>
   );
 };

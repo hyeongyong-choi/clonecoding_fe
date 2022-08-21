@@ -17,11 +17,11 @@ const config = {
       try {
         console.log(payload)
 
-        const data = await axios.post(`${BASE_URL}/api/login`, payload);
-        // setCookie('ACCESS_TOKEN', data.data.result.data.accessToken);
-        // setCookie('userName', data.data.result.data.userName);
-        // setCookie('userId', data.data.result.data.userId);
-        // setCookie('userEmail', data.data.result.data.userEmail);
+        const data = await axios.post(`api/login`, payload);
+        setCookie('ACCESS_TOKEN', data.data.result.data.accessToken);
+        setCookie('userName', data.data.result.data.userName);
+        setCookie('userId', data.data.result.data.userId);
+        setCookie('userEmail', data.data.result.data.userEmail);
         return thunkAPI.fulfillWithValue(data.data.result.data);
       } catch (error) {
         console.log('error' , error)
@@ -48,7 +48,7 @@ const config = {
     'GET_USER',
     async (payload, thunkAPI) => {
       try {
-        const data = await axios.get(`${BASE_URL}/api/user/${payload}`, config);
+        const data = await axios.get(`api/user/${payload}`, config);
         return thunkAPI.fulfillWithValue(data.data);
       } catch (error) {
         return thunkAPI.rejectWithValue(error);

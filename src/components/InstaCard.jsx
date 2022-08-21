@@ -112,7 +112,7 @@ const InstaCard = ({ item }) => {
           ) : (
             <div>
               <div>{item.userName}</div>
-              {item.content.length < 24 ? (
+              {/* {item.content.length < 24 ? (
                 item.content
               ) : (
                 <StContentMoreDiv>
@@ -121,7 +121,7 @@ const InstaCard = ({ item }) => {
                     더보기
                   </StMoreButton>
                 </StContentMoreDiv>
-              )}
+              )} */}
             </div>
           )}
         </StUserContent>

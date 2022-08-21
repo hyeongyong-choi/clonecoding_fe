@@ -1,4 +1,4 @@
-import React ,{useRef, useState} from 'react';
+import React ,{useRef, useState , useEffect} from 'react';
 import styled from 'styled-components';
 import InstaLogo from '../assets/img/instagramLogo.png';
 import Button from './elements/Button';
@@ -26,20 +26,17 @@ const Register = () => {
         password: '',
       });
       
-    // 아이디, 비밀번호 확인
-    const [email,setEmail] = useState('')
-    const [id, setId] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState('');
-
     // 오류메시지 상태 저장
     const [emailMessage,setEmailMessage] = useState('');
     const [idMessage, setIdMessage] = useState('');
     const [passwordMessage, setPasswordMessage] = useState('');
     
     // 중복버튼 활성화, 회원가입버튼 활성화
-    const [idOverlap, setIdOverlap] = useState(false);
+    const [emailCheck, setEmailCheck] = useState(true); 
+    const [emailDBCheck, setEmailDBCheck] = useState(true); //변경
+    const [idCheck, setIdCheck] = useState(true);
+    const [idDBCheck, setIdDBCheck] = useState(true); //변경
     const [registerBtn, setRegisterBtn] = useState(true);
-    const [idDbCheck, setIdDbCheck] = useState(false);
 
     // 유효성 검사
     const [isEmail,setIsEmail] = useState(false);
@@ -48,28 +45,32 @@ const Register = () => {
     
 
     // id, password 정규식
+    const userEmailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    const useridRegEx = /^[a-zA-Z0-9]{6,13}$/g;
+    const passwordRegEx = /^[a-zA-Z0-9]{6,15}$/;
+      
     const { userName, userId, userEmail, password } = inputValue;
 
 
-    const userEmailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-    const passwordRegEx = /^[a-zA-Z0-9]{6,15}$/;
-      
-    
+    // email 유효성
     const onChangeEmailHandler = (e) =>{
         const { value } = e.target;      
         let temp = '';
         if(!userEmailRegex.test(value)){
             setEmailMessage('이메일 형식에 맞게 입력해주세요');
             setIsEmail(false);
+            setEmailCheck(true)
+
         } else {
             temp = value;
             setEmailMessage('올바른 이메일 형식입니다.')
+            setEmailCheck(false)
             if(temp === value){
                 setIsEmail(true)
             }else{
                 setIsEmail(false)
             }
-        }
+        }   
         setInputValue((prev)=>{
             return{
                 ...prev,
@@ -78,25 +79,34 @@ const Register = () => {
         })
     }
 
-    const onChangeNameHandler =(e)=>{
-        setInputValue((prev)=>{
-            return{
-                ...prev,
-                userName: e.target.value
-            }
-        })
-    }
+    //  // id 유효성
+    //  const onChangeIdHandler = (e) =>{
+    //     const { value } = e.target;      
+    //     let temp = '';
+    //     if(!useridRegEx.test(value)){
+    //         setEmailMessage('아이디 형식에 맞게 입력해주세요');
+    //         setIsEmail(false);
+    //         setEmailCheck(true)
 
-    const onChangeIdHandler =(e)=>{
-        setInputValue((prev)=>{
-            return{
-                ...prev,
-                userId: e.target.value
-            }
-        })
-    }
+    //     } else {
+    //         temp = value;
+    //         setEmailMessage('올바른 이메일 형식입니다.')
+    //         setEmailCheck(false)
+    //         if(temp === value){
+    //             setIsEmail(true)
+    //         }else{
+    //             setIsEmail(false)
+    //         }
+    //     }   
+    //     setInputValue((prev)=>{
+    //         return{
+    //             ...prev,
+    //             userId: e.target.value
+    //         }
+    //     })
+    // }
 
-
+    //password 유효성
     const onChangePasswordHandler = (e) => {
         const { value } = e.target;
         if (!passwordRegEx.test(value)) {
@@ -114,10 +124,76 @@ const Register = () => {
         })
     }
 
-    
+    //Email 중복검사
+    const onClickEmailCheck = async () => {
+        const newEmail = {
+            userEmail : userEmail
+        }
+        try{
+            const data = await axios.post('api/register/userEmail' ,newEmail )
+            if (data.data) {
+                setEmailMessage('사용할 수 있는 이메일입니다');
+                setEmailDBCheck(true)
+                setEmailCheck(true)
+            } else {
+                setEmailMessage('중복되는 이메일입니다.');
+                setEmailDBCheck(false)
+                setEmailCheck(false)
+            }
+        } catch(error){
+            console.log('error ' , error)
+        }
+    }
+
+    //Id 중복검사
+    const onClickIdCheck = async () => {
+        const newId = {
+            userId : userId
+        }
+        try{
+            const data = await axios.post('api/register/userId' ,newId )
+            if (data.data) {
+                setIdMessage('사용할 수 있는 아이디입니다');
+                setIdDBCheck(true)
+                setIdCheck(true)
+            } else {
+                setIdMessage('중복되는 아이디입니다.');
+                setIdDBCheck(false)
+                setIdCheck(false)
+            }
+        } catch(error){
+            console.log('error ' , error)
+        }
+    }
 
 
-    //로그인 디스패치
+
+    const onChangeNameHandler =(e)=>{
+        setInputValue((prev)=>{
+            return{
+                ...prev,
+                userName: e.target.value
+            }
+        })
+    }
+
+    const onChangeUserIdHandler =(e)=>{
+        const { value } = e.target;
+        console.log(value)
+        if(value.trim() === ""){
+            setIdCheck(true)
+        }else{
+            setIdCheck(false)
+        }
+        setInputValue((prev)=>{
+            return{
+                ...prev,
+                userId : e.target.value
+            }
+        })
+    }
+
+    //회원가입 클릭
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(__signupUser(inputValue)).then(
@@ -125,22 +201,40 @@ const Register = () => {
         );
       };
 
-    
+        useEffect(() => {
+        if (emailDBCheck && idDBCheck && userName && isPassword) {
+            setRegisterBtn(false);
+        } else {
+            setRegisterBtn(true);
+        }
+    }, [emailDBCheck,idDBCheck, userName,isPassword])
+
+
+
+
     return (
         <RegisterBG>
         <RegisterContain>
            <LogoImg src={InstaLogo} alt="" />
             <RegisterH2>친구들의 사진과 동영상을 보려면 가입하세요.</RegisterH2>
-            <Button width='268px' margin='0px auto' display='block' text='Facebook으로 로그인'></Button>
+            <Button width='100%' margin='0px auto' display='block' text='Facebook으로 로그인'></Button>
             <SpanBox>
-                <HorizonLine text="또는"/>
+                <HorizonLine text="또는" margin="0 0 -10px 0"/>
             </SpanBox>
-                <Input variant='Register' type='email' placeholder='이메일 주소' label='이메일 주소' onChange={onChangeEmailHandler} text={emailMessage} value={userEmail}></Input>
-                <Input variant='Register' type='text' placeholder='성명' label='성명' value={userName} onChange={onChangeNameHandler}></Input>
-                <Input variant='Register' type='text'placeholder='사용자 이름(ID)' label='사용자 이름(ID)' value={userId} onChange={onChangeIdHandler}></Input>
-                <Input variant='Register' type='password' placeholder='비밀번호' label='비밀번호' onChange={onChangePasswordHandler} text={passwordMessage} value={password}></Input>
+            <InputBox>
+                <EmailBox>
+                    <Input variant='Register' type='email' label='이메일 주소' placeholder='이메일주소' onChange={onChangeEmailHandler} text={emailMessage} value={userEmail}></Input>
+                    <Button text="중복확인" height='50px' margin="10px 0 0 10px" disabled={emailCheck} onClick={onClickEmailCheck}></Button>
+                </EmailBox>
+                <EmailBox>
+                    <Input variant='Register' type='text' label='사용자 이름(ID)' placeholder='사용자 이름(ID)' value={userId} text={idMessage} onChange={onChangeUserIdHandler}></Input>
+                    <Button text="중복확인" height='50px' margin="10px 0 0 10px" disabled={idCheck} onClick={onClickIdCheck}></Button>
+                </EmailBox>
+                <Input type='text' placeholder='성명' label='성명' value={userName} onChange={onChangeNameHandler}></Input>
+                <Input type='password' placeholder='비밀번호' label='비밀번호' onChange={onChangePasswordHandler} text={passwordMessage} value={password}></Input>
+            </InputBox>
             <Registertext>서비스를 이용하는 사람이 회원님의 연락처 정보를 Instagram에 업로드했을 수도 있습니다.</Registertext>
-            <Button onClick={handleSubmit} width='268px' margin='0px auto' display='block' text='가입' ></Button>
+            <Button onClick={handleSubmit} width='100%' margin='0px auto' display='block' text='가입' disabled={registerBtn} ></Button>
         </RegisterContain>
             <Loginbox>
                 <LoginP>계정이 있으신가요? <span onClick={() => {navigate('/login');}} 
@@ -167,7 +261,7 @@ const RegisterBG = styled.div`
 `
 
 const RegisterContain = styled.div`
-    width: 350px;
+    width: 400px;
     /* height: 500px; */
     background-color: #fff;
     border: 1px solid rgba(var(--b6a,219,219,219),1);
@@ -193,6 +287,21 @@ const SpanBox = styled.div`
     align-items: center;
     margin:10px 10px 18px ;
 `
+const InputBox =styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width:100%;
+
+`
+
+const EmailBox =styled.div`
+    display: flex;
+    /* justify-content: center; */
+    vertical-align: middle;
+    
+`
+
 const LoginP = styled.p`
     margin:0px;
 `
@@ -220,7 +329,7 @@ const Registertext = styled.p`
 `
 
 const Loginbox = styled.div`
-    width:350px;
+    width:400px;
     padding:20px 50px;
     background: white;
     margin: 10px auto;
