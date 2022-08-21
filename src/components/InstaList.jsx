@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import InstaCard from "./InstaCard";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -9,6 +9,10 @@ const InstaList = () => {
   const { articles } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
   console.log("articles", articles);
+  const [isModal, setIsModal] = useState(false);
+  const ModalHandler = () => {
+    setIsModal(!isModal);
+  };
 
   useEffect(() => {
     dispatch(__getInstaList());

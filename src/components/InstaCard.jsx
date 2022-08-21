@@ -10,6 +10,9 @@ import {
 } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
+import Button from "./elements/Button";
+import ModalDetail from "./ModalDetail";
+
 import { useNavigate } from "react-router-dom";
 import { __postLike } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,6 +56,7 @@ const InstaCard = ({ item }) => {
 
   console.log("댓글", value);
   console.log("moreView", moreView);
+
   return (
     <StCard key={item.id}>
       <StHead>
@@ -114,6 +118,8 @@ const InstaCard = ({ item }) => {
         <div>{item.createAt}</div>
       </StContent>
       <StBorder></StBorder>
+
+      {isModal ? <ModalDetail ModalHandler={ModalHandler} /> : null}
 
       <StFormDiv>
         <StForm>

@@ -18,7 +18,7 @@ const Button = (props) => {
     fw,
     margin,
     display,
-    isable,
+    bgchoverhover,
   } = props;
   return (
     <StBtn
@@ -35,7 +35,7 @@ const Button = (props) => {
       fw={fw}
       margin={margin}
       display={display}
-      isable={isable}
+      bgchoverhover={bgchoverhover}
     >
       {text}
     </StBtn>
@@ -55,7 +55,7 @@ const StBtn = styled(Buttonn)`
   font-weight: ${(props) => props.fw};
   margin: ${(props) => props.margin};
   :hover {
-    background-color: ${(props) => props.bgchover};
+    background-color: ${(props) => props.bgchoverhover};
     color: ${(props) => props.fchover};
     font-weight: bold;
   }
