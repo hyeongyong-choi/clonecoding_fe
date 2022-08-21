@@ -1,26 +1,26 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
-import AddPhoto from '../assets/img/AddPhoto.png';
-import Button from './elements/Button';
-import Text from './elements/Text';
-import { colors } from '../theme/theme';
-import { MdClose } from 'react-icons/md';
-import Profile from '../assets/img/Profile.jpg';
-import { useNavigate } from 'react-router-dom';
-import { BiArrowBack } from 'react-icons/bi';
-import { __postImage } from '../redux/modules/ImageSlice';
-import { useDispatch } from 'react-redux';
-import { useDropzone } from 'react-dropzone';
-import MyDropzone from '../hooks/MyDropZone';
-import { VscSmiley } from 'react-icons/vsc';
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import AddPhoto from "../assets/img/AddPhoto.png";
+import Button from "./elements/Button";
+import Text from "./elements/Text";
+import { colors } from "../theme/theme";
+import { MdClose } from "react-icons/md";
+import Profile from "../assets/img/Profile.jpg";
+import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
+import { __postImage } from "../redux/modules/ImageSlice";
+import { useDispatch } from "react-redux";
+import { useDropzone } from "react-dropzone";
+import MyDropzone from "../hooks/MyDropZone";
+import { VscSmiley } from "react-icons/vsc";
 
 const Form = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
   const [image, setImage] = useState({
-    image_file: '',
-    preview_URL: 'img/default_image.png',
+    image_file: "",
+    preview_URL: "img/default_image.png",
   });
 
   const onChangeTextarea = (e) => {
@@ -47,10 +47,10 @@ const Form = () => {
             onClick={() => {
               navigate(-1);
             }}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           />
           <FormCreate>새 게시물 만들기</FormCreate>
-          <FormButton type='button' onClick={sendImageToServer}>
+          <FormButton type="button" onClick={sendImageToServer}>
             공유하기
           </FormButton>
         </FormHeader>
@@ -65,13 +65,13 @@ const Form = () => {
               <Titlebox>
                 <TitleImg />
                 <Textbox>
-                  <Text color='black' fontSize='14px'>
+                  <Text color="black" fontSize="14px">
                     사용자명
                   </Text>
                 </Textbox>
               </Titlebox>
               <FormTextarea
-                placeholder='내용입력...'
+                placeholder="내용입력..."
                 onChange={onChangeTextarea}
                 maxLength={2200}
               />
