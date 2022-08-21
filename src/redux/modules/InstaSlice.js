@@ -35,6 +35,50 @@ export const __getInstaList = createAsyncThunk(
   }
 );
 
+// export const __postContent = createAsyncThunk(
+//   "POST_CONTENT",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const response = await axios({
+//         method: "post",
+//         url: "http://localhost:3001/articles",
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `${getCookie("mycookie")}`,
+//         },
+//         data: payload,
+//       });
+//       return thunkAPI.fulfillWithValue(response.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// )
+
+export const __postImage = createAsyncThunk(
+  "POST_IMAGE",
+  async (payload, thunkAPI) => {
+    for (var value of payload.values()){
+      console.log('formdata value', value);
+    }
+    try {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:3001/articles",
+        data: payload,
+        headers: { "Content-Type": false, 
+        responseType: "blob",
+        Authorization: `${getCookie("mycookie")}` }
+      })
+      console.log(payload)
+      console.log("response", response.data)
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const __postLike = createAsyncThunk(
   "postLike",
   async (payload, thunkAPI) => {
@@ -199,7 +243,7 @@ export const InstaSlice = createSlice({
     },
     [__deleteInstaCard.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.articless = state.articless.filter(
+      state.articles = state.articles.filter(
         (val) => val.articleId !== payload
       );
     },
@@ -241,6 +285,29 @@ export const InstaSlice = createSlice({
       state.isLoading = false;
       state.error = payload.response.data.error;
     },
+
+    // Form content post
+    // [__postContent.pending]: (state, {payload}) => {
+    //   state.isLoading = true;
+    // },
+    // [__postContent.fulfilled]: (state, { payload }) => {
+    //   state.isLoading = false;
+    //   state.articles.unshift(payload);
+    // },
+    // [__postContent.rejected]: (state, { payload }) => {
+    //   state.isLoading = false;
+    //   state.error = payload.response.data.error;
+    // },
+    [__postImage.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__postImage.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+    },
+    [__postImage.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    }
   },
 });
 

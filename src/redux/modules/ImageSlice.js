@@ -3,7 +3,7 @@ import axios from "axios";
 import { getCookie } from "../../shared/cookies.js";
 
 const initialState = {
-  images: [],
+  image: [],
   isLoading: false,
   error: null,
 };
@@ -14,7 +14,7 @@ export const __postImage = createAsyncThunk(
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:3001/images",
+        url: "http://localhost:3001/articles",
         data: payload,
         headers: { "Content-Type": "multipart/form-data", Authorization: `${getCookie("mycookie")}` }
       })

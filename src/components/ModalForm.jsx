@@ -8,58 +8,151 @@ import { MdClose } from 'react-icons/md';
 import Profile from '../assets/img/Profile.jpg';
 import { useNavigate } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
-import { __postImage } from '../redux/modules/ImageSlice';
 import { useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import MyDropzone from '../hooks/MyDropZone';
-import { VscSmiley } from 'react-icons/vsc';
+import { __postContent, __postImage } from '../redux/modules/InstaSlice';
+// import {__postImage } from '../redux/modules/ImageSlice';
 
-const Form = () => {
+const Form = ({ ModalHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [content, setContent] = useState('');
-  const [image, setImage] = useState({
-    image_file: '',
-    preview_URL: 'img/default_image.png',
-  });
+  const [contents, setContents] = useState('');
 
   const onChangeTextarea = (e) => {
-    setContent(e.target.value);
-    console.log(e.target.value);
+    setContents(e.target.value);
+    // console.log(e.target.value);
   };
 
-  const data = {
-    image: image,
-    content: content,
+  //Dropzone
+  const [files, setFiles] = useState([]);
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: {
+      'image/png': ['.png'],
+      'image/jpg': ['.jpg'],
+      'image/jpeg': ['.jpeg'],
+    },
+    maxFiles: 5,
+    onDrop: (acceptedFiles) => {
+      setFiles([
+        ...files,
+        acceptedFiles.map((file) =>
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        ),
+      ]);
+    },
+  });
+
+  useEffect(() => {
+    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  const formdata = new FormData();
+  const onChangeImgHandler = (e) => {
+    const { files } = e.target;
+
+    for (let i = 0; i < files.length; i++) {
+      setFiles(files[i]);
+    }
   };
 
   //공유하기
   const sendImageToServer = (e) => {
     e.preventDefault();
-    dispatch(__postImage(data));
+    const newForm = {
+      contents: contents,
+    };
+
+    files.map((file, i) => {
+      formdata.append('multipartFile', files[i]);
+    })
+
+    // formdata.append('multipartFile', files);
+    formdata.append(
+      'dto',
+      new Blob([JSON.stringify(newForm), { type: 'application/json' }])
+    );
+
+    dispatch(__postImage([...formdata.entries()]));
+    console.log([...formdata.entries()]);
+    console.log(formdata);
+    console.log(files);
   };
+
+  // console.log(files);
+  // console.log(content);
 
   return (
     <StForm>
       <FormModal>
         <FormHeader>
-          <BiArrowBack
-            onClick={() => {
-              navigate(-1);
-            }}
-            style={{ cursor: 'pointer' }}
-          />
+          <BiArrowBack onClick={ModalHandler} style={{ cursor: 'pointer' }} />
           <FormCreate>새 게시물 만들기</FormCreate>
           <FormButton type='button' onClick={sendImageToServer}>
             공유하기
           </FormButton>
         </FormHeader>
+
         <FormContainer>
+          {/* 왼쪽 */}
           <FormLeft>
             <FormPhoto>
-              <MyDropzone />
+              <Section>
+                <div
+                  {...getRootProps({ className: 'dropzone' })}
+                  style={{
+                    width: '100%',
+                    height: '350px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <input
+                    {...getInputProps()}
+                    type='file'
+                    onChange={onChangeImgHandler}
+                  />
+                  <StImgUpload>
+                    <FormImg />
+                    <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
+                    <Button width='300px' text='컴퓨터에서 선택' />
+                  </StImgUpload>
+                </div>
+                <StImgContainer>
+                  {files.length !== 0 &&
+                    files.map((file, index) => (
+                      <div key={index}>
+                        <div
+                          style={{
+                            width: '100px',
+                            height: '100px',
+                            overflow: 'hidden',
+                          }}
+                        >
+                          <img
+                            src={file[0].preview}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              backgroundSize: 'cover',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                            }}
+                            onLoad={() => {
+                              URL.revokeObjectURL(file[0].preview);
+                            }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                </StImgContainer>
+              </Section>
             </FormPhoto>
           </FormLeft>
+
+          {/* 오른쪽 */}
           <FormRight>
             <FormAdd>
               <Titlebox>
@@ -71,7 +164,7 @@ const Form = () => {
                 </Textbox>
               </Titlebox>
               <FormTextarea
-                placeholder='내용입력...'
+                placeholder='문구 입력...'
                 onChange={onChangeTextarea}
                 maxLength={2200}
               />
@@ -178,6 +271,32 @@ const FormRight = styled.div`
   position: relative;
   border-left: 0.5px solid #ddd;
   padding: 10px;
+`;
+
+const Section = styled.div`
+  box-sizing: border-box;
+  width: 600px;
+  height: 500px;
+`;
+
+const StImgUpload = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 0.5rem;
+`;
+
+const StImgContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  background: #fff;
+  scrollbar-width: none;
 `;
 
 const FormAdd = styled.div`

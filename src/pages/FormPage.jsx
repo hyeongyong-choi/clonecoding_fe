@@ -1,10 +1,10 @@
 import React from 'react';
-import Form from "../components/Form";
+import ModalForm from "../components/ModalForm";
 
 const FormPage = () => {
   return (
     <div>
-      <Form/>
+      <ModalForm/>
     </div>
   );
 };
