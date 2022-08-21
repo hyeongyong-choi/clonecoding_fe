@@ -18,7 +18,7 @@ const Button = (props) => {
     fw,
     margin,
     display,
-    bgchoverhover
+    bgchoverhover,
   } = props;
   return (
     <StBtn

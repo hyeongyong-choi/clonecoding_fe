@@ -27,6 +27,107 @@
       "createAt": "17분 전",
       "commentcount": 78
     }
+  ],
+  "like": [
+    {
+      "id": 1,
+      "userName": "홍창형",
+      "articlesId": 1
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 2
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 3
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 4
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 5
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 6
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 2,
+      "id": 7
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 8
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 3,
+      "id": 9
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 3,
+      "id": 10
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 2,
+      "id": 11
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 2,
+      "id": 12
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 2,
+      "id": 13
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 14
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 3,
+      "id": 15
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 3,
+      "id": 16
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 3,
+      "id": 17
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 3,
+      "id": 18
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 19
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 20
+    }
   ]
 }
-

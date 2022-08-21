@@ -4,7 +4,9 @@ import { getCookie } from "../../shared/cookies.js";
 
 const initialState = {
   articles: [],
-  devtool: {
+  like: [],
+  unlike: [],
+  article: {
     comments: [],
   },
   isLoading: false,
@@ -25,6 +27,30 @@ export const __getInstaList = createAsyncThunk(
         },
       });
       console.log(response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __postLike = createAsyncThunk(
+  "postLike",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("__postLik payload", payload);
+
+      const response = await axios({
+        method: "post",
+        // url: `http://localhost:3001/articles/${payload.articlesId}/like`,
+        url: "http://localhost:3001/like",
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Authorization: `${getCookie("mycookie")}`,
+        // },
+        data: payload,
+      });
+      console.log("response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -139,7 +165,6 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__getInstaList.fulfilled]: (state, { payload }) => {
-      console.log("payload", payload);
       state.isLoading = false;
       state.articles = payload;
     },
@@ -162,7 +187,7 @@ export const InstaSlice = createSlice({
     },
     [__updateInstaCard.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.devtool.content = payload.content;
+      state.articles.content = payload.content;
     },
     [__updateInstaCard.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -173,7 +198,7 @@ export const InstaSlice = createSlice({
     },
     [__deleteInstaCard.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.devtools = state.devtools.filter(
+      state.articless = state.articless.filter(
         (val) => val.articleId !== payload
       );
     },
@@ -186,7 +211,7 @@ export const InstaSlice = createSlice({
     },
     [__getDetail.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.devtool = payload;
+      state.articles = payload;
     },
     [__getDetail.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -197,9 +222,21 @@ export const InstaSlice = createSlice({
     },
     [__postComments.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.devtool.comments.unshift(payload);
+      state.articles.comments.unshift(payload);
     },
     [__postComments.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+    [__postLike.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__postLike.fulfilled]: (state, { payload }) => {
+      // console.log("state.like, payload", state.like, payload);
+      // state.isLoading = false;
+      // state.like.unshift(payload);
+    },
+    [__postLike.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload.response.data.error;
     },

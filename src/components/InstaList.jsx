@@ -1,4 +1,4 @@
-import React ,{ useState } from "react";
+import React, { useState } from "react";
 import InstaCard from "./InstaCard";
 import styled from "styled-components";
 import { useEffect } from "react";
@@ -6,14 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getInstaList } from "../redux/modules/InstaSlice";
 
 const InstaList = () => {
-
   const { articles } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
   console.log("articles", articles);
-   const [isModal , setIsModal] = useState(false)
-  const ModalHandler = () =>{
-    setIsModal(!isModal)
-  }
+  const [isModal, setIsModal] = useState(false);
+  const ModalHandler = () => {
+    setIsModal(!isModal);
+  };
 
   useEffect(() => {
     dispatch(__getInstaList());
@@ -21,10 +20,8 @@ const InstaList = () => {
 
   return (
     <StDiv>
-      {articles.map((item) => (
-        <InstaCard key={item.id} item={item} />
-      ))}
-
+      {articles &&
+        articles.map((item) => <InstaCard key={item.id} item={item} />)}
     </StDiv>
   );
 };

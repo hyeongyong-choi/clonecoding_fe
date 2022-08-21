@@ -1,18 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import instagram from "../assets/instagram2.jpg";
-import { BsHeart, BsChat, BsBookmark, BsEmojiSmile } from "react-icons/bs";
+import {
+  BsHeart,
+  BsHeartFill,
+  BsChat,
+  BsBookmark,
+  BsEmojiSmile,
+} from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
 import ModalDetail from "./ModalDetail";
 
 import { useNavigate } from "react-router-dom";
+import { __postLike } from "../redux/modules/InstaSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const InstaCard = ({ item }) => {
   const [isModal, setIsModal] = useState(false);
+  const [heart, setHeart] = useState(false);
   const [moreView, setMoreView] = useState(false);
-  const navigate = useNavigate();
+  const [value, setValue] = useState();
+  const { articles } = useSelector((state) => state.Insta);
+  const dispatch = useDispatch();
 
   // console.log(isModal)
   const ModalHandler = () => {
@@ -24,20 +35,46 @@ const InstaCard = ({ item }) => {
   const handleImgError = (e) => {
     e.target.src = instagram;
   };
+
+  const onClickAddLikeHandler = (id) => {
+    dispatch(
+      __postLike({
+        userName: "로그인중인 사용자1",
+        articlesId: id,
+      })
+    );
+    setHeart(!heart);
+  };
+
+  const onChangeCommentHandler = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  };
+
+  console.log("댓글", value);
   console.log("moreView", moreView);
 
   return (
-    <StCard>
+    <StCard key={item.id}>
       <StHead>
         <StHeadImage src={item.image} onError={handleImgError}></StHeadImage>
-        <div>UserName</div>
+        <div>{item.userName}</div>
       </StHead>
       <StBodyImage src={item.image} onError={handleImgError}></StBodyImage>
       <StSection>
         <StButtonDiv>
-          <StHeartButton onClick={() => console.log("버튼동작")}>
-            <BsHeart size="28" />
-          </StHeartButton>
+          {heart ? (
+            <StHeartButton onClick={() => onClickAddLikeHandler(item.id)}>
+              <BsHeartFill size="28" color="red" />
+            </StHeartButton>
+          ) : (
+            <StHeartButton onClick={() => onClickAddLikeHandler(item.id)}>
+              <BsHeart size="28" />
+            </StHeartButton>
+          )}
           <StHeartButton onClick={() => console.log("버튼동작")}>
             <BsChat size="28" />
           </StHeartButton>
@@ -82,9 +119,7 @@ const InstaCard = ({ item }) => {
       </StContent>
       <StBorder></StBorder>
 
-
-      {isModal ? <ModalDetail ModalHandler={ModalHandler}/> : null}
-
+      {isModal ? <ModalDetail ModalHandler={ModalHandler} /> : null}
 
       <StFormDiv>
         <StForm>
@@ -95,23 +130,25 @@ const InstaCard = ({ item }) => {
             margin="0px 0px 0px 10px"
             border="none"
             placeholder="댓글 달기..."
+            value={value}
+            onChange={onChangeCommentHandler}
           />
-          <Button
-            text="게시"
-            width="70px"
-            bgcolor="transparent"
-            fontcolor="gray"
-            bgchover="transparent"
-            fchover="red"
-          ></Button>
+          <StButton type="submit" disabled="disabled">
+            게시
+          </StButton>
         </StForm>
       </StFormDiv>
     </StCard>
   );
 };
-
 export default InstaCard;
 
+const StButton = styled.button`
+  width: 70px;
+  background-color: transparent;
+  color: lightblue;
+  border: none;
+`;
 const StCard = styled.div`
   width: 472px;
   /* height: 880px; */
@@ -172,7 +209,7 @@ const StHeartButton = styled.button`
 `;
 
 const StContent = styled.div`
-  padding: 20px;
+  padding: 15px 20px 10px 20px;
 `;
 
 const StUserContent = styled.div`
@@ -185,7 +222,7 @@ const StBorder = styled.div`
 `;
 
 const StFormDiv = styled.div`
-  margin: 14px;
+  margin: 0px 5px 10px 10px;
   padding: 4px;
 `;
 
@@ -193,6 +230,7 @@ const StForm = styled.form`
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 10px;
 `;
 
 const StContentMoreDiv = styled.div`

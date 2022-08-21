@@ -1,7 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const TextArea = ({ width, height, margin, border, placeholder,background}) => {
+const TextArea = ({
+  width,
+  height,
+  margin,
+  border,
+  placeholder,
+  background,
+  value,
+  onChange,
+}) => {
   return (
     <StTextArea
       width={width}
@@ -9,8 +18,9 @@ const TextArea = ({ width, height, margin, border, placeholder,background}) => {
       margin={margin}
       border={border}
       placeholder={placeholder}
-      background= {background}
-
+      background={background}
+      value={value}
+      onChange={onChange}
     ></StTextArea>
   );
 };
