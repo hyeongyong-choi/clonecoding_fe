@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useRef, useState} from 'react';
 import styled from 'styled-components';
 import InstaLogo from '../assets/img/instagramLogo.png';
 import Button from './elements/Button';
@@ -6,12 +6,126 @@ import Input from './elements/Input';
 import Apple from '../assets/img/AppStore.png';
 import Google from '../assets/img/GooglePlay.png';
 import HorizonLine from "../utils/HorizonLine";
+import { __signupUser } from '../redux/modules/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
+
 
 const Register = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
+    // const user = useSelector((state)=>state.user.user)
+    // console.log(user)
+    
+    const [inputValue, setInputValue] = useState({
+        userName: '',
+        userId: '',
+        userEmail: '',
+        password: '',
+      });
+      
+    // 아이디, 비밀번호 확인
+    const [email,setEmail] = useState('')
+    const [id, setId] = useState('');
+    const [passwordConfirm, setPasswordConfirm] = useState('');
 
-    const navigate = useNavigate()
+    // 오류메시지 상태 저장
+    const [emailMessage,setEmailMessage] = useState('');
+    const [idMessage, setIdMessage] = useState('');
+    const [passwordMessage, setPasswordMessage] = useState('');
+    
+    // 중복버튼 활성화, 회원가입버튼 활성화
+    const [idOverlap, setIdOverlap] = useState(false);
+    const [registerBtn, setRegisterBtn] = useState(true);
+    const [idDbCheck, setIdDbCheck] = useState(false);
 
+    // 유효성 검사
+    const [isEmail,setIsEmail] = useState(false);
+    const [isId, setIsId] = useState(false);
+    const [isPassword, setIsPassword] = useState(false);
+    
+
+    // id, password 정규식
+    const { userName, userId, userEmail, password } = inputValue;
+
+
+    const userEmailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    const passwordRegEx = /^[a-zA-Z0-9]{6,15}$/;
+      
+    
+    const onChangeEmailHandler = (e) =>{
+        const { value } = e.target;      
+        let temp = '';
+        if(!userEmailRegex.test(value)){
+            setEmailMessage('이메일 형식에 맞게 입력해주세요');
+            setIsEmail(false);
+        } else {
+            temp = value;
+            setEmailMessage('올바른 이메일 형식입니다.')
+            if(temp === value){
+                setIsEmail(true)
+            }else{
+                setIsEmail(false)
+            }
+        }
+        setInputValue((prev)=>{
+            return{
+                ...prev,
+                userEmail: e.target.value
+            }
+        })
+    }
+
+    const onChangeNameHandler =(e)=>{
+        setInputValue((prev)=>{
+            return{
+                ...prev,
+                userName: e.target.value
+            }
+        })
+    }
+
+    const onChangeIdHandler =(e)=>{
+        setInputValue((prev)=>{
+            return{
+                ...prev,
+                userId: e.target.value
+            }
+        })
+    }
+
+
+    const onChangePasswordHandler = (e) => {
+        const { value } = e.target;
+        if (!passwordRegEx.test(value)) {
+            setPasswordMessage('숫자, 영문자 조합 4~15자리를 입력해주세요');
+            setIsPassword(false);
+        } else {
+            setPasswordMessage('올바른 비밀번호 형식입니다.');
+            setIsPassword(true);
+        }
+        setInputValue((prev)=>{
+            return{
+                ...prev,
+                password: e.target.value
+            }
+        })
+    }
+
+    
+
+
+    //로그인 디스패치
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        dispatch(__signupUser(inputValue)).then(
+          (res) => !res.error && navigate('/login')
+        );
+      };
+
+    
     return (
         <RegisterBG>
         <RegisterContain>
@@ -21,12 +135,12 @@ const Register = () => {
             <SpanBox>
                 <HorizonLine text="또는"/>
             </SpanBox>
-                <Input variant='Register' type='email' placeholder='이메일 주소' label='이메일 주소'></Input>
-                <Input variant='Register' type='text' placeholder='성명' label='성명'></Input>
-                <Input variant='Register' type='text'placeholder='사용자 이름(ID)' label='사용자 이름(ID)'></Input>
-                <Input variant='Register' type='password' placeholder='비밀번호' label='비밀번호'></Input>
+                <Input variant='Register' type='email' placeholder='이메일 주소' label='이메일 주소' onChange={onChangeEmailHandler} text={emailMessage} value={userEmail}></Input>
+                <Input variant='Register' type='text' placeholder='성명' label='성명' value={userName} onChange={onChangeNameHandler}></Input>
+                <Input variant='Register' type='text'placeholder='사용자 이름(ID)' label='사용자 이름(ID)' value={userId} onChange={onChangeIdHandler}></Input>
+                <Input variant='Register' type='password' placeholder='비밀번호' label='비밀번호' onChange={onChangePasswordHandler} text={passwordMessage} value={password}></Input>
             <Registertext>서비스를 이용하는 사람이 회원님의 연락처 정보를 Instagram에 업로드했을 수도 있습니다.</Registertext>
-            <Button width='268px' margin='0px auto' display='block' text='가입'></Button>
+            <Button onClick={handleSubmit} width='268px' margin='0px auto' display='block' text='가입' ></Button>
         </RegisterContain>
             <Loginbox>
                 <LoginP>계정이 있으신가요? <span onClick={() => {navigate('/login');}} 
@@ -41,7 +155,8 @@ const Register = () => {
             </FootRegister>
         </RegisterBG>
     );
-};
+    }
+
 
 export default Register;
 

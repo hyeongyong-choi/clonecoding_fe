@@ -4,6 +4,7 @@ import AddPhoto from '../assets/img/AddPhoto.png';
 import Button from '../components/elements/Button';
 import styled from 'styled-components';
 
+
 function MyDropzone() {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({

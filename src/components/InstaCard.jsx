@@ -119,7 +119,9 @@ const InstaCard = ({ item }) => {
       </StContent>
       <StBorder></StBorder>
 
-      {isModal ? <ModalDetail ModalHandler={ModalHandler} /> : null}
+
+      {isModal ? <ModalDetail ModalHandler={ModalHandler} item={item}/> : null}
+
 
       <StFormDiv>
         <StForm>
