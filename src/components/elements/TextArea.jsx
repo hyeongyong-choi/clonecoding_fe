@@ -10,6 +10,8 @@ const TextArea = ({
   background,
   value,
   onChange,
+  onInput,
+  scrollHeight,
 }) => {
   return (
     <StTextArea
@@ -21,6 +23,8 @@ const TextArea = ({
       background={background}
       value={value}
       onChange={onChange}
+      onInput={onInput}
+      scrollHeight={scrollHeight}
     ></StTextArea>
   );
 };
@@ -37,4 +41,5 @@ const StTextArea = styled.textarea`
   }
   resize: none;
   overflow: hidden;
+  white-space: pre-line;
 `;

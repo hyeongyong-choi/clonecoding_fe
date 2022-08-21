@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getCookie , setCookie} from "../../shared/cookies.js";
-
+import { getCookie, setCookie } from "../../shared/cookies.js";
 
 const initialState = {
   articles: [],
@@ -141,15 +140,18 @@ export const __postComments = createAsyncThunk(
   "postComments",
   async (payload, thunkAPI) => {
     try {
+      console.log("__postComments payload", payload);
       const response = await axios({
         method: "post",
-        url: `/api/articles/${("PAYLOAD", payload.articleId)}/comments`,
+        // url: `/api/articles/${("PAYLOAD", payload.articleId)}/comments`,
+        url: `http://localhost:3001/comments`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
         },
         data: { comment: payload.comment },
       });
+      console.log("response.data", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -223,7 +225,7 @@ export const InstaSlice = createSlice({
     },
     [__postComments.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.articles.comments.unshift(payload);
+      state.article.comments.unshift(payload);
     },
     [__postComments.rejected]: (state, { payload }) => {
       state.isLoading = false;
