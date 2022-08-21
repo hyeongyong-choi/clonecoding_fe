@@ -12,7 +12,6 @@ import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
 import ModalDetail from "./ModalDetail";
-
 import { useNavigate } from "react-router-dom";
 import { __postComments, __postLike } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
