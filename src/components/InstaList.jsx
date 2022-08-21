@@ -16,9 +16,8 @@ const InstaList = () => {
 
   return (
     <StDiv>
-      {articles.map((item) => (
-        <InstaCard key={item.id} item={item} />
-      ))}
+      {articles &&
+        articles.map((item) => <InstaCard key={item.id} item={item} />)}
     </StDiv>
   );
 };

@@ -18,6 +18,7 @@ const Button = (props) => {
     fw,
     margin,
     display,
+    isable,
   } = props;
   return (
     <StBtn
@@ -34,6 +35,7 @@ const Button = (props) => {
       fw={fw}
       margin={margin}
       display={display}
+      isable={isable}
     >
       {text}
     </StBtn>
