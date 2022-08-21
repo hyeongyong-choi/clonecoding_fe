@@ -3,8 +3,6 @@ import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/cookies';
 
 
-const BASE_URL = 'http://43.200.170.123';
-
 const config = {
     headers: {
       Authorization: `Bearer ${getCookie('ACCESS_TOKEN')}`,
@@ -35,7 +33,7 @@ const config = {
     async (payload, thunkAPI) => {
       try {
         console.log('payload',payload)
-        const data = await axios.post(`${BASE_URL}/api/register`, payload);
+        const data = await axios.post(`api/register`, payload);
         return thunkAPI.fulfillWithValue(data.data);
       } catch (error) {
         console.log('error' , error)
