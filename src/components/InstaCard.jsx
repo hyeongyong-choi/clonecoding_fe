@@ -12,7 +12,6 @@ import { HiOutlinePaperAirplane } from "react-icons/hi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
 import ModalDetail from "./ModalDetail";
-
 import { useNavigate } from "react-router-dom";
 import { __postComments, __postLike } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,6 +41,7 @@ const InstaCard = ({ item }) => {
       __postLike({
         userName: "로그인중인 사용자1",
         articlesId: id,
+        id: id, //json-server 동작용 id
       })
     );
     setHeart(!heart);
@@ -56,8 +56,9 @@ const InstaCard = ({ item }) => {
     e.preventDefault();
     dispatch(
       __postComments({
-        id: item.id,
+        articlesId: item.id,
         comment: value,
+        id: item.id, //json-server 동작용 id
       })
     );
     setValue("");
