@@ -71,15 +71,16 @@ const StInputForm = styled(Form.Control)`
   word-wrap: break-word;
   box-sizing: border-box;
   text-overflow: ellipsis;
-
+  border : 1px solid rgba(var(--ca6,219,219,219),1);
+  background : rgba(var(--b3f,250,250,250),1);
+  margin: 5px 0;
   ${(props) => {
     return (
       props.variant === `Register` &&
       css`
-        border : 1px solid rgba(var(--ca6,219,219,219),1);
-        background : rgba(var(--b3f,250,250,250),1);
-        margin: 10px 0;
-        height: 30px;
+        width:220px;
+
+        
       `
     )
   }}

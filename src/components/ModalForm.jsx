@@ -13,7 +13,8 @@ import { useDropzone } from 'react-dropzone';
 import { __postContent, __postImage } from '../redux/modules/InstaSlice';
 // import {__postImage } from '../redux/modules/ImageSlice';
 
-const Form = ({ ModalHandler }) => {
+const ModalForm = ({ModalHandler}) => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [contents, setContents] = useState('');
@@ -87,7 +88,9 @@ const Form = ({ ModalHandler }) => {
     <StForm>
       <FormModal>
         <FormHeader>
+
           <BiArrowBack onClick={ModalHandler} style={{ cursor: 'pointer' }} />
+
           <FormCreate>새 게시물 만들기</FormCreate>
           <FormButton type='button' onClick={sendImageToServer}>
             공유하기
@@ -181,7 +184,7 @@ const Form = ({ ModalHandler }) => {
   );
 };
 
-export default Form;
+export default ModalForm;
 
 const StForm = styled.div`
   //modal css
