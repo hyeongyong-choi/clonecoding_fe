@@ -42,6 +42,7 @@ const InstaCard = ({ item }) => {
       __postLike({
         userName: "로그인중인 사용자1",
         articlesId: id,
+        id: id, //json-server 동작용 id
       })
     );
     setHeart(!heart);
@@ -56,8 +57,9 @@ const InstaCard = ({ item }) => {
     e.preventDefault();
     dispatch(
       __postComments({
-        id: item.id,
+        articlesId: item.id,
         comment: value,
+        id: item.id, //json-server 동작용 id
       })
     );
     setValue("");

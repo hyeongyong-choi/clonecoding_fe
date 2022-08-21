@@ -1,23 +1,22 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
-import styled from 'styled-components';
-import AddPhoto from '../assets/img/AddPhoto.png';
-import Button from './elements/Button';
-import Text from './elements/Text';
-import { colors } from '../theme/theme';
-import { MdClose } from 'react-icons/md';
-import Profile from '../assets/img/Profile.jpg';
-import { useNavigate } from 'react-router-dom';
-import { BiArrowBack } from 'react-icons/bi';
-import { useDispatch } from 'react-redux';
-import { useDropzone } from 'react-dropzone';
-import { __postContent, __postImage } from '../redux/modules/InstaSlice';
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
+import AddPhoto from "../assets/img/AddPhoto.png";
+import Button from "./elements/Button";
+import Text from "./elements/Text";
+import { colors } from "../theme/theme";
+import { MdClose } from "react-icons/md";
+import Profile from "../assets/img/Profile.jpg";
+import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
+import { useDispatch } from "react-redux";
+import { useDropzone } from "react-dropzone";
+import { __postContent, __postImage } from "../redux/modules/InstaSlice";
 // import {__postImage } from '../redux/modules/ImageSlice';
 
-const ModalForm = ({ModalHandler}) => {
-
+const ModalForm = ({ ModalHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [contents, setContents] = useState('');
+  const [contents, setContents] = useState("");
 
   const onChangeTextarea = (e) => {
     setContents(e.target.value);
@@ -28,9 +27,9 @@ const ModalForm = ({ModalHandler}) => {
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image/png': ['.png'],
-      'image/jpg': ['.jpg'],
-      'image/jpeg': ['.jpeg'],
+      "image/png": [".png"],
+      "image/jpg": [".jpg"],
+      "image/jpeg": [".jpeg"],
     },
     maxFiles: 5,
     onDrop: (acceptedFiles) => {
@@ -66,13 +65,13 @@ const ModalForm = ({ModalHandler}) => {
     };
 
     files.map((file, i) => {
-      formdata.append('multipartFile', files[i]);
-    })
+      formdata.append("multipartFile", files[i]);
+    });
 
     // formdata.append('multipartFile', files);
     formdata.append(
-      'dto',
-      new Blob([JSON.stringify(newForm), { type: 'application/json' }])
+      "dto",
+      new Blob([JSON.stringify(newForm), { type: "application/json" }])
     );
 
     dispatch(__postImage([...formdata.entries()]));
@@ -88,11 +87,10 @@ const ModalForm = ({ModalHandler}) => {
     <StForm>
       <FormModal>
         <FormHeader>
-
-          <BiArrowBack onClick={ModalHandler} style={{ cursor: 'pointer' }} />
+          <BiArrowBack onClick={ModalHandler} style={{ cursor: "pointer" }} />
 
           <FormCreate>새 게시물 만들기</FormCreate>
-          <FormButton type='button' onClick={sendImageToServer}>
+          <FormButton type="button" onClick={sendImageToServer}>
             공유하기
           </FormButton>
         </FormHeader>
@@ -103,23 +101,23 @@ const ModalForm = ({ModalHandler}) => {
             <FormPhoto>
               <Section>
                 <div
-                  {...getRootProps({ className: 'dropzone' })}
+                  {...getRootProps({ className: "dropzone" })}
                   style={{
-                    width: '100%',
-                    height: '350px',
-                    display: 'flex',
-                    justifyContent: 'center',
+                    width: "100%",
+                    height: "350px",
+                    display: "flex",
+                    justifyContent: "center",
                   }}
                 >
                   <input
                     {...getInputProps()}
-                    type='file'
+                    type="file"
                     onChange={onChangeImgHandler}
                   />
                   <StImgUpload>
                     <FormImg />
                     <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
-                    <Button width='300px' text='컴퓨터에서 선택' />
+                    <Button width="300px" text="컴퓨터에서 선택" />
                   </StImgUpload>
                 </div>
                 <StImgContainer>
@@ -128,20 +126,20 @@ const ModalForm = ({ModalHandler}) => {
                       <div key={index}>
                         <div
                           style={{
-                            width: '100px',
-                            height: '100px',
-                            overflow: 'hidden',
+                            width: "100px",
+                            height: "100px",
+                            overflow: "hidden",
                           }}
                         >
                           <img
                             src={file[0].preview}
                             style={{
-                              width: '100%',
-                              height: '100%',
-                              backgroundSize: 'cover',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
+                              width: "100%",
+                              height: "100%",
+                              backgroundSize: "cover",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             onLoad={() => {
                               URL.revokeObjectURL(file[0].preview);
@@ -161,13 +159,13 @@ const ModalForm = ({ModalHandler}) => {
               <Titlebox>
                 <TitleImg />
                 <Textbox>
-                  <Text color='black' fontSize='14px'>
+                  <Text color="black" fontSize="14px">
                     사용자명
                   </Text>
                 </Textbox>
               </Titlebox>
               <FormTextarea
-                placeholder='문구 입력...'
+                placeholder="문구 입력..."
                 onChange={onChangeTextarea}
                 maxLength={2200}
               />
