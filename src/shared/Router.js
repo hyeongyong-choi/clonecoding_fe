@@ -4,6 +4,7 @@ import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import FormPage from "../pages/FormPage";
+import MyPage from '../pages/MyPage';
 
 const Router = () => {
   return (
@@ -13,6 +14,7 @@ const Router = () => {
         <Route path="/login" element={<LoginPage />}></Route>
         <Route path="/" element={<MainPage />}></Route>
         <Route path="/form" element={<FormPage />}></Route>
+        <Route path="/mypage" element={<MyPage/>}></Route>
       </Routes>
     </BrowserRouter>
   );

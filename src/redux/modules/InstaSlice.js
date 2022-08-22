@@ -34,44 +34,26 @@ export const __getInstaList = createAsyncThunk(
   }
 );
 
-// export const __postContent = createAsyncThunk(
-//   "POST_CONTENT",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await axios({
-//         method: "post",
-//         url: "http://localhost:3001/articles",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `${getCookie("mycookie")}`,
-//         },
-//         data: payload,
-//       });
-//       return thunkAPI.fulfillWithValue(response.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// )
-
+// Form 이미지, content post
 export const __postImage = createAsyncThunk(
-  "POST_IMAGE",
+  "POST_FORM",
   async (payload, thunkAPI) => {
-    for (var value of payload.values()){
-      console.log('formdata value', value);
-    }
+    // console.log('payload!!!!', payload);
     try {
-      const response = await axios({
-        method: "post",
-        url: "http://localhost:3001/articles",
-        data: payload,
-        headers: { "Content-Type": false, 
-        responseType: "blob",
-        Authorization: `${getCookie("mycookie")}` }
-      })
-      console.log(payload)
-      console.log("response", response.data)
-      return thunkAPI.fulfillWithValue(response.data);
+      const formConfig = {
+        headers: {
+          'Content-type': 'multipart/form-data',
+          responseType: 'blob',
+          Authorization: getCookie('token'),
+        },
+      };
+      const data = await axios.post(
+        `http://43.200.170.123:8080/api/articles`,
+        payload,
+        formConfig
+      );
+      // console.log('업로드!!!!!', data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
