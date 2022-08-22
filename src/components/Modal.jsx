@@ -1,13 +1,19 @@
 import React, { forwardRef, useRef } from "react";
 import styled from "styled-components";
 
-const Modal = forwardRef(({ item }, ref) => {
+const Modal = forwardRef((props, ref) => {
   return (
     <div>
       <ModalBg>
-        <ModalContainer item={item.image} ref={ref}>
+        <ModalContainer ref={ref}>
           <StButton>수정</StButton>
           <StButton>삭제</StButton>
+          <StButton>신고</StButton>
+          <StButton>팔로우취소</StButton>
+          <StButton>즐겨찾기에 추가</StButton>
+          <StButton>링크복사</StButton>
+          <StButton>퍼가기</StButton>
+          <StCancelButton onClick={props.onClick}>취소</StCancelButton>
         </ModalContainer>
       </ModalBg>
     </div>
@@ -30,11 +36,11 @@ const ModalBg = styled.div`
 
 const ModalContainer = styled.div`
   position: fixed;
-  left: 30%;
+  left: 35%;
   top: 20%;
-  width: 40%;
+  width: 30%;
   height: 60%;
-  border-radius: 40px;
+  border-radius: 30px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -53,8 +59,17 @@ const StButton = styled.button`
   border-left: 0;
   border-right: 0;
   border-bottom: 1px solid lightgray;
-  /* padding: 20px; */
-  /* margin: 20px 0px 0px 0px; */
+  &:hover {
+    color: #ff3300;
+    font-weight: bold;
+  }
+`;
+
+const StCancelButton = styled.button`
+  width: 100%;
+  height: 60px;
+  background-color: transparent;
+  border: none;
   &:hover {
     color: #ff3300;
     font-weight: bold;
