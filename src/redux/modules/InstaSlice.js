@@ -19,7 +19,7 @@ export const __getInstaList = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: "http://localhost:3001/articles",
+        url: "http://43.200.170.123:8080/api/articles",
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
@@ -83,12 +83,12 @@ export const __postLike = createAsyncThunk(
   "postLike",
   async (payload, thunkAPI) => {
     try {
-      console.log("__postLik payload", payload);
+      console.log("__postLike payload", payload);
 
       const response = await axios({
         method: "post",
-        // url: `http://localhost:3001/articles/${payload.articlesId}/like`,
-        url: "http://localhost:3001/like",
+        url: `http://43.200.170.123:8080/api/articles/${payload.articlesId}/like`,
+        // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
