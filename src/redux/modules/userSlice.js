@@ -3,8 +3,8 @@ import axios from 'axios';
 import { getCookie, setCookie } from '../../shared/cookies';
 
 
-const BASE_URL = 'http://43.200.170.123:8080';
 
+const BASE_URL = ''
 
 const config = {
     headers: {
