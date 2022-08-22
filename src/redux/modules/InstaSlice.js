@@ -5,7 +5,6 @@ import { getCookie, setCookie } from "../../shared/cookies.js";
 const initialState = {
   articles: [],
   like: [],
-  unlike: [],
   article: {
     comments: [],
   },
@@ -20,7 +19,7 @@ export const __getInstaList = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: "http://localhost:3001/articles",
+        url: "http://43.200.170.123:8080/api/articles",
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
@@ -38,22 +37,23 @@ export const __getInstaList = createAsyncThunk(
 export const __postImage = createAsyncThunk(
   "POST_FORM",
   async (payload, thunkAPI) => {
-    // console.log('payload!!!!', payload);
+    for (var value of payload.values()) {
+      console.log("formdata value", value);
+    }
     try {
-      const formConfig = {
+      const response = await axios({
+        method: "post",
+        url: "http://localhost:3001/articles",
+        data: payload,
         headers: {
-          'Content-type': 'multipart/form-data',
-          responseType: 'blob',
+          "Content-Type": false,
+          responseType: "blob",
           Authorization: getCookie('token'),
         },
-      };
-      const data = await axios.post(
-        `http://43.200.170.123:8080/api/articles`,
-        payload,
-        formConfig
-      );
-      // console.log('업로드!!!!!', data.data);
-      return thunkAPI.fulfillWithValue(data.data);
+      });
+      console.log(payload);
+      console.log("response", response.data);
+      return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -64,16 +64,16 @@ export const __postLike = createAsyncThunk(
   "postLike",
   async (payload, thunkAPI) => {
     try {
-      console.log("__postLik payload", payload);
+      console.log("__postLike payload", payload);
 
       const response = await axios({
         method: "post",
-        // url: `http://localhost:3001/articles/${payload.articlesId}/like`,
-        url: "http://localhost:3001/like",
-        // headers: {
-        //   "Content-Type": "application/json",
-        //   Authorization: `${getCookie("mycookie")}`,
-        // },
+        url: `http://43.200.170.123:8080/api/articles/${payload.articlesId}/like`,
+        // url: "http://localhost:3001/like",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${getCookie("mycookie")}`,
+        },
         data: payload,
       });
       console.log("response", response.data);
@@ -261,9 +261,9 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__postLike.fulfilled]: (state, { payload }) => {
-      // console.log("state.like, payload", state.like, payload);
-      // state.isLoading = false;
-      // state.like.unshift(payload);
+      console.log("extraReducers payload", state.like, payload);
+      state.isLoading = false;
+      state.like.unshift(payload);
     },
     [__postLike.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -291,7 +291,7 @@ export const InstaSlice = createSlice({
     [__postImage.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload.response.data.error;
-    }
+    },
   },
 });
 
