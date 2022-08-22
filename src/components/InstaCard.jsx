@@ -74,12 +74,13 @@ const InstaCard = ({ item }) => {
       setIsModal(!isModal);
     }
   };
+
+  const onClickCancel = () => {
+    setIsModal(!isModal);
+  };
+
   document.addEventListener("mousedown", clickOutside);
 
-  console.log("댓글", value);
-  console.log("moreView", moreView);
-  console.log("like", like);
-  console.log("isModal", isModal);
   return (
     <StCard key={item.id}>
       <StHead>
@@ -173,7 +174,7 @@ const InstaCard = ({ item }) => {
       </StFormDiv>
 
       {/* 모달창 */}
-      {isModal ? <Modal item={item} ref={mRef} /> : null}
+      {isModal ? <Modal ref={mRef} onClick={onClickCancel} /> : null}
       {isModalDetail ? <ModalDetail item={item} /> : null}
     </StCard>
   );
