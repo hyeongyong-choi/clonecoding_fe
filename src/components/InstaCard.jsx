@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 import styled from "styled-components";
 import instagram from "../assets/instagram2.jpg";
 import {
@@ -9,8 +9,10 @@ import {
   BsEmojiSmile,
 } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
+import { FiMoreHorizontal } from "react-icons/fi";
 import TextArea from "./elements/TextArea";
 import Button from "./elements/Button";
+import Modal from "./Modal";
 import ModalDetail from "./ModalDetail";
 import { useNavigate } from "react-router-dom";
 import { __postComments, __postLike } from "../redux/modules/InstaSlice";
@@ -18,16 +20,21 @@ import { useDispatch, useSelector } from "react-redux";
 
 const InstaCard = ({ item }) => {
   const [isModal, setIsModal] = useState(false);
+  const [isModalDetail, setIsModalDetail] = useState(false);
   const [heart, setHeart] = useState(false);
   const [moreView, setMoreView] = useState(false);
   const [value, setValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
+  const { like } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
+  const mRef = useRef();
 
-  // console.log(isModal)
   const ModalHandler = () => {
     setIsModal(!isModal);
+  };
+  const ModalDetailHandler = () => {
+    setIsModalDetail(!isModalDetail);
   };
   const onClickMoreViewHandler = () => {
     setMoreView(!moreView);
@@ -41,7 +48,6 @@ const InstaCard = ({ item }) => {
       __postLike({
         userName: "로그인중인 사용자1",
         articlesId: id,
-        id: id, //json-server 동작용 id
       })
     );
     setHeart(!heart);
@@ -58,20 +64,32 @@ const InstaCard = ({ item }) => {
       __postComments({
         articlesId: item.id,
         comment: value,
-        id: item.id, //json-server 동작용 id
       })
     );
     setValue("");
   };
 
+  const clickOutside = (e) => {
+    if (isModal && mRef.current && !mRef.current.contains(e.target)) {
+      setIsModal(!isModal);
+    }
+  };
+  document.addEventListener("mousedown", clickOutside);
+
   console.log("댓글", value);
   console.log("moreView", moreView);
-
+  console.log("like", like);
+  console.log("isModal", isModal);
   return (
     <StCard key={item.id}>
       <StHead>
-        <StHeadImage src={item.image} onError={handleImgError}></StHeadImage>
-        <div>{item.userName}</div>
+        <StHeadUser>
+          <StHeadImage src={item.image} onError={handleImgError}></StHeadImage>
+          <div>{item.userName}</div>
+        </StHeadUser>
+        <StFiMoreHorizontal>
+          <FiMoreHorizontal onClick={ModalHandler} />
+        </StFiMoreHorizontal>
       </StHead>
       <StBodyImage src={item.image} onError={handleImgError}></StBodyImage>
       <StSection>
@@ -111,7 +129,7 @@ const InstaCard = ({ item }) => {
           ) : (
             <div>
               <div>{item.userName}</div>
-              {/* {item.content.length < 24 ? (
+              {item.content.length < 24 ? (
                 item.content
               ) : (
                 <StContentMoreDiv>
@@ -120,16 +138,16 @@ const InstaCard = ({ item }) => {
                     더보기
                   </StMoreButton>
                 </StContentMoreDiv>
-              )} */}
+              )}
             </div>
           )}
         </StUserContent>
-        <div onClick={ModalHandler}>댓글 {item.commentcount}개 모두보기</div>
+        <div onClick={ModalDetailHandler}>
+          댓글 {item.commentcount}개 모두보기
+        </div>
         <div>{item.createAt}</div>
       </StContent>
       <StBorder></StBorder>
-
-      {isModal ? <ModalDetail ModalHandler={ModalHandler} item={item} /> : null}
 
       <StFormDiv>
         <StForm onSubmit={handleSubmit}>
@@ -153,6 +171,10 @@ const InstaCard = ({ item }) => {
           </StButton>
         </StForm>
       </StFormDiv>
+
+      {/* 모달창 */}
+      {isModal ? <Modal item={item} ref={mRef} /> : null}
+      {isModalDetail ? <ModalDetail item={item} /> : null}
     </StCard>
   );
 };
@@ -182,10 +204,24 @@ const StHead = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
   padding: 18px;
 `;
 
+const StHeadUser = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
+const StFiMoreHorizontal = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+`;
 const StHeadImage = styled.img`
   width: 42px;
   height: 42px;
