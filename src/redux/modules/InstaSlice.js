@@ -47,12 +47,12 @@ export const __postImage = createAsyncThunk(
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:3001/articles",
+        url: "http://13.125.149.68:8080/api/articles",
         data: payload,
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          Authorization: getCookie('token'),
+          // Authorization: getCookie('token'),
         },
       });
       console.log(payload);
