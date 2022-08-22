@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import instagramLogo from '../assets/img/instagramLogo.png';
 import AppStore from '../assets/img/AppStore.png';
@@ -8,17 +8,19 @@ import Button from '../components/elements/Button';
 import Text from '../components/elements/Text';
 import HorizonLine from '../utils/HorizonLine';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { __loginUser } from '../redux/modules/userSlice';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
-  // const [userTitle , setUserTitle] = useState('')
-  // const [userId , setUserId] = useState('')
-  // const [userEmail , setUserEmail] = useState('')
-  // const [password , setPassword] = useState('')
+  const [loginBtn, setLoginBtn] = useState(true);
+  const [failLogin , setFailLogin] = useState('');
+  const {error , isLogin} = useSelector((state)=>state.user)
+  
+  // console.log('error',error , 'isLogin',isLogin)
+ 
   
   const [formValue, setFormValue] = useState({
     userId: '',
@@ -62,11 +64,11 @@ const handleSubmit = (e) => {
     const { value } =e.target;
     
     const Idform = {
-      userId : userId ,
+      userName : userId ,
       password : password
     }
     const Emailform = {
-      userEmail : userEmail ,
+      userName : userEmail ,
       password : password
     }
     if(userId.indexOf('@') === -1){
@@ -86,6 +88,25 @@ const handleSubmit = (e) => {
     }
     
 };
+
+useEffect(()=>{
+  if(userId.trim() !== '' && userEmail.trim() !== '' && password.trim() !== ''){
+    setLoginBtn(false)
+  }else{
+    setLoginBtn(true)
+  }
+  if(error === 'Request failed with status code 401' && !isLogin){
+    setFailLogin('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요')
+  }
+  else if(error === null && !isLogin){
+    setFailLogin('')
+  }else if(error === null && isLogin){
+    setFailLogin('')
+    navigate('/');
+  }else if( error=== undefined ){//삭제할거
+    setFailLogin('서버오류')
+  }
+},[userId,userEmail,password,isLogin,error])
 
 
  
@@ -117,7 +138,8 @@ const handleSubmit = (e) => {
 
           />
         </StLoginInput>
-        <Button text='로그인' width='100%' margin='0 0 10px 0' onClick={handleSubmit}/>
+        <Button text='로그인' width='100%' margin='0 0 10px 0' onClick={handleSubmit} disabled={loginBtn}/>
+        <StyledLoginFailMessage>{failLogin}</StyledLoginFailMessage>
         <HorizonLine text='또는' />
         <Button
           text='Facebook으로 로그인'
@@ -226,3 +248,10 @@ const GoogleImg = styled.img`
   display: block;
   cursor: pointer;
 `;
+
+const StyledLoginFailMessage = styled.p`
+  height: 1rem;
+    font-size: 0.8rem;
+    color:#2C3333;
+
+`

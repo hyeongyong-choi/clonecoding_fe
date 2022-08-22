@@ -7,7 +7,6 @@ const Modal = forwardRef(({ item }, ref) => {
       <ModalBg>
         <ModalContainer item={item.image} ref={ref}>
           <StButton>수정</StButton>
-
           <StButton>삭제</StButton>
         </ModalContainer>
       </ModalBg>

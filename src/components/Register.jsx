@@ -18,6 +18,8 @@ const Register = () => {
     
     // const user = useSelector((state)=>state.user.user)
     // console.log(user)
+
+    const BASE_URL = 'http://43.200.170.123:8080';
     
     const [inputValue, setInputValue] = useState({
         userName: '',
@@ -33,9 +35,9 @@ const Register = () => {
     
     // 중복버튼 활성화, 회원가입버튼 활성화
     const [emailCheck, setEmailCheck] = useState(true); 
-    const [emailDBCheck, setEmailDBCheck] = useState(true); //변경
+    const [emailDBCheck, setEmailDBCheck] = useState(false); //변경
     const [idCheck, setIdCheck] = useState(true);
-    const [idDBCheck, setIdDBCheck] = useState(true); //변경
+    const [idDBCheck, setIdDBCheck] = useState(false); //변경
     const [registerBtn, setRegisterBtn] = useState(true);
 
     // 유효성 검사
@@ -130,7 +132,8 @@ const Register = () => {
             userEmail : userEmail
         }
         try{
-            const data = await axios.post('api/register/userEmail' ,newEmail )
+            const data = await axios.post(BASE_URL + '/api/register/userEmail' ,newEmail )
+            console.log(data)
             if (data.data) {
                 setEmailMessage('사용할 수 있는 이메일입니다');
                 setEmailDBCheck(true)
@@ -151,7 +154,8 @@ const Register = () => {
             userId : userId
         }
         try{
-            const data = await axios.post('api/register/userId' ,newId )
+            const data = await axios.post(BASE_URL + '/api/register/userId' ,newId )
+            console.log(data)
             if (data.data) {
                 setIdMessage('사용할 수 있는 아이디입니다');
                 setIdDBCheck(true)
