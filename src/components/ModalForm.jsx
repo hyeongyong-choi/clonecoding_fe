@@ -21,7 +21,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
 
   const onChangeTextarea = (e) => {
     setContent(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   //Dropzone
@@ -61,10 +61,9 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
   //공유하기
   const sendImageToServer = (e) => {
     e.preventDefault();
-    // const newForm = {
-    //   content: content,
-    // };
-    console.log(content)
+    const newForm = {
+      content: content,
+    };
 
     files.map((file, i) => {
       formdata.append('multipartFile', file[i]);
@@ -72,12 +71,11 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
 
     // formdata.append('multipartFile', files);
     formdata.append(
-      'articlesDto',
-      new Blob([JSON.stringify(content), { type: 'application/json' }])
+      'articlesDto',new Blob([JSON.stringify(newForm)], { type: 'application/json' })
     );
 
     dispatch(__postImage(formdata));
-    
+
     // console.log([...formdata.entries()]);
     console.log(formdata);
     // console.log(files);
@@ -199,7 +197,6 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
 };
 
 export default ModalForm;
-
 
 const StForm = styled.div`
   //modal css

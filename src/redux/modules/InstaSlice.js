@@ -19,7 +19,7 @@ export const __getInstaList = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: "http://43.200.170.123:8080/api/articles",
+        url: "http://13.125.149.68:8080/api/articles",
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
@@ -43,12 +43,12 @@ export const __postImage = createAsyncThunk(
     try {
       const response = await axios({
         method: "post",
-        url: "http://localhost:3001/articles",
+        url: "http://13.125.149.68:8080/api/articles",
         data: payload,
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          Authorization: getCookie('token'),
+          // Authorization: getCookie('token'),
         },
       });
       console.log(payload);
@@ -68,7 +68,7 @@ export const __postLike = createAsyncThunk(
 
       const response = await axios({
         method: "post",
-        url: `http://43.200.170.123:8080/api/articles/${payload.articlesId}/like`,
+        url: `http://13.125.149.68:8080/api/articles/${payload.articlesId}/like`,
         // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",
