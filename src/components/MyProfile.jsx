@@ -4,6 +4,9 @@ import Profile from '../assets/img/Profile.jpg';
 import { colors } from '../theme/theme';
 
 const MyProfile = () => {
+
+  
+
   return (
     <StProfile>
       <ProfileContainer>
