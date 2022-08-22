@@ -8,13 +8,15 @@ const initialState = {
   error: null,
 };
 
+const BASE_URL = '';
+
 export const __getMyFeed = createAsyncThunk(
   "GET_MY_FEED",
   async (payload, thunkAPI) => {
     try {
       const response = await axios({
         method: "get",
-        url: "http://43.200.170.123:8080/api/articles",
+        url: `${BASE_URL}/api/articles`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,

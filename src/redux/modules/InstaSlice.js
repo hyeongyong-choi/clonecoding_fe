@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 };
 
-const BASE_URL = ''
+const BASE_URL = '';
 
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
@@ -47,7 +47,7 @@ export const __postImage = createAsyncThunk(
     try {
       const response = await axios({
         method: "post",
-        url: "http://13.125.149.68:8080/api/articles",
+        url: `${BASE_URL}/api/articles`,
         data: payload,
         headers: {
           "Content-Type": false,
