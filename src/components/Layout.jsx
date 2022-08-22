@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import NavBar from './Navbar';
 
 const Layout = ({children}) => {
     return (

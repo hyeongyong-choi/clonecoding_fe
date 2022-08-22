@@ -7,6 +7,8 @@ import store from './redux/config/ConfigStore'
 import axios from 'axios'
 
 
+// axios.defaults.baseURL = 'http://43.200.170.123';
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <div>

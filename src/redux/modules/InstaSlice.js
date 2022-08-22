@@ -12,6 +12,8 @@ const initialState = {
   error: null,
 };
 
+const BASE_URL = ''
+
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
   async (payload, thunkAPI) => {
@@ -19,7 +21,9 @@ export const __getInstaList = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: "http://13.125.149.68:8080/api/articles",
+
+        url: `${BASE_URL}/api/articles`,
+
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
@@ -33,28 +37,9 @@ export const __getInstaList = createAsyncThunk(
   }
 );
 
-// export const __postContent = createAsyncThunk(
-//   "POST_CONTENT",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await axios({
-//         method: "post",
-//         url: "http://localhost:3001/articles",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `${getCookie("mycookie")}`,
-//         },
-//         data: payload,
-//       });
-//       return thunkAPI.fulfillWithValue(response.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// )
-
+// Form 이미지, content post
 export const __postImage = createAsyncThunk(
-  "POST_IMAGE",
+  "POST_FORM",
   async (payload, thunkAPI) => {
     for (var value of payload.values()) {
       console.log("formdata value", value);
@@ -67,7 +52,7 @@ export const __postImage = createAsyncThunk(
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: getCookie('token'),
         },
       });
       console.log(payload);
@@ -87,7 +72,9 @@ export const __postLike = createAsyncThunk(
 
       const response = await axios({
         method: "post",
-        url: `http://13.125.149.68:8080/api/articles/${payload.articlesId}/like`,
+
+        url: `${BASE_URL}/api/articles/${payload.articlesId}/like`,
+
         // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",

@@ -8,28 +8,28 @@ import { MdClose } from "react-icons/md";
 import Profile from "../assets/img/Profile.jpg";
 import { useNavigate } from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
-import { useDispatch } from "react-redux";
-import { useDropzone } from "react-dropzone";
-import { __postContent, __postImage } from "../redux/modules/InstaSlice";
+import { IoMdClose } from 'react-icons/io';
+import { useDispatch } from 'react-redux';
+import { useDropzone } from 'react-dropzone';
+import { __postContent, __postImage } from '../redux/modules/InstaSlice';
 // import {__postImage } from '../redux/modules/ImageSlice';
 
-const ModalForm = ({ ModalHandler }) => {
+const ModalForm = ({ ModalHandler, setIsModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [contents, setContents] = useState("");
+  const [content, setContent] = useState('');
 
   const onChangeTextarea = (e) => {
-    setContents(e.target.value);
-    // console.log(e.target.value);
+    setContent(e.target.value);
+    console.log(e.target.value);
   };
 
   //Dropzone
-  const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      "image/png": [".png"],
-      "image/jpg": [".jpg"],
-      "image/jpeg": [".jpeg"],
+      'image/png': ['.png'],
+      'image/jpg': ['.jpg'],
+      'image/jpeg': ['.jpeg'],
     },
     maxFiles: 5,
     onDrop: (acceptedFiles) => {
@@ -48,6 +48,7 @@ const ModalForm = ({ ModalHandler }) => {
     return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
+  const [files, setFiles] = useState([]);
   const formdata = new FormData();
   const onChangeImgHandler = (e) => {
     const { files } = e.target;
@@ -60,37 +61,51 @@ const ModalForm = ({ ModalHandler }) => {
   //공유하기
   const sendImageToServer = (e) => {
     e.preventDefault();
-    const newForm = {
-      contents: contents,
-    };
+    // const newForm = {
+    //   content: content,
+    // };
+    console.log(content)
 
     files.map((file, i) => {
-      formdata.append("multipartFile", files[i]);
+      formdata.append('multipartFile', file[i]);
     });
 
     // formdata.append('multipartFile', files);
     formdata.append(
-      "dto",
-      new Blob([JSON.stringify(newForm), { type: "application/json" }])
+      'articlesDto',
+      new Blob([JSON.stringify(content), { type: 'application/json' }])
     );
 
-    dispatch(__postImage([...formdata.entries()]));
-    console.log([...formdata.entries()]);
+    dispatch(__postImage(formdata));
+    
+    // console.log([...formdata.entries()]);
     console.log(formdata);
-    console.log(files);
+    // console.log(files);
   };
 
   // console.log(files);
   // console.log(content);
 
   return (
+
     <StForm>
+      <IoMdClose
+      onClick={ModalHandler}
+        size={28}
+        style={{
+          position: 'fixed',
+          top: '20px',
+          right: '40px',
+          cursor: 'pointer',
+          zIndex: '10',
+        }}
+      />
       <FormModal>
         <FormHeader>
-          <BiArrowBack onClick={ModalHandler} style={{ cursor: "pointer" }} />
+          <BiArrowBack style={{ cursor: 'pointer' }} />
 
           <FormCreate>새 게시물 만들기</FormCreate>
-          <FormButton type="button" onClick={sendImageToServer}>
+          <FormButton type='button' onClick={sendImageToServer}>
             공유하기
           </FormButton>
         </FormHeader>
@@ -101,23 +116,23 @@ const ModalForm = ({ ModalHandler }) => {
             <FormPhoto>
               <Section>
                 <div
-                  {...getRootProps({ className: "dropzone" })}
+                  {...getRootProps({ className: 'dropzone' })}
                   style={{
-                    width: "100%",
-                    height: "350px",
-                    display: "flex",
-                    justifyContent: "center",
+                    width: '100%',
+                    height: '350px',
+                    display: 'flex',
+                    justifyContent: 'center',
                   }}
                 >
                   <input
                     {...getInputProps()}
-                    type="file"
+                    type='file'
                     onChange={onChangeImgHandler}
                   />
                   <StImgUpload>
                     <FormImg />
                     <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
-                    <Button width="300px" text="컴퓨터에서 선택" />
+                    <Button width='300px' text='컴퓨터에서 선택' />
                   </StImgUpload>
                 </div>
                 <StImgContainer>
@@ -126,20 +141,20 @@ const ModalForm = ({ ModalHandler }) => {
                       <div key={index}>
                         <div
                           style={{
-                            width: "100px",
-                            height: "100px",
-                            overflow: "hidden",
+                            width: '100px',
+                            height: '100px',
+                            overflow: 'hidden',
                           }}
                         >
                           <img
                             src={file[0].preview}
                             style={{
-                              width: "100%",
-                              height: "100%",
-                              backgroundSize: "cover",
-                              display: "flex",
-                              justifyContent: "center",
-                              alignItems: "center",
+                              width: '100%',
+                              height: '100%',
+                              backgroundSize: 'cover',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
                             }}
                             onLoad={() => {
                               URL.revokeObjectURL(file[0].preview);
@@ -159,13 +174,13 @@ const ModalForm = ({ ModalHandler }) => {
               <Titlebox>
                 <TitleImg />
                 <Textbox>
-                  <Text color="black" fontSize="14px">
+                  <Text color='black' fontSize='14px'>
                     사용자명
                   </Text>
                 </Textbox>
               </Titlebox>
               <FormTextarea
-                placeholder="문구 입력..."
+                placeholder='문구 입력...'
                 onChange={onChangeTextarea}
                 maxLength={2200}
               />
@@ -179,27 +194,27 @@ const ModalForm = ({ ModalHandler }) => {
         </FormContainer>
       </FormModal>
     </StForm>
+   
   );
 };
 
 export default ModalForm;
+
 
 const StForm = styled.div`
   //modal css
   position: fixed;
   top: 0;
   left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-  box-sizing: border-box;
-
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 8;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+
 `;
 
 const FormModal = styled.div`
@@ -214,6 +229,7 @@ const FormModal = styled.div`
   background: #fff;
   border-radius: 10px;
   display: flex;
+  z-index: 9;
   flex-direction: column;
 `;
 

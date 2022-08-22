@@ -8,6 +8,7 @@ const MainPage = () => {
     <StDiv>
       <NavBar />
       <InstaList />
+      
     </StDiv>
   );
 };
@@ -17,4 +18,5 @@ export default MainPage;
 const StDiv = styled.div`
   background-color: #eee;
   height: 100vh;
+  
 `;

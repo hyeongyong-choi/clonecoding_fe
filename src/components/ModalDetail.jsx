@@ -10,85 +10,87 @@ import { BsHeart, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import DetailComment from "./DetailComment";
 
-const ModalDetail = ({ item }) => {
-  console.log(item);
 
-  return (
-    <ModalBg>
-      <ModalContain>
-        <ModalImg item={item.image}></ModalImg>
-        <ModalCommentBox>
-          <ModalTitle>
-            <Titlebox>
-              <TitleImg />
-              <Textbox>
-                <Text color="black" fontSize="14px">
-                  {item.userName}
-                </Text>
-                <Text color="black" fontSize="12px">
-                  파일형태
-                </Text>
-              </Textbox>
-            </Titlebox>
-            <ModalMenu>
-              <FiMoreHorizontal />
-            </ModalMenu>
-          </ModalTitle>
-          <ModalComment>
-            <Postboxme>
-              <TitleImg />
-              <PostText>{item.content}</PostText>
-            </Postboxme>
-            <DetailComment></DetailComment>
-          </ModalComment>
-          <ModalIcon>
-            <Iconbox>
-              <Icon>
-                <BsHeart size="25" />
-              </Icon>
-              <Icon>
-                <BiMessageRounded size="28" />
-              </Icon>
-              <Icon>
-                <HiOutlinePaperAirplane size="28" />
-              </Icon>
-              <Icon style={{ marginLeft: "auto" }}>
-                <BsBookmark size="25"></BsBookmark>
-              </Icon>
-            </Iconbox>
-          </ModalIcon>
-          <TextboxLike>
-            <Text fontSize="15px" color="black" fontWeight="bold">
-              좋아요 {item.likeCount}개
-            </Text>
-            <Text fontSize="8px" color="gray">
-              {item.createAt}
-            </Text>
-          </TextboxLike>
-          <SubmitBox>
-            <BsEmojiSmile size="24" style={{ marginLeft: "-5px" }} />
-            <InputSubmit placeholder="댓글달기..."></InputSubmit>
-            <Button text="게시" fontcolor="#0d6efd" bgcolor="#fff"></Button>
-          </SubmitBox>
-        </ModalCommentBox>
-      </ModalContain>
-    </ModalBg>
-  );
+const ModalDetail = ({item,ModalHandler}) => {
+
+    return (
+        <ModalBg>
+            <PrevButton onClick={ModalHandler}>X</PrevButton >
+            <ModalContain>
+                <ModalImg item={item.image}></ModalImg>
+                <ModalCommentBox>
+                    <ModalTitle>
+                        <Titlebox>
+                            <TitleImg />
+                            <Textbox>
+                                <Text color="black" fontSize="14px">{item.userName}</Text>
+                                <Text color="black" fontSize="12px">파일형태</Text>
+                            </Textbox>
+                        </Titlebox>
+                        <ModalMenu>
+                            <FiMoreHorizontal />
+                        </ModalMenu>
+                    </ModalTitle>
+                    <ModalComment>
+                            <Postboxme>
+                                <TitleImg />
+                            <PostText>{item.content}</PostText>
+                            </Postboxme>
+                            <DetailComment></DetailComment>
+                    </ModalComment>
+                    <ModalIcon>
+                        <Iconbox>
+                            <Icon>
+                                <BsHeart size="22" />
+                            </Icon>
+                            <Icon>
+                                <BiMessageRounded size="25" />
+                            </Icon>
+                            <Icon>
+                                <HiOutlinePaperAirplane size="25" />
+                            </Icon>
+                            <Icon style={{ marginLeft: 'auto' }}>
+                                <BsBookmark size="22"></BsBookmark>
+                            </Icon>
+                        </Iconbox>
+                    </ModalIcon>
+                    <TextboxLike>
+                        <Text fontSize="15px" color="black" fontWeight="bold">좋아요 {item.likeCount}개</Text>
+                        <Text fontSize="8px" color="gray" >{item.createAt}</Text>
+                    </TextboxLike>
+                    <SubmitBox>
+                        <BsEmojiSmile size="24" style={{ marginLeft: "-5px" }} />
+                        <InputSubmit placeholder="댓글달기..."></InputSubmit>
+                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff"></Button>
+                    </SubmitBox>
+                </ModalCommentBox>
+            </ModalContain>
+        </ModalBg>
+    );
 };
 
 export default ModalDetail;
 
 const ModalBg = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(1.5px);
-  z-index: 1;
-  box-sizing: border-box;
-`;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(1.5px);
+    z-index: 1;
+    box-sizing:border-box;
+`
+const PrevButton = styled.button`
+    font-size: 25px;
+    border: none;
+    background: gray;
+    color:white;
+    right: 0;
+    position: fixed;
+`
+
 const ModalContain = styled.div`
   position: fixed;
   display: flex;
@@ -165,13 +167,13 @@ const PostText = styled.div`
 `;
 
 const ModalIcon = styled.div`
-  width: 100%;
-  height: 55px;
-`;
+    width:100%;
+`
 const Iconbox = styled.div`
-  display: flex;
-  margin-left: 10px;
-`;
+    display: flex;
+    margin:0 0 5px 10px;
+    
+`
 const Icon = styled.div`
   width: 30px;
   /* padding:5px; */
@@ -179,12 +181,15 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 const TextboxLike = styled.div`
-  padding: 0px 0px 5px 15px;
-`;
+    padding: 5px 0px 5px 15px;
+    
+`
 const SubmitBox = styled.div`
-  border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
-  padding: 10px;
-`;
+ /* background-color: yellow; */
+ border-top:1px solid rgba(var(--b6a,219,219,219),1);
+ padding:10px;
+ width:100%;
+`
 const InputSubmit = styled.input`
   width: 85%;
   padding: 5px;
