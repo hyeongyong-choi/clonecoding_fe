@@ -8,7 +8,6 @@ import { TiCompass } from 'react-icons/ti';
 import { BiHeart } from 'react-icons/bi';
 import { CgSearch } from 'react-icons/cg';
 import { useNavigate } from 'react-router-dom';
-import Text from './elements/Text';
 import ModalForm from './ModalForm';
 import Profile from '../assets/img/Profile.jpg'
 
@@ -16,11 +15,15 @@ const NavBar = () => {
   const navigate = useNavigate();
   const [isModal , setIsModal] = useState(false)
   const ModalHandler = () =>{
-    setIsModal(!isModal)
+    setIsModal(!isModal);
   }
   const logoClick = () => {
     navigate('/');
   };
+
+  const ProfileClick = () => {
+    navigate('/mypage')
+  }
   return (
     <StNav>
       <StNavContainer>
@@ -44,13 +47,14 @@ const NavBar = () => {
             <CgAddR size='27' />
           </IconCgAddR>
           {isModal ? <ModalForm ModalHandler={ModalHandler}/> : null}
+          
           <IconTiCompass>
             <TiCompass size='32' />
           </IconTiCompass>
           <IconBiHeart>
             <BiHeart size='26' />
           </IconBiHeart>
-          <ProfileImg />
+          <ProfileImg onClick={ProfileClick}/>
         </Icons>
       </StNavContainer>
     </StNav>

@@ -33,28 +33,9 @@ export const __getInstaList = createAsyncThunk(
   }
 );
 
-// export const __postContent = createAsyncThunk(
-//   "POST_CONTENT",
-//   async (payload, thunkAPI) => {
-//     try {
-//       const response = await axios({
-//         method: "post",
-//         url: "http://localhost:3001/articles",
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `${getCookie("mycookie")}`,
-//         },
-//         data: payload,
-//       });
-//       return thunkAPI.fulfillWithValue(response.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// )
-
+// Form 이미지, content post
 export const __postImage = createAsyncThunk(
-  "POST_IMAGE",
+  "POST_FORM",
   async (payload, thunkAPI) => {
     for (var value of payload.values()) {
       console.log("formdata value", value);
@@ -67,7 +48,7 @@ export const __postImage = createAsyncThunk(
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: getCookie('token'),
         },
       });
       console.log(payload);
