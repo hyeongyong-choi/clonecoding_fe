@@ -21,7 +21,9 @@ export const __getInstaList = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
+
         url: `${BASE_URL}/api/articles`,
+
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
@@ -70,7 +72,9 @@ export const __postLike = createAsyncThunk(
 
       const response = await axios({
         method: "post",
+
         url: `${BASE_URL}/api/articles/${payload.articlesId}/like`,
+
         // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",
@@ -196,6 +200,7 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__getInstaList.fulfilled]: (state, { payload }) => {
+      console.log("__getInstaList payload", payload);
       state.isLoading = false;
       state.articles = payload;
     },
