@@ -87,6 +87,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
   // console.log(content);
 
   return (
+
     <StForm>
       <IoMdClose
       onClick={ModalHandler}
@@ -193,10 +194,12 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
         </FormContainer>
       </FormModal>
     </StForm>
+   
   );
 };
 
 export default ModalForm;
+
 
 const StForm = styled.div`
   //modal css
@@ -207,11 +210,11 @@ const StForm = styled.div`
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 8;
   box-sizing: border-box;
-
   width: 100vw;
   height: 100vh;
+
 `;
 
 const FormModal = styled.div`
@@ -226,6 +229,7 @@ const FormModal = styled.div`
   background: #fff;
   border-radius: 10px;
   display: flex;
+  z-index: 9;
   flex-direction: column;
 `;
 

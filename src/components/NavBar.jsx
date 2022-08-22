@@ -25,6 +25,7 @@ const NavBar = () => {
     navigate('/mypage')
   }
   return (
+    
     <StNav>
       <StNavContainer>
         <StLogo onClick={logoClick}>
