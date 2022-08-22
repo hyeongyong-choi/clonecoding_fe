@@ -31,8 +31,30 @@
   "like": [
     {
       "id": 1,
-      "userName": "홍창형",
-      "articlesId": 1
+      "userName": "홍창형"
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "id": 2
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "articleId": "1",
+      "id": 3
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "articleId": "1",
+      "id": 4
+    },
+    {
+      "userName": "로그인중인 사용자1",
+      "articlesId": 1,
+      "articleId": "1",
+      "id": 5
     }
   ],
   "comments": [
