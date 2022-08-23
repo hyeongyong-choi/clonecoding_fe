@@ -33,6 +33,7 @@ const InstaCard = ({ item }) => {
   const { articles } = useSelector((state) => state.Insta);
   const { like } = useSelector((state) => state.Insta);
   const { error } = useSelector((state) => state.Insta);
+  const user = useSelector((state) => state.user.user.headers)
   const dispatch = useDispatch();
   const mRef = useRef();
 
@@ -65,6 +66,8 @@ const InstaCard = ({ item }) => {
     setHeart(!heart);
   };
 
+
+
   const onChangeCommentHandler = (e) => {
     setValue(e.target.value.substr(0, 100));
     setTextareaHeight(e.target.value.split("\n").length - 1);
@@ -82,9 +85,14 @@ const InstaCard = ({ item }) => {
   };
 
   const clickOutside = (e) => {
-    if (isModal && mRef.current && !mRef.current.contains(e.target)) {
+    if (isModal  && mRef.current && !mRef.current.contains(e.target)) {
       setIsModal(!isModal);
     }
+  };
+
+  const onClickCancel = () => {
+    setIsModal(!isModal);
+    
   };
 
   document.addEventListener("mousedown", clickOutside);

@@ -5,19 +5,23 @@ import Button from "./elements/Button";
 import Profile from "../assets/img/Profile.jpg";
 import { FiMoreHorizontal } from "react-icons/fi";
 import Insta from "../assets/img/Login_PhoneImg2.png";
-import { BiMessageRounded } from "react-icons/bi";
+import { IoMdClose } from 'react-icons/io';
+import { BiMessageRounded,BiArrowBack } from "react-icons/bi";
 import { BsHeart, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import DetailComment from "./DetailComment";
 
 
-const ModalDetail = ({item,ModalHandler}) => {
+const ModalDetail = ({item,ModalDetailHandler}) => {
+
+  console.log(item)
 
     return (
-        <ModalBg>
-            <PrevButton onClick={ModalHandler}>X</PrevButton >
+        <ModalBg >
+            <IoMdClose style={{ cursor: 'pointer', position:'fixed' ,right:'0px' ,color:'white' ,fontSize:'30px'}} onClick={ModalDetailHandler}/>
+
             <ModalContain>
-                <ModalImg item={item.image}></ModalImg>
+                <ModalImg item={item.image} ></ModalImg>
                 <ModalCommentBox>
                     <ModalTitle>
                         <Titlebox>

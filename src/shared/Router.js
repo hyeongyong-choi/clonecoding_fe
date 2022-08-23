@@ -1,12 +1,17 @@
 import { Routes, Route } from "react-router-dom";
 import { BrowserRouter } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import MainPage from "../pages/MainPage";
 import FormPage from "../pages/FormPage";
 import MyPage from '../pages/MyPage';
+import { setCookie } from "./cookies";
 
 const Router = () => {
+
+ 
+
   return (
     <BrowserRouter>
       <Routes>

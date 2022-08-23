@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
 import AddPhoto from "../assets/img/AddPhoto.png";
 import Button from "./elements/Button";
 import Text from "./elements/Text";
