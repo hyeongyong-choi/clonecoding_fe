@@ -1,23 +1,25 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper';
 import AddPhoto from "../assets/img/AddPhoto.png";
 import Button from "./elements/Button";
 import Text from "./elements/Text";
-import { colors } from "../theme/theme";
-import { MdClose } from "react-icons/md";
-import Profile from "../assets/img/Profile.jpg";
-import { useNavigate } from "react-router-dom";
-import { BiArrowBack } from "react-icons/bi";
+import { colors } from '../theme/theme';
+import Profile from '../assets/img/Profile.jpg';
+import { useNavigate } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
 import { IoMdClose } from 'react-icons/io';
 import { useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import { __postContent, __postImage } from '../redux/modules/InstaSlice';
-// import {__postImage } from '../redux/modules/ImageSlice';
+import { getCookie } from '../shared/cookies';
 
 const ModalForm = ({ ModalHandler, setIsModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState('');
+  const username = getCookie('userName')
 
   const onChangeTextarea = (e) => {
     setContent(e.target.value);
@@ -31,64 +33,54 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
       'image/jpg': ['.jpg'],
       'image/jpeg': ['.jpeg'],
     },
-    maxFiles: 5,
+    maxFiles: 4,
     onDrop: (acceptedFiles) => {
-      setFiles([
-        ...files,
+      console.log(files.length);
+      setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
           })
-        ),
-      ]);
+        )
+      );
     },
   });
 
-  useEffect(() => {
-    return () => files.forEach((file) => URL.revokeObjectURL(file.preview));
-  }, []);
-
   const [files, setFiles] = useState([]);
   const formdata = new FormData();
-  const onChangeImgHandler = (e) => {
-    const { files } = e.target;
-
-    for (let i = 0; i < files.length; i++) {
-      setFiles(files[i]);
-    }
-  };
 
   //공유하기
   const sendImageToServer = (e) => {
-    e.preventDefault();
     const newForm = {
       content: content,
     };
-
-    files.map((file, i) => {
-      formdata.append('multipartFile', file[i]);
+    files.map((file) => {
+      formdata.append('multipart', file);
     });
-
-    // formdata.append('multipartFile', files);
     formdata.append(
-      'articlesDto',new Blob([JSON.stringify(newForm)], { type: 'application/json' })
+      'articlesDto',
+      new Blob([JSON.stringify(newForm)], { type: 'application/json' })
     );
-
     dispatch(__postImage(formdata));
-
-    // console.log([...formdata.entries()]);
-    console.log(formdata);
-    // console.log(files);
+    // if (type === "edit") {
+    //   dispatch(__editImage(formdata, articlesId));
+    // } else {
+    //   dispatch(__postImage(formdata));
+    // };
   };
 
-  // console.log(files);
-  // console.log(content);
+  useEffect(() => {
+    return () =>
+      files && files.forEach((file) => URL.revokeObjectURL(file[0].preview));
+  }, []);
 
+  useEffect(() => {
+    getCookie('token');
+  }, []);
   return (
-
     <StForm>
       <IoMdClose
-      onClick={ModalHandler}
+        onClick={ModalHandler}
         size={28}
         style={{
           position: 'fixed',
@@ -100,10 +92,13 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
       />
       <FormModal>
         <FormHeader>
-          <BiArrowBack style={{ cursor: 'pointer' }} />
-
-          <FormCreate>새 게시물 만들기</FormCreate>
+          <div/>
+          <FormCreate>
+            {/* {type === "edit" ? "정보 수정" : "새 게시물 만들기"} */}새
+            게시물 만들기
+          </FormCreate>
           <FormButton type='button' onClick={sendImageToServer}>
+            {/* {type === "edit" ? "완료" : "공유하기"} */}
             공유하기
           </FormButton>
         </FormHeader>
@@ -113,39 +108,31 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
           <FormLeft>
             <FormPhoto>
               <Section>
-                <div
-                  {...getRootProps({ className: 'dropzone' })}
-                  style={{
-                    width: '100%',
-                    height: '350px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}
-                >
+                <GetRootProps {...getRootProps({ className: 'dropzone' })}>
                   <input
                     {...getInputProps()}
-                    type='file'
-                    onChange={onChangeImgHandler}
+                    // type='file'
                   />
                   <StImgUpload>
                     <FormImg />
                     <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
                     <Button width='300px' text='컴퓨터에서 선택' />
                   </StImgUpload>
-                </div>
+                </GetRootProps>
                 <StImgContainer>
                   {files.length !== 0 &&
-                    files.map((file, index) => (
-                      <div key={index}>
+                    (files.map((file, index) => (
+                      // console.log("file!!!!!!!", file)
+                      <div key={index} style={{display: "flex"}}>
                         <div
                           style={{
-                            width: '100px',
-                            height: '100px',
+                            width: '150px',
+                            height: '150px',
                             overflow: 'hidden',
                           }}
                         >
                           <img
-                            src={file[0].preview}
+                            src={file.preview}
                             style={{
                               width: '100%',
                               height: '100%',
@@ -155,12 +142,14 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                               alignItems: 'center',
                             }}
                             onLoad={() => {
-                              URL.revokeObjectURL(file[0].preview);
+                              URL.revokeObjectURL(file.preview);
                             }}
                           />
                         </div>
                       </div>
-                    ))}
+                    ))
+                    )
+                    }
                 </StImgContainer>
               </Section>
             </FormPhoto>
@@ -173,7 +162,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                 <TitleImg />
                 <Textbox>
                   <Text color='black' fontSize='14px'>
-                    사용자명
+                  {username}
                   </Text>
                 </Textbox>
               </Titlebox>
@@ -192,7 +181,6 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
         </FormContainer>
       </FormModal>
     </StForm>
-   
   );
 };
 
@@ -211,7 +199,6 @@ const StForm = styled.div`
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
-
 `;
 
 const FormModal = styled.div`
@@ -222,7 +209,7 @@ const FormModal = styled.div`
   transform: translate(-50%, -50%);
 
   width: 900px;
-  height: 600px;
+  height: auto;
   background: #fff;
   border-radius: 10px;
   display: flex;
@@ -293,6 +280,13 @@ const Section = styled.div`
   height: 500px;
 `;
 
+const GetRootProps = styled.div`
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+`;
+
 const StImgUpload = styled.div`
   display: flex;
   width: 100%;
@@ -311,6 +305,10 @@ const StImgContainer = styled.div`
   box-sizing: border-box;
   background: #fff;
   scrollbar-width: none;
+  border: 1px solid red;
+  > div {
+    border: 1px solid blue;
+  }
 `;
 
 const FormAdd = styled.div`

@@ -19,7 +19,7 @@ const Register = () => {
     // const user = useSelector((state)=>state.user.user)
     // console.log(user)
 
-    const BASE_URL = '';
+    const BASE_URL = 'http://3.39.231.99:8080';
     
     const [inputValue, setInputValue] = useState({
         userName: '',

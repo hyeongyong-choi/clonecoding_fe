@@ -1,11 +1,13 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Profile from '../assets/img/Profile.jpg';
 import { colors } from '../theme/theme';
 
 const MyProfile = () => {
 
-  
+  // const articlesCount = useSelector((state) => state.mypage)
+  // console.log(articlesCount)
 
   return (
     <StProfile>
@@ -19,7 +21,7 @@ const MyProfile = () => {
         <StName>6조</StName>
         <StProfileInfo>
           <StProfileText>
-            게시물<span> 12</span>
+            게시물<span> 50</span>
           </StProfileText>
           <StProfileText>
             팔로워<span> 600</span>

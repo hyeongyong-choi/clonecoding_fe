@@ -5,8 +5,12 @@ import { BiGrid } from 'react-icons/bi';
 import { BiMoviePlay } from 'react-icons/bi';
 import { BiUserPin } from 'react-icons/bi';
 import { BiBookmark } from 'react-icons/bi';
+import { useDispatch } from 'react-redux';
+import { __getMyFeed } from '../redux/modules/MyPageSlice';
 
 const MyList = () => {
+  const dispatch = useDispatch();
+
   const myImages = [
     {
       id: 1,
@@ -30,11 +34,15 @@ const MyList = () => {
     },
   ];
 
+  const handleMyArticles =() => {
+    dispatch(__getMyFeed());
+  }
+
   return (
     <Container>
       <StLine />
       <StCategory>
-        <Categories>
+        <Categories onClick={handleMyArticles}>
           <BiGrid style={{ marginRight: '5px' }} />
           <CategoryText>게시물</CategoryText>
         </Categories>

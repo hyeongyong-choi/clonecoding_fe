@@ -8,7 +8,7 @@ const initialState = {
   error: null,
 };
 
-const BASE_URL = '';
+const BASE_URL = 'http://3.39.231.99:8080';
 
 export const __getMyFeed = createAsyncThunk(
   "GET_MY_FEED",
@@ -16,7 +16,7 @@ export const __getMyFeed = createAsyncThunk(
     try {
       const response = await axios({
         method: "get",
-        url: `${BASE_URL}/api/articles`,
+        url: `${BASE_URL}/api/mypage`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
@@ -31,7 +31,7 @@ export const __getMyFeed = createAsyncThunk(
 )
 
 export const MyPageSlice = createSlice({
-  name: "MyPageSlice",
+  name: "mypage",
   initialState,
   reducers: {},
   extraReducers: {
