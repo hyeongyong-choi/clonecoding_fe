@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 };
 
-const BASE_URL = '';
+const BASE_URL = 'http://3.39.231.99:8080';
 
 export const __getInstaList = createAsyncThunk(
   "getInstaList",

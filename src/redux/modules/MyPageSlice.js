@@ -2,11 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCookie, setCookie } from "../../shared/cookies.js";
 
-const initialState = {
-  articles: [],
-  isLoading: false,
-  error: null,
-};
+
 
 const BASE_URL = 'http://3.39.231.99:8080';
 
@@ -30,21 +26,29 @@ export const __getMyFeed = createAsyncThunk(
   }
 )
 
+const initialState = {
+  articles: [],
+  isLoading: false,
+  error: null,
+};
+
 export const MyPageSlice = createSlice({
-  name: "mypage",
+  name: "MyPageSlice",
   initialState,
   reducers: {},
   extraReducers: {
     [__getMyFeed.pending]: (state) => {
       state.isLoading = true;
     },
-    [__getMyFeed.fulfilled]: (state, { payload }) => {
+    [__getMyFeed.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.articles = payload;
+      state.articles = action.payload;
     },
-    [__getMyFeed.rejected]: (state, { payload }) => {
+    [__getMyFeed.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = payload;
+      state.error = action.payload;
     },
   }
 })
+
+export default MyPageSlice;
