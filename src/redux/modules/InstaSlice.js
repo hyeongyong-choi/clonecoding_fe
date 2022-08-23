@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 };
 
-const BASE_URL = "http://3.39.231.99:8080";
+const BASE_URL = '';
 
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
@@ -52,11 +52,31 @@ export const __postImage = createAsyncThunk(
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          // Authorization: getCookie('token'),
+          Authorization: getCookie('token'),
         },
       });
       console.log(payload);
       console.log("response", response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editImage = createAsyncThunk(
+  "EDIT_IMAGE",
+  async(payload, thunkAPI) => {
+    try {
+      const response = await axios({
+        method: "patch",
+        url: `${BASE_URL}/api/articles/${payload.articlesId}`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${getCookie("mycookie")}`,
+        },
+        data: payload,
+      })
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -283,18 +303,7 @@ export const InstaSlice = createSlice({
       state.error = payload.response.data.error;
     },
 
-    // Form content post
-    // [__postContent.pending]: (state, {payload}) => {
-    //   state.isLoading = true;
-    // },
-    // [__postContent.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.articles.unshift(payload);
-    // },
-    // [__postContent.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload.response.data.error;
-    // },
+    //Form - post
     [__postImage.pending]: (state) => {
       state.isLoading = true;
     },
@@ -302,6 +311,16 @@ export const InstaSlice = createSlice({
       state.isLoading = false;
     },
     [__postImage.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+    [__editImage.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__editImage.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+    },
+    [__editImage.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload.response.data.error;
     },

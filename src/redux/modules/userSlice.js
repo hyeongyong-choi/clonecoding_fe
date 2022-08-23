@@ -4,7 +4,7 @@ import { getCookie, setCookie } from '../../shared/cookies';
 
 
 
-const BASE_URL = '';
+const BASE_URL = 'http://3.39.231.99:8080';
 
 const config = {
     headers: {
