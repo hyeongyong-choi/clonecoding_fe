@@ -23,7 +23,8 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
     setContent(e.target.value);
     // console.log(e.target.value);
   };
-
+  
+  const [files, setFiles] = useState([]);
   //Dropzone
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
@@ -44,7 +45,6 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
     },
   });
 
-  const [files, setFiles] = useState([]);
   const formdata = new FormData();
 
   //공유하기
@@ -52,24 +52,20 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
     const newForm = {
       content: content,
     };
-    files.map((file) => {
-      formdata.append('multipart', file);
+    files.map((image) => {
+      formdata.append('multipartFile', image);
     });
     formdata.append(
       'articlesDto',
       new Blob([JSON.stringify(newForm)], { type: 'application/json' })
     );
     dispatch(__postImage(formdata));
-    // if (type === "edit") {
-    //   dispatch(__editImage(formdata, articlesId));
-    // } else {
-    //   dispatch(__postImage(formdata));
-    // };
+    window.location.reload();
   };
 
   useEffect(() => {
     return () =>
-      files && files.forEach((file) => URL.revokeObjectURL(file[0].preview));
+      files && files.forEach((file) => URL.revokeObjectURL(file.preview));
   }, []);
 
   useEffect(() => {
@@ -90,13 +86,11 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
       />
       <FormModal>
         <FormHeader>
-          <div/>
+          <div />
           <FormCreate>
-            {/* {type === "edit" ? "정보 수정" : "새 게시물 만들기"} */}새
-            게시물 만들기
+            새 게시물 만들기
           </FormCreate>
           <FormButton type='button' onClick={sendImageToServer}>
-            {/* {type === "edit" ? "완료" : "공유하기"} */}
             공유하기
           </FormButton>
         </FormHeader>
@@ -119,9 +113,9 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                 </GetRootProps>
                 <StImgContainer>
                   {files.length !== 0 &&
-                    (files.map((file, index) => (
+                    files.map((file, index) => (
                       // console.log("file!!!!!!!", file)
-                      <div key={index} style={{display: "flex"}}>
+                      <div key={index} style={{ display: 'flex' }}>
                         <div
                           style={{
                             width: '150px',
@@ -145,9 +139,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                           />
                         </div>
                       </div>
-                    ))
-                    )
-                    }
+                    ))}
                 </StImgContainer>
               </Section>
             </FormPhoto>
@@ -160,7 +152,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                 <TitleImg />
                 <Textbox>
                   <Text color='black' fontSize='14px'>
-                  {username}
+                    {username}
                   </Text>
                 </Textbox>
               </Titlebox>
@@ -303,7 +295,7 @@ const StImgContainer = styled.div`
   box-sizing: border-box;
   background: #fff;
   scrollbar-width: none;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   > div {
     border: 1px solid blue;
   }
