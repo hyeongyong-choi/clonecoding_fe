@@ -1,35 +1,34 @@
-import React, {useState} from 'react';
-import styled from 'styled-components';
-import instagramLogo from '../assets/img/instagramLogo.png';
-import { MdHomeFilled } from 'react-icons/md';
-import { HiOutlinePaperAirplane } from 'react-icons/hi';
-import { CgAddR } from 'react-icons/cg';
-import { TiCompass } from 'react-icons/ti';
-import { BiHeart } from 'react-icons/bi';
-import { CgSearch } from 'react-icons/cg';
-import { useNavigate } from 'react-router-dom';
-import ModalForm from './ModalForm';
-import Profile from '../assets/img/Profile.jpg'
+import React, { useState } from "react";
+import styled from "styled-components";
+import instagramLogo from "../assets/img/instagramLogo.png";
+import { MdHomeFilled } from "react-icons/md";
+import { HiOutlinePaperAirplane } from "react-icons/hi";
+import { CgAddR } from "react-icons/cg";
+import { TiCompass } from "react-icons/ti";
+import { BiHeart } from "react-icons/bi";
+import { CgSearch } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
+import ModalForm from "./ModalForm";
+import Profile from "../assets/img/Profile.jpg";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const [isModal , setIsModal] = useState(false)
-  const ModalHandler = () =>{
+  const [isModal, setIsModal] = useState(false);
+  const ModalHandler = () => {
     setIsModal(!isModal);
-  }
+  };
   const logoClick = () => {
-    navigate('/');
+    navigate("/");
   };
 
   const ProfileClick = () => {
-    navigate('/mypage')
-  }
+    navigate("/mypage");
+  };
   return (
-    
     <StNav>
       <StNavContainer>
         <StLogo onClick={logoClick}>
-          <img src={instagramLogo} alt='로고' style={{ width: '100px' }} />
+          <img src={instagramLogo} alt="로고" style={{ width: "100px" }} />
         </StLogo>
         <StSearch>
           <StSearchThings>
@@ -39,23 +38,23 @@ const NavBar = () => {
         </StSearch>
         <Icons>
           <IconMdHomeFilled>
-            <MdHomeFilled size='28' />
+            <MdHomeFilled size="28" />
           </IconMdHomeFilled>
           <IconHiOutlinePaperAirplane>
-            <HiOutlinePaperAirplane size='25' />
+            <HiOutlinePaperAirplane size="25" />
           </IconHiOutlinePaperAirplane>
           <IconCgAddR onClick={ModalHandler}>
-            <CgAddR size='27' />
+            <CgAddR size="27" />
           </IconCgAddR>
-          {isModal ? <ModalForm ModalHandler={ModalHandler}/> : null}
-          
+          {isModal ? <ModalForm ModalHandler={ModalHandler} /> : null}
+
           <IconTiCompass>
-            <TiCompass size='32' />
+            <TiCompass size="32" />
           </IconTiCompass>
           <IconBiHeart>
-            <BiHeart size='26' />
+            <BiHeart size="26" />
           </IconBiHeart>
-          <ProfileImg onClick={ProfileClick}/>
+          <ProfileImg onClick={ProfileClick} />
         </Icons>
       </StNavContainer>
     </StNav>

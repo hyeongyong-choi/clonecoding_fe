@@ -7,13 +7,15 @@ const Modal = forwardRef((props, ref) => {
       <ModalBg>
         <ModalContainer ref={ref}>
           <StButton>수정</StButton>
-          <StButton>삭제</StButton>
+          <StButton onClick={() => props.onClickDelete(props.item.articlesId)}>
+            삭제
+          </StButton>
           <StButton>신고</StButton>
           <StButton>팔로우취소</StButton>
           <StButton>즐겨찾기에 추가</StButton>
           <StButton>링크복사</StButton>
           <StButton>퍼가기</StButton>
-          <StCancelButton onClick={props.onClick}>취소</StCancelButton>
+          <StCancelButton onClick={props.onClickCancel}>취소</StCancelButton>
         </ModalContainer>
       </ModalBg>
     </div>
@@ -39,7 +41,7 @@ const ModalContainer = styled.div`
   left: 35%;
   top: 20%;
   width: 30%;
-  height: 60%;
+  height: 50%;
   border-radius: 30px;
   background-color: white;
   display: flex;

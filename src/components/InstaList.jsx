@@ -7,7 +7,7 @@ import { __getInstaList } from "../redux/modules/InstaSlice";
 
 const InstaList = () => {
   const { articles } = useSelector((state) => state.Insta);
-  console.log("articles", articles);
+  const { error } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
   const [isModal, setIsModal] = useState(false);
   const ModalHandler = () => {
@@ -18,11 +18,15 @@ const InstaList = () => {
     dispatch(__getInstaList());
   }, []);
 
+  console.log("articles", articles);
+  console.log("error", error);
+
   return (
     <StDiv>
-      {articles?.map((item) => (
-        <InstaCard key={item.articlesId} item={item} />
-      ))}
+      {articles &&
+        articles?.map((item) => (
+          <InstaCard key={item.articlesId} item={item} />
+        ))}
     </StDiv>
   );
 };

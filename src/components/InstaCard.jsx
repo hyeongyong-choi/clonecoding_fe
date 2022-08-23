@@ -15,7 +15,12 @@ import Button from "./elements/Button";
 import Modal from "./Modal";
 import ModalDetail from "./ModalDetail";
 import { useNavigate } from "react-router-dom";
-import { __postComments, __postLike } from "../redux/modules/InstaSlice";
+import {
+  __deleteInstaCard,
+  __getInstaList,
+  __postComments,
+  __postLike,
+} from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const InstaCard = ({ item }) => {
@@ -27,6 +32,7 @@ const InstaCard = ({ item }) => {
   const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
   const { like } = useSelector((state) => state.Insta);
+  const { error } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
   const mRef = useRef();
 
@@ -41,6 +47,12 @@ const InstaCard = ({ item }) => {
   };
   const handleImgError = (e) => {
     e.target.src = instagram;
+  };
+
+  const onClickDeleteHandler = (id) => {
+    // console.log("onClickDeleteHandler 동작");
+    dispatch(__deleteInstaCard(id));
+    setIsModal(!isModal);
   };
 
   const onClickAddLikeHandler = (id) => {
@@ -73,10 +85,6 @@ const InstaCard = ({ item }) => {
     if (isModal && mRef.current && !mRef.current.contains(e.target)) {
       setIsModal(!isModal);
     }
-  };
-
-  const onClickCancel = () => {
-    setIsModal(!isModal);
   };
 
   document.addEventListener("mousedown", clickOutside);
@@ -121,20 +129,20 @@ const InstaCard = ({ item }) => {
         <StUserContent>
           {moreView ? (
             <div>
-              <div>{item.userName}</div>
-              {item.content}{" "}
+              <StUserName>{item.userName}</StUserName>
+              <StContentDiv>{item.content}</StContentDiv>
               <StMoreButton onClick={onClickMoreViewHandler}>
                 내용접기
               </StMoreButton>
             </div>
           ) : (
             <div>
-              <div>{item.userName}</div>
+              <StUserName>{item.userName}</StUserName>
               {item.content.length < 24 ? (
                 item.content
               ) : (
                 <StContentMoreDiv>
-                  <div>{item.content.slice(0, 23) + "..."}</div>
+                  <div>{item.content.slice(0, 22) + "..."}</div>
                   <StMoreButton onClick={onClickMoreViewHandler}>
                     더보기
                   </StMoreButton>
@@ -174,7 +182,14 @@ const InstaCard = ({ item }) => {
       </StFormDiv>
 
       {/* 모달창 */}
-      {isModal ? <Modal ref={mRef} onClick={onClickCancel} /> : null}
+      {isModal ? (
+        <Modal
+          item={item}
+          ref={mRef}
+          onClickCancel={ModalHandler}
+          onClickDelete={onClickDeleteHandler}
+        />
+      ) : null}
       {isModalDetail ? <ModalDetail item={item} /> : null}
     </StCard>
   );
@@ -264,11 +279,21 @@ const StContent = styled.div`
   padding: 15px 20px 10px 20px;
 `;
 
+const StContentDiv = styled.div`
+  width: 430px;
+  word-wrap: break-word;
+`;
+
 const StUserContent = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
 `;
+
+const StUserName = styled.div`
+  font-weight: bold;
+`;
+
 const StBorder = styled.div`
   border: 1px solid #eeecec;
 `;
