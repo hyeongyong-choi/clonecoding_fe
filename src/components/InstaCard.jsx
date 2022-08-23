@@ -87,10 +87,6 @@ const InstaCard = ({ item }) => {
     }
   };
 
-  const onClickCancel = () => {
-    setIsModal(!isModal);
-  };
-
   document.addEventListener("mousedown", clickOutside);
 
   return (
@@ -133,7 +129,7 @@ const InstaCard = ({ item }) => {
         <StUserContent>
           {moreView ? (
             <div>
-              <div>{item.userName}</div>
+              <StUserName>{item.userName}</StUserName>
               <StContentDiv>{item.content}</StContentDiv>
               <StMoreButton onClick={onClickMoreViewHandler}>
                 내용접기
@@ -141,12 +137,12 @@ const InstaCard = ({ item }) => {
             </div>
           ) : (
             <div>
-              <div>{item.userName}</div>
+              <StUserName>{item.userName}</StUserName>
               {item.content.length < 24 ? (
                 item.content
               ) : (
                 <StContentMoreDiv>
-                  <div>{item.content.slice(0, 23) + "..."}</div>
+                  <div>{item.content.slice(0, 22) + "..."}</div>
                   <StMoreButton onClick={onClickMoreViewHandler}>
                     더보기
                   </StMoreButton>
@@ -190,7 +186,7 @@ const InstaCard = ({ item }) => {
         <Modal
           item={item}
           ref={mRef}
-          onClickCancel={onClickCancel}
+          onClickCancel={ModalHandler}
           onClickDelete={onClickDeleteHandler}
         />
       ) : null}
@@ -292,6 +288,10 @@ const StUserContent = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
+`;
+
+const StUserName = styled.div`
+  font-weight: bold;
 `;
 
 const StBorder = styled.div`
