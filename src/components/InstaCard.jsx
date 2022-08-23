@@ -134,7 +134,7 @@ const InstaCard = ({ item }) => {
           {moreView ? (
             <div>
               <div>{item.userName}</div>
-              {item.content}{" "}
+              <StContentDiv>{item.content}</StContentDiv>
               <StMoreButton onClick={onClickMoreViewHandler}>
                 내용접기
               </StMoreButton>
@@ -283,11 +283,17 @@ const StContent = styled.div`
   padding: 15px 20px 10px 20px;
 `;
 
+const StContentDiv = styled.div`
+  width: 430px;
+  word-wrap: break-word;
+`;
+
 const StUserContent = styled.div`
   display: flex;
   flex-direction: row;
   gap: 10px;
 `;
+
 const StBorder = styled.div`
   border: 1px solid #eeecec;
 `;
