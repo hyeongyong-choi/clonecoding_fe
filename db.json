@@ -30,7 +30,6 @@
       "commentcount": 78,
       "articlesId": 3
     }
-   
   ],
   "like": [
     {
@@ -74,6 +73,10 @@
     {
       "comment": "ㄱㄱㄱ",
       "id": 3
+    },
+    {
+      "comment": "ggg",
+      "id": 4
     }
   ]
 }

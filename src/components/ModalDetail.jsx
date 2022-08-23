@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{ useEffect, useState }from "react";
 import styled from "styled-components";
 import Text from "./elements/Text";
 import Button from "./elements/Button";
@@ -10,18 +10,41 @@ import { BiMessageRounded,BiArrowBack } from "react-icons/bi";
 import { BsHeart, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import DetailComment from "./DetailComment";
-
+import { useDispatch } from "react-redux";
+import { __postComment , __getInstaList} from "../redux/modules/InstaSlice";
+import instagram from "../assets/instagram2.jpg";
 
 const ModalDetail = ({item,ModalDetailHandler}) => {
+  const dispatch = useDispatch();
+  
+  const [comments , setComments] = useState('')
+
+  const commentHandler = (e) =>{
+    setComments(e.target.value)
+  }
 
   console.log(item)
+  
+
+  const addCommentSubmit = () =>{
+    const commentlist = {
+      articlesId : item.articlesId,
+      comment :comments
+    }
+    dispatch(__postComment(commentlist))
+    // dispatch(__getInstaList())
+  }
+
+  const errorImg = (e) =>{
+    e.target.src = instagram;
+  }
+
 
     return (
         <ModalBg >
             <IoMdClose style={{ cursor: 'pointer', position:'fixed' ,right:'0px' ,color:'white' ,fontSize:'30px'}} onClick={ModalDetailHandler}/>
-
             <ModalContain>
-                <ModalImg item={item.image} ></ModalImg>
+                <ModalImg src={item.image} onError={errorImg}></ModalImg>
                 <ModalCommentBox>
                     <ModalTitle>
                         <Titlebox>
@@ -64,8 +87,8 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
                     </TextboxLike>
                     <SubmitBox>
                         <BsEmojiSmile size="24" style={{ marginLeft: "-5px" }} />
-                        <InputSubmit placeholder="댓글달기..."></InputSubmit>
-                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff"></Button>
+                        <InputSubmit placeholder="댓글달기..." value={comments} onChange={commentHandler}></InputSubmit>
+                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff" onClick={addCommentSubmit}></Button>
                     </SubmitBox>
                 </ModalCommentBox>
             </ModalContain>
@@ -109,10 +132,9 @@ const ModalContain = styled.div`
   border-radius: 10px;
   text-align: center;
 `;
-const ModalImg = styled.div`
+const ModalImg = styled.img`
   width: 50%;
   height: 100%;
-  background-image: url(${(props) => props.item});
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
