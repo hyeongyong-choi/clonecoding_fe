@@ -22,8 +22,11 @@ import {
   __postLike,
 } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { __getComment } from "../redux/modules/InstaSlice";
 
 const InstaCard = ({ item }) => {
+  const dispatch = useDispatch();
+  const mRef = useRef();
   const [isModal, setIsModal] = useState(false);
   const [isModalDetail, setIsModalDetail] = useState(false);
   const [heart, setHeart] = useState(false);
@@ -33,15 +36,27 @@ const InstaCard = ({ item }) => {
   const { articles } = useSelector((state) => state.Insta);
   const { like } = useSelector((state) => state.Insta);
   const { error } = useSelector((state) => state.Insta);
-  const user = useSelector((state) => state.user.user.headers);
-  const dispatch = useDispatch();
-  const mRef = useRef();
+
+  
+
+  // console.log(item)
+
+  // useEffect(() => {
+  //   dispatch(__getComment(item.articlesId));
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(__getComment(item.articlesId));
+  // }, []);
+
+
 
   const ModalHandler = () => {
     setIsModal(!isModal);
   };
   const ModalDetailHandler = () => {
     setIsModalDetail(!isModalDetail);
+    
   };
   const onClickMoreViewHandler = () => {
     setMoreView(!moreView);
@@ -195,9 +210,9 @@ const InstaCard = ({ item }) => {
           onClickDelete={onClickDeleteHandler}
         />
       ) : null}
-      {isModalDetail ? (
-        <ModalDetail item={item} ModalDetailHandler={ModalDetailHandler} />
-      ) : null}
+
+      {isModalDetail ? <ModalDetail item={item} ModalDetailHandler={ModalDetailHandler} /> : null}
+
     </StCard>
   );
 };
