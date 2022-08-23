@@ -26,7 +26,7 @@ export const __getInstaList = createAsyncThunk(
 
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
       });
       console.log(response.data);
@@ -98,7 +98,7 @@ export const __postLike = createAsyncThunk(
         // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
         data: payload,
       });
@@ -119,7 +119,7 @@ export const __postInstaCard = createAsyncThunk(
         url: `/api/articles`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
         data: payload,
       });
@@ -139,7 +139,7 @@ export const __updateInstaCard = createAsyncThunk(
         url: `/api/articles/${payload.id}`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
         data: { content: payload.content },
       });
@@ -159,7 +159,7 @@ export const __deleteInstaCard = createAsyncThunk(
         url: `${BASE_URL}/api/articles/${payload}`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
       });
       console.log("__deleteInstaCard payload", payload);
@@ -180,7 +180,7 @@ export const __getDetail = createAsyncThunk(
         url: `/api/articles/${payload}`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
       });
       return thunkAPI.fulfillWithValue(response.data);
@@ -201,7 +201,7 @@ export const __postComments = createAsyncThunk(
         url: `http://localhost:3001/comments`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
         data: { comment: payload.comment },
       });

@@ -19,7 +19,7 @@ export const __getMyFeed = createAsyncThunk(
         url: `${BASE_URL}/api/mypage`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
+          Authorization: `${getCookie("token")}`,
         },
       })
       console.log(response.data);

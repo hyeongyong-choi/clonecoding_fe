@@ -1,13 +1,15 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Profile from '../assets/img/Profile.jpg';
 import { colors } from '../theme/theme';
+import { __getName } from '../redux/modules/userSlice';
+import { getCookie, setCookie } from '../shared/cookies';
 
 const MyProfile = () => {
+  const user = useSelector((state) => state.user.user.headers)
 
-  // const articlesCount = useSelector((state) => state.mypage)
-  // console.log(articlesCount)
+  console.log(user)
 
   return (
     <StProfile>
@@ -18,7 +20,7 @@ const MyProfile = () => {
       </ProfileContainer>
       
       <StProfileWrap>
-        <StName>6조</StName>
+        <StName>{user.userName}</StName>
         <StProfileInfo>
           <StProfileText>
             게시물<span> 50</span>

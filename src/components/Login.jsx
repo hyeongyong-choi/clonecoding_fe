@@ -95,18 +95,15 @@ useEffect(()=>{
   }else{
     setLoginBtn(true)
   }
-  if(error === 'Request failed with status code 401' && !isLogin){
+  // console.log('error' , error)
+  if(error === null && !isLogin ){
     setFailLogin('로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요')
-  }
-  else if(error === null && !isLogin){
-    setFailLogin('')
+  
   }else if(error === null && isLogin){
     setFailLogin('')
     navigate('/');
-  }else if( error=== undefined ){//삭제할거
-    setFailLogin('서버오류')
   }
-},[userId,userEmail,password,isLogin,error])
+},[userId,userEmail,password,isLogin])
 
 
  

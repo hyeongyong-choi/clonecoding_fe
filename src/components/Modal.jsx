@@ -32,7 +32,7 @@ const ModalBg = styled.div`
   right: 0;
   background: rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(1px);
-  z-index: 1;
+  z-index: 3;
   box-sizing: border-box;
 `;
 
