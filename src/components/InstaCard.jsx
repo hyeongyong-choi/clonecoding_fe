@@ -15,7 +15,12 @@ import Button from "./elements/Button";
 import Modal from "./Modal";
 import ModalDetail from "./ModalDetail";
 import { useNavigate } from "react-router-dom";
-import { __postComments, __postLike } from "../redux/modules/InstaSlice";
+import {
+  __deleteInstaCard,
+  __getInstaList,
+  __postComments,
+  __postLike,
+} from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const InstaCard = ({ item }) => {
@@ -27,6 +32,7 @@ const InstaCard = ({ item }) => {
   const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
   const { like } = useSelector((state) => state.Insta);
+  const { error } = useSelector((state) => state.Insta);
   const dispatch = useDispatch();
   const mRef = useRef();
 
@@ -41,6 +47,12 @@ const InstaCard = ({ item }) => {
   };
   const handleImgError = (e) => {
     e.target.src = instagram;
+  };
+
+  const onClickDeleteHandler = (id) => {
+    // console.log("onClickDeleteHandler 동작");
+    dispatch(__deleteInstaCard(id));
+    setIsModal(!isModal);
   };
 
   const onClickAddLikeHandler = (id) => {
@@ -174,7 +186,14 @@ const InstaCard = ({ item }) => {
       </StFormDiv>
 
       {/* 모달창 */}
-      {isModal ? <Modal ref={mRef} onClick={onClickCancel} /> : null}
+      {isModal ? (
+        <Modal
+          item={item}
+          ref={mRef}
+          onClickCancel={onClickCancel}
+          onClickDelete={onClickDeleteHandler}
+        />
+      ) : null}
       {isModalDetail ? <ModalDetail item={item} /> : null}
     </StCard>
   );

@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 };
 
-const BASE_URL = '';
+const BASE_URL = "http://3.39.231.99:8080";
 
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
@@ -136,12 +136,14 @@ export const __deleteInstaCard = createAsyncThunk(
     try {
       const response = await axios({
         method: "delete",
-        url: `/api/articles/${payload}`,
+        url: `${BASE_URL}/api/articles/${payload}`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("mycookie")}`,
         },
       });
+      console.log("__deleteInstaCard payload", payload);
+      console.log("__deleteInstaCard response.data", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -233,9 +235,13 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__deleteInstaCard.fulfilled]: (state, { payload }) => {
+      console.log("extraReducers payload", payload);
+      // console.log("typeof(payload)", typeof payload);
       state.isLoading = false;
+      // if (typeof payload.msg == "string") {}
+      state.error = payload.msg;
       state.articles = state.articles.filter(
-        (val) => val.articleId !== payload
+        (val) => val.articlesId !== payload.articlesId
       );
     },
     [__deleteInstaCard.rejected]: (state, { payload }) => {
