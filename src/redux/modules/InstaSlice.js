@@ -12,7 +12,7 @@ const initialState = {
   error: null,
 };
 
-const BASE_URL = '';
+const BASE_URL = "http://3.39.231.99:8080";
 
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
@@ -52,7 +52,7 @@ export const __postImage = createAsyncThunk(
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          Authorization: getCookie('token'),
+          Authorization: getCookie("token"),
         },
       });
       console.log(payload);
@@ -66,7 +66,7 @@ export const __postImage = createAsyncThunk(
 
 export const __editImage = createAsyncThunk(
   "EDIT_IMAGE",
-  async(payload, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
       const response = await axios({
         method: "patch",
@@ -76,7 +76,7 @@ export const __editImage = createAsyncThunk(
           Authorization: `${getCookie("mycookie")}`,
         },
         data: payload,
-      })
+      });
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -197,15 +197,15 @@ export const __postComments = createAsyncThunk(
       console.log("__postComments payload", payload);
       const response = await axios({
         method: "post",
-        // url: `/api/articles/${("PAYLOAD", payload.articleId)}/comments`,
-        url: `http://localhost:3001/comments`,
+
+        url: `${BASE_URL}/api/articles/${payload.articlesId}/comments`,
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("token")}`,
         },
         data: { comment: payload.comment },
       });
-      console.log("response.data", response.data);
+      console.log("__postComments response.data", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
