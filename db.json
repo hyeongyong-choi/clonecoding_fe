@@ -7,7 +7,8 @@
       "likeCount": 521,
       "content": "내 셀카 사진1ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ",
       "createAt": "20분 전",
-      "commentcount": 15
+      "commentcount": 15,
+      "articlesId": 1
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "likeCount": 746,
       "content": "내 셀카 사진2 입니다. ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
       "createAt": "45분 전",
-      "commentcount": 45
+      "commentcount": 45,
+      "articlesId": 2
     },
     {
       "id": 3,
@@ -25,7 +27,8 @@
       "likeCount": 659,
       "content": "내 셀카 사진3ㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁㅁ",
       "createAt": "17분 전",
-      "commentcount": 78
+      "commentcount": 78,
+      "articlesId": 3
     }
   ],
   "like": [
