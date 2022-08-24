@@ -79,7 +79,7 @@ const handleSubmit = (e) => {
       //   window.location.reload();
       // })
     }else{
-      // console.log(value.indexOf('@'))
+      console.log(value.indexOf('@'))
       dispatch(__loginUser(Emailform))
       // .then(() => {
       //   navigate('/');

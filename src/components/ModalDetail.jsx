@@ -13,18 +13,26 @@ import DetailComment from "./DetailComment";
 import { useDispatch } from "react-redux";
 import { __postComment , __getInstaList} from "../redux/modules/InstaSlice";
 import instagram from "../assets/instagram2.jpg";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+SwiperCore.use([Navigation, Pagination]);
 
 const ModalDetail = ({item,ModalDetailHandler}) => {
   const dispatch = useDispatch();
   
   const [comments , setComments] = useState('')
+  const [commentBtn , setCommentBtn] = useState(true)
+
+  const imgimg = item.image
 
   const commentHandler = (e) =>{
     setComments(e.target.value)
   }
 
-  console.log(item)
-  
 
   const addCommentSubmit = () =>{
     const commentlist = {
@@ -32,11 +40,26 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
       comment :comments
     }
     dispatch(__postComment(commentlist))
-    // dispatch(__getInstaList())
+    dispatch(__getInstaList())
+  
   }
 
   const errorImg = (e) =>{
     e.target.src = instagram;
+  }
+
+  useEffect(()=>{
+    if(comments.trim() !== ''){
+      setCommentBtn(false)
+    }else{
+      setCommentBtn(true)
+    }
+
+  },[comments])
+    
+  const swiperStyle = {
+    width:"650px",
+    height:"100%",
   }
 
 
@@ -44,7 +67,35 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
         <ModalBg >
             <IoMdClose style={{ cursor: 'pointer', position:'fixed' ,right:'0px' ,color:'white' ,fontSize:'30px'}} onClick={ModalDetailHandler}/>
             <ModalContain>
+              
+              { Number(item.image.length) ===  1 ? (
+                <ImgContain>
                 <ModalImg src={item.image} onError={errorImg}></ModalImg>
+                </ImgContain>
+              ) : (
+                <ImgContain>
+                <Swiper
+                    style={swiperStyle}
+                    className="banner"
+                    spaceBetween={50}
+                    slidesPerView={1}
+                    navigation
+                    pagination={{ clickable: true }}
+
+                  >
+                    {item.image.map((img) => {
+                      return (
+                        <SwiperSlide key={img}>
+                           
+                          <ModalImg src={img} onError={errorImg}></ModalImg>
+                        
+                        </SwiperSlide>
+                      );
+                    })}
+                  </Swiper>
+                  </ImgContain>
+              )}
+                
                 <ModalCommentBox>
                     <ModalTitle>
                         <Titlebox>
@@ -61,9 +112,12 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
                     <ModalComment>
                             <Postboxme>
                                 <TitleImg />
-                            <PostText>{item.content}</PostText>
+                            <PostText><TextName>{item.userName}</TextName>{item.content}</PostText>
                             </Postboxme>
-                            <DetailComment></DetailComment>
+                            {item.commentList.map((item)=>(
+                              <DetailComment key={item.commentId} item={item}></DetailComment>
+                            ))}
+                            
                     </ModalComment>
                     <ModalIcon>
                         <Iconbox>
@@ -86,9 +140,9 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
                         <Text fontSize="8px" color="gray" >{item.createAt}</Text>
                     </TextboxLike>
                     <SubmitBox>
-                        <BsEmojiSmile size="24" style={{ marginLeft: "-5px" }} />
-                        <InputSubmit placeholder="댓글달기..." value={comments} onChange={commentHandler}></InputSubmit>
-                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff" onClick={addCommentSubmit}></Button>
+                        <BsEmojiSmile size="24" />
+                        <InputSubmit placeholder="댓글달기..." value={comments} onChange={commentHandler} ></InputSubmit>
+                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff" onClick={addCommentSubmit} disabled={commentBtn}></Button>
                     </SubmitBox>
                 </ModalCommentBox>
             </ModalContain>
@@ -106,7 +160,7 @@ const ModalBg = styled.div`
     right: 0;
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(1.5px);
-    z-index: 1;
+    z-index: 3;
     box-sizing:border-box;
 `
 const PrevButton = styled.button`
@@ -125,22 +179,30 @@ const ModalContain = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   max-height: 90%;
-  width: 1000px;
+  max-width: 1100px;
+  min-width: 1100px;
   height: 90%;
   /* padding: 10px; */
   /* background: rgb(25, 31, 44); */
   border-radius: 10px;
-  text-align: center;
+  text-align: start;
 `;
-const ModalImg = styled.img`
-  width: 50%;
-  height: 100%;
-  background-repeat: no-repeat;
+
+const ImgContain = styled.div`
+  width : 650px;
+  /* height: 500px; */
+  /* background-image: url(item.image);
+   background-repeat: no-repeat;
   background-size: cover;
-  background-position: center;
+  background-position: center; */
+`
+
+const ModalImg = styled.img`
+   width: 100%;
+  height: 100%; 
 `;
 const ModalCommentBox = styled.div`
-  width: 50%;
+  width: 450px;
   height: 100%;
   background-color: #fff;
 `;
@@ -178,6 +240,7 @@ const ModalComment = styled.div`
   width: 100%;
   height: 75%;
   padding: 14px;
+  overflow: scroll;
 `;
 const Postboxme = styled.div`
   display: flex;
@@ -187,9 +250,9 @@ const PostText = styled.div`
   background-color: inherit;
   margin-left: 15px;
   width: 85%;
-  height: 150px;
-  background: white;
-  font-size: 15px;
+  height: 80px;
+  /* background: white; */
+  font-size: 16px;
 `;
 
 const ModalIcon = styled.div`
@@ -207,17 +270,25 @@ const Icon = styled.div`
   cursor: pointer;
 `;
 const TextboxLike = styled.div`
+    width:100%;
     padding: 5px 0px 5px 15px;
     
 `
 const SubmitBox = styled.div`
  /* background-color: yellow; */
  border-top:1px solid rgba(var(--b6a,219,219,219),1);
+ display: flex;
  padding:10px;
  width:100%;
+ justify-content: space-between;
+ align-items: center;
 `
 const InputSubmit = styled.input`
-  width: 85%;
+  width: 80%;
   padding: 5px;
   border: none;
 `;
+const TextName = styled.span`
+    font-weight: bold;
+    margin-right:5px;
+`

@@ -79,6 +79,7 @@ export const __postImage = createAsyncThunk(
         },
         data: payload,
       });
+      console.log('payload', response.headers.Authorization)
       console.log("response", response.data);
       console.log("headers", response.headers);
       return thunkAPI.fulfillWithValue(response.data);

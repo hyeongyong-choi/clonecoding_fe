@@ -17,7 +17,7 @@ const InstaList = () => {
 
   useEffect(() => {
     dispatch(__getInstaList());
-  }, []);
+  }, [dispatch]);
 
   
   console.log("articles", articles);
