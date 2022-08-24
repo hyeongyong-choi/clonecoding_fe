@@ -28,7 +28,7 @@ const ModalForm = ({ ModalHandler }) => {
     // console.log(e.target.value);
   };
 
-  
+
 
 
 
@@ -70,7 +70,7 @@ const ModalForm = ({ ModalHandler }) => {
       new Blob([JSON.stringify(newForm)], { type: "application/json" })
     );
     dispatch(__postImage(formdata));
-    window.location.reload();
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -112,7 +112,7 @@ const ModalForm = ({ ModalHandler }) => {
                 <GetRootProps {...getRootProps({ className: "dropzone" })}>
                   <input
                     {...getInputProps()}
-                    // type='file'
+                  // type='file'
                   />
                   <StImgUpload>
                     <FormImg />

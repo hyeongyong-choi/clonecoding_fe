@@ -2,12 +2,18 @@ import React, { forwardRef, useRef } from "react";
 import styled from "styled-components";
 
 const Modal = forwardRef((props, ref) => {
+
+  const deleteHandler = () =>{
+    window.confirm('정말 삭제하시겠습니까?')
+    props.onClickDelete(props.item.articlesId)
+  }
+
   return (
     <div>
       <ModalBg>
         <ModalContainer ref={ref}>
           <StButton>수정</StButton>
-          <StButton onClick={() => props.onClickDelete(props.item.articlesId)}>
+          <StButton onClick={deleteHandler}>
             삭제
           </StButton>
           <StButton>신고</StButton>

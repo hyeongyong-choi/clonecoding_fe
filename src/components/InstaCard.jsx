@@ -110,6 +110,7 @@ const InstaCard = ({ item }) => {
       })
     );
     setValue("");
+    dispatch(__getInstaList())
   };
 
   const clickOutside = (e) => {
@@ -123,6 +124,8 @@ const InstaCard = ({ item }) => {
   };
 
   document.addEventListener("mousedown", clickOutside);
+
+  console.log(item)
 
   return (
     <StCard key={item.id}>
@@ -162,17 +165,18 @@ const InstaCard = ({ item }) => {
       <StSection>
         <StButtonDiv>
           {/* {like.filter((each) => each.articlesId === item.articlesId)} */}
-          {heart ? (
+          {!heart ? (
             <StHeartButton
               onClick={() => onClickAddLikeHandler(item.articlesId)}
             >
-              <BsHeartFill size="28" color="red" />
+              <BsHeart size="28" />
             </StHeartButton>
           ) : (
             <StHeartButton
               onClick={() => onClickAddLikeHandler(item.articlesId)}
             >
-              <BsHeart size="28" />
+              
+              <BsHeartFill size="28" color="red" />
             </StHeartButton>
           )}
           <StHeartButton onClick={() => console.log("버튼동작")}>
@@ -215,7 +219,7 @@ const InstaCard = ({ item }) => {
           )}
         </StUserContent>
         <div onClick={ModalDetailHandler}>
-          댓글 {item.commentcount}개 모두보기
+          댓글 {item.commentCount}개 모두보기
         </div>
         <div>{item.createAt}</div>
       </StContent>
