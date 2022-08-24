@@ -18,6 +18,7 @@ const ModalForm = ({ ModalHandler }) => {
   const navigate = useNavigate();
 
   const [content, setContent] = useState('');
+  const [postBtn, setPostBtn] = useState(true);
   const userName = getCookie('userName')
   const token = getCookie('token')
 
@@ -26,6 +27,10 @@ const ModalForm = ({ ModalHandler }) => {
     setContent(e.target.value);
     // console.log(e.target.value);
   };
+
+  
+
+
 
   const [files, setFiles] = useState([]);
   //Dropzone

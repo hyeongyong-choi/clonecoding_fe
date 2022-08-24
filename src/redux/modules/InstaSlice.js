@@ -45,7 +45,7 @@ export const __postComment = createAsyncThunk(
         url: `${BASE_URL}/api/articles/${payload.articlesId}/comments`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("token")}`,
+          Authorization: `Bearer ${getCookie("token")}`,
         },
         data: { comment: payload.comment },
       });
@@ -224,7 +224,7 @@ export const __postComments = createAsyncThunk(
         url: `${BASE_URL}/api/articles/${payload.articlesId}/comments`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("token")}`,
+          Authorization: `Bearer ${getCookie("token")}`,
         },
         data: { comment: payload.comment },
       });
