@@ -65,21 +65,23 @@ const Login = () => {
       password: password,
     };
     const Emailform = {
-      userName: userEmail,
-      password: password,
-    };
-    if (userId.indexOf("@") === -1) {
-      console.log(userId.indexOf("@"));
-      dispatch(__loginUser(Idform)).then(() => {
-        navigate("/");
-        window.location.reload();
-      });
-    } else {
-      console.log(value.indexOf("@"));
-      dispatch(__loginUser(Emailform)).then(() => {
-        navigate("/");
-        window.location.reload();
-      });
+      userName : userEmail ,
+      password : password
+    }
+    if(userId.indexOf('@') === -1){
+      console.log(userId.indexOf('@'))
+      dispatch(__loginUser(Idform))
+      .then(() => {
+        navigate('/');
+        
+      })
+    }else{
+      console.log(value.indexOf('@'))
+      dispatch(__loginUser(Emailform))
+      .then(() => {
+        navigate('/');
+        
+      })
     }
 
   };

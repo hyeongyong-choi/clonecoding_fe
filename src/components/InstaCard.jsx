@@ -51,7 +51,12 @@ const InstaCard = ({ item }) => {
   const [likeState, setLikeState] = useState();
   const { error } = useSelector((state) => state.Insta);
 
+  console.log(like)
+
   const [user, setUser] = useState("");
+
+
+  // console.log(item)
 
   // useEffect(() => {
   //   dispatch(__getComment(item.articlesId));
