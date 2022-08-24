@@ -4,7 +4,7 @@ import { getCookie, setCookie } from "../../shared/cookies.js";
 
 const initialState = {
   articles: [],
-  like: [],
+  like: [{ isArticlesLike: false }],
   article: {
     comments: [],
   },
@@ -79,7 +79,7 @@ export const __postImage = createAsyncThunk(
         },
         data: payload,
       });
-      console.log('payload', response.headers.Authorization)
+      console.log("payload", response.headers.Authorization);
       console.log("response", response.data);
       console.log("headers", response.headers);
       return thunkAPI.fulfillWithValue(response.data);
@@ -113,8 +113,6 @@ export const __postLike = createAsyncThunk(
   "postLike",
   async (payload, thunkAPI) => {
     try {
-      console.log("__postLike payload", payload);
-
       const response = await axios({
         method: "post",
 
@@ -123,11 +121,11 @@ export const __postLike = createAsyncThunk(
         // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("token")}`,
+          Authorization: `Bearer ${getCookie("token")}`,
         },
         data: payload,
       });
-      console.log("response", response.data);
+      console.log("__postLike response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -144,7 +142,7 @@ export const __postInstaCard = createAsyncThunk(
         url: `/api/articles`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("token")}`,
+          Authorization: ` ${getCookie("token")}`,
         },
         data: payload,
       });
@@ -184,7 +182,7 @@ export const __deleteInstaCard = createAsyncThunk(
         url: `${BASE_URL}/api/articles/${payload}`,
         headers: {
           "Content-Type": "application/json",
-          Authorization: `${getCookie("token")}`,
+          Authorization: `Bearer ${getCookie("token")}`,
         },
       });
       console.log("__deleteInstaCard payload", payload);

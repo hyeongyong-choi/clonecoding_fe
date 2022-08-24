@@ -2,10 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getCookie, removeCookie, setCookie } from "../../shared/cookies";
 
-
-
-const BASE_URL = 'http://3.39.231.99:8080';
-
+const BASE_URL = "http://3.39.231.99:8080";
 
 const config = {
   headers: {
@@ -14,6 +11,7 @@ const config = {
     userName: `${getCookie("userName")}`,
   },
 };
+
 
   export const __loginUser = createAsyncThunk(
     
@@ -27,6 +25,7 @@ const config = {
         console.log('userName' , data.data.userName)
         setCookie('token', `${data.data.token}`);
         setCookie('userName', `${data.data.userName}`);
+
 
       // setCookie('userId', data.data.userId);
       // setCookie('userEmail', data.data.userEmail);
