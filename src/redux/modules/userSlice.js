@@ -22,8 +22,8 @@ const config = {
       try {
         const data = await axios.post(`${BASE_URL}/api/login`, payload);
         console.log('data', data)
-        setCookie('token', data.data.token);
-        setCookie('userName', data.data.userName);
+        setCookie('token', `Bearer ${data.data.token}`);
+        setCookie('userName', `${data.data.userName}`);
 
         // setCookie('userId', data.data.userId);
         // setCookie('userEmail', data.data.userEmail);

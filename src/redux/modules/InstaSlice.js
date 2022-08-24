@@ -70,14 +70,17 @@ export const __postImage = createAsyncThunk(
       const response = await axios({
         method: "post",
         url: `${BASE_URL}/api/articles`,
-        data: payload,
         headers: {
-          "Content-Type": false,
+          "Content-Type": "multipart/form-data",
           responseType: "blob",
-          Authorization: `${getCookie("token")}`,
+          Authorization: `Bearer ${getCookie("token")}`,
+          // token: getCookie('token', `BEARER ${response.data.token}`),
+          // userName: setCookie('userName', `${response.data.userName}`)
         },
+        data: payload,
       });
       console.log("response", response.data);
+      console.log("headers", response.headers);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
