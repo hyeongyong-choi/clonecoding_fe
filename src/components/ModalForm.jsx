@@ -3,34 +3,34 @@ import styled from "styled-components";
 import AddPhoto from "../assets/img/AddPhoto.png";
 import Button from "./elements/Button";
 import Text from "./elements/Text";
-import { colors } from '../theme/theme';
-import Profile from '../assets/img/Profile.jpg';
-import { useNavigate } from 'react-router-dom';
-import { BiArrowBack } from 'react-icons/bi';
-import { IoMdClose } from 'react-icons/io';
-import { useDispatch } from 'react-redux';
-import { useDropzone } from 'react-dropzone';
-import { __postContent, __postImage } from '../redux/modules/InstaSlice';
-import { getCookie } from '../shared/cookies';
+import { colors } from "../theme/theme";
+import Profile from "../assets/img/Profile.jpg";
+import { useNavigate } from "react-router-dom";
+import { BiArrowBack } from "react-icons/bi";
+import { IoMdClose } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { useDropzone } from "react-dropzone";
+import { __postContent, __postImage } from "../redux/modules/InstaSlice";
+import { getCookie } from "../shared/cookies";
 
 const ModalForm = ({ ModalHandler, setIsModal }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [content, setContent] = useState('');
-  const username = getCookie('userName')
+  const [content, setContent] = useState("");
+  const username = getCookie("userName");
 
   const onChangeTextarea = (e) => {
     setContent(e.target.value);
     // console.log(e.target.value);
   };
-  
+
   const [files, setFiles] = useState([]);
   //Dropzone
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      'image/png': ['.png'],
-      'image/jpg': ['.jpg'],
-      'image/jpeg': ['.jpeg'],
+      "image/png": [".png"],
+      "image/jpg": [".jpg"],
+      "image/jpeg": [".jpeg"],
     },
     maxFiles: 4,
     onDrop: (acceptedFiles) => {
@@ -53,14 +53,14 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
       content: content,
     };
     files.map((image) => {
-      formdata.append('multipartFile', image);
+      formdata.append("multipartFile", image);
     });
     formdata.append(
-      'articlesDto',
-      new Blob([JSON.stringify(newForm)], { type: 'application/json' })
+      "articlesDto",
+      new Blob([JSON.stringify(newForm)], { type: "application/json" })
     );
     dispatch(__postImage(formdata));
-    window.location.reload();
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -69,7 +69,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
   }, []);
 
   useEffect(() => {
-    getCookie('token');
+    getCookie("token");
   }, []);
   return (
     <StForm>
@@ -77,20 +77,18 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
         onClick={ModalHandler}
         size={28}
         style={{
-          position: 'fixed',
-          top: '20px',
-          right: '40px',
-          cursor: 'pointer',
-          zIndex: '10',
+          position: "fixed",
+          top: "20px",
+          right: "40px",
+          cursor: "pointer",
+          zIndex: "10",
         }}
       />
       <FormModal>
         <FormHeader>
           <div />
-          <FormCreate>
-            새 게시물 만들기
-          </FormCreate>
-          <FormButton type='button' onClick={sendImageToServer}>
+          <FormCreate>새 게시물 만들기</FormCreate>
+          <FormButton type="button" onClick={sendImageToServer}>
             공유하기
           </FormButton>
         </FormHeader>
@@ -100,7 +98,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
           <FormLeft>
             <FormPhoto>
               <Section>
-                <GetRootProps {...getRootProps({ className: 'dropzone' })}>
+                <GetRootProps {...getRootProps({ className: "dropzone" })}>
                   <input
                     {...getInputProps()}
                     // type='file'
@@ -108,30 +106,30 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                   <StImgUpload>
                     <FormImg />
                     <p>사진과 동영상을 여기에 끌어다 놓으세요</p>
-                    <Button width='300px' text='컴퓨터에서 선택' />
+                    <Button width="300px" text="컴퓨터에서 선택" />
                   </StImgUpload>
                 </GetRootProps>
                 <StImgContainer>
                   {files.length !== 0 &&
                     files.map((file, index) => (
                       // console.log("file!!!!!!!", file)
-                      <div key={index} style={{ display: 'flex' }}>
+                      <div key={index} style={{ display: "flex" }}>
                         <div
                           style={{
-                            width: '150px',
-                            height: '150px',
-                            overflow: 'hidden',
+                            width: "150px",
+                            height: "150px",
+                            overflow: "hidden",
                           }}
                         >
                           <img
                             src={file.preview}
                             style={{
-                              width: '100%',
-                              height: '100%',
-                              backgroundSize: 'cover',
-                              display: 'flex',
-                              justifyContent: 'center',
-                              alignItems: 'center',
+                              width: "100%",
+                              height: "100%",
+                              backgroundSize: "cover",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             onLoad={() => {
                               URL.revokeObjectURL(file.preview);
@@ -151,13 +149,13 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
               <Titlebox>
                 <TitleImg />
                 <Textbox>
-                  <Text color='black' fontSize='14px'>
+                  <Text color="black" fontSize="14px">
                     {username}
                   </Text>
                 </Textbox>
               </Titlebox>
               <FormTextarea
-                placeholder='문구 입력...'
+                placeholder="문구 입력..."
                 onChange={onChangeTextarea}
                 maxLength={2200}
               />
