@@ -25,7 +25,7 @@ const config = {
         // console.log('data', data)
         console.log('token', data.data.token)
         console.log('userName' , data.data.userName)
-        setCookie('token', `BEARER ${data.data.token}`);
+        setCookie('token', `${data.data.token}`);
         setCookie('userName', `${data.data.userName}`);
 
       // setCookie('userId', data.data.userId);

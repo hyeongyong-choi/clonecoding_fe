@@ -6,9 +6,7 @@ import { __getMyFeed } from '../redux/modules/MyPageSlice';
 const MyCard = ({ image }) => {
   const dispatch = useDispatch();
   console.log(image)
-  useEffect(()=> {
-    dispatch(__getMyFeed());
-  })
+
   return (
     <StCardBox>
       <img src={image.image} alt='내 게시물 이미지' />

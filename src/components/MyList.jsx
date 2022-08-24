@@ -12,33 +12,14 @@ const MyList = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.user.user.headers.userName);
-  const imageList = useSelector((state) => state.myPage.articles)
-  console.log(user)
-  console.log(imageList)
-  const { isLoading } = useSelector((state) => state.myPage)
+  const myImageList = useSelector((state) => state.myPage.articles.imageList)
 
-  // const myImages = [
-  //   {
-  //     id: 1,
-  //     imgUrl:
-  //       'https://cdn.pixabay.com/photo/2016/11/21/00/47/view-1844110_960_720.jpg',
-  //   },
-  //   {
-  //     id: 2,
-  //     imgUrl:
-  //       'https://cdn.pixabay.com/photo/2014/03/30/09/44/cherry-blossoms-301253_960_720.jpg',
-  //   },
-  //   {
-  //     id: 3,
-  //     imgUrl:
-  //       'https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547_960_720.jpg',
-  //   },
-  //   {
-  //     id: 4,
-  //     imgUrl:
-  //       'https://cdn.pixabay.com/photo/2017/01/20/00/30/maldives-1993704_960_720.jpg',
-  //   },
-  // ];
+  console.log(user)
+  console.log(myImageList)
+
+  useEffect(()=> {
+    dispatch(__getMyFeed());
+  },[])
 
   return (
     <Container>
@@ -62,8 +43,8 @@ const MyList = () => {
         </Categories>
       </StCategory>
       <ProfileBottom>
-        {imageList.map((image) => (
-          <MyCard key={image.id} image={image.image[0]} />
+        {myImageList?.map((image) => (
+          <MyCard key={image.articlesId} image={image} />
         ))}
       </ProfileBottom>
     </Container>
