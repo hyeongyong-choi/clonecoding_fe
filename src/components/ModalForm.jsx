@@ -65,7 +65,7 @@ const ModalForm = ({ ModalHandler }) => {
       new Blob([JSON.stringify(newForm)], { type: "application/json" })
     );
     dispatch(__postImage(formdata));
-    // window.location.reload();
+    window.location.reload();
   };
 
   useEffect(() => {

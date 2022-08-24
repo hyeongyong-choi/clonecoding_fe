@@ -7,31 +7,32 @@ import { CgAddR } from "react-icons/cg";
 import { TiCompass } from "react-icons/ti";
 import { BiHeart } from "react-icons/bi";
 import { CgSearch } from "react-icons/cg";
-import { useNavigate } from "react-router-dom";
-import ModalForm from "./ModalForm";
-import Profile from "../assets/img/Profile.jpg";
-import { getCookie, removeCookie } from "../shared/cookies";
+import { MdOutlineLogout } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
+import ModalForm from './ModalForm';
+import Profile from '../assets/img/Profile.jpg';
+import { getCookie, removeCookie } from '../shared/cookies';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [isModal, setIsModal] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState('');
   const ModalHandler = () => {
     setIsModal(!isModal);
   };
   const logoClick = () => {
-    navigate("/");
+    navigate('/');
   };
 
   const ProfileClick = () => {
-    navigate("/mypage");
+    navigate('/mypage');
   };
 
   const onClickLogoutHandler = () => {
-    removeCookie("token");
-    removeCookie("userName");
-    alert("로그아웃 되었습니다");
-    navigate("/login");
+    removeCookie('token');
+    removeCookie('userName');
+    alert('로그아웃 되었습니다');
+    navigate('/login');
     window.location.reload();
   };
 
@@ -39,7 +40,7 @@ const NavBar = () => {
     <StNav>
       <StNavContainer>
         <StLogo onClick={logoClick}>
-          <img src={instagramLogo} alt="로고" style={{ width: "100px" }} />
+          <img src={instagramLogo} alt='로고' style={{ width: '100px' }} />
         </StLogo>
         <StSearch>
           <StSearchThings>
@@ -48,25 +49,31 @@ const NavBar = () => {
           </StSearchThings>
         </StSearch>
         <Icons>
-          <IconMdHomeFilled>
-            <MdHomeFilled size="28" />
+          <IconMdHomeFilled
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            <MdHomeFilled size='28' />
           </IconMdHomeFilled>
           <IconHiOutlinePaperAirplane>
-            <HiOutlinePaperAirplane size="25" />
+            <HiOutlinePaperAirplane size='25' />
           </IconHiOutlinePaperAirplane>
           <IconCgAddR onClick={ModalHandler}>
-            <CgAddR size="27" />
+            <CgAddR size='27' />
           </IconCgAddR>
           {isModal ? <ModalForm ModalHandler={ModalHandler} /> : null}
 
           <IconTiCompass>
-            <TiCompass size="32" />
+            <TiCompass size='32' />
           </IconTiCompass>
           <IconBiHeart>
-            <BiHeart size="26" />
+            <BiHeart size='26' />
           </IconBiHeart>
+          <IconMdOutlineLogout onClick={onClickLogoutHandler}>
+            <MdOutlineLogout size='26' />
+          </IconMdOutlineLogout>
           <ProfileImg onClick={ProfileClick} />
-          <OutButton onClick={onClickLogoutHandler}>로그아웃</OutButton>
         </Icons>
       </StNavContainer>
     </StNav>
@@ -168,6 +175,14 @@ const IconTiCompass = styled.div`
   cursor: pointer;
 `;
 const IconBiHeart = styled.div`
+  display: block;
+  position: relative;
+  margin-left: 24px;
+  color: #000000;
+  cursor: pointer;
+`;
+
+const IconMdOutlineLogout = styled.div`
   display: block;
   position: relative;
   margin-left: 24px;

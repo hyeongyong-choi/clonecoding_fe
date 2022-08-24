@@ -64,89 +64,114 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
 
 
     return (
-        <ModalBg >
-            <IoMdClose style={{ cursor: 'pointer', position:'fixed' ,right:'0px' ,color:'white' ,fontSize:'30px'}} onClick={ModalDetailHandler}/>
-            <ModalContain>
-              
-              { Number(item.image.length) ===  1 ? (
-                <ImgContain>
-                <ModalImg src={item.image} onError={errorImg}></ModalImg>
-                </ImgContain>
-              ) : (
-                <ImgContain>
-                <Swiper
-                    style={swiperStyle}
-                    className="banner"
-                    spaceBetween={50}
-                    slidesPerView={1}
-                    navigation
-                    pagination={{ clickable: true }}
+      <ModalBg>
+        <IoMdClose
+          style={{
+            cursor: 'pointer',
+            position: 'fixed',
+            right: '0px',
+            color: 'white',
+            fontSize: '30px',
+          }}
+          onClick={ModalDetailHandler}
+        />
+        <ModalContain>
+          {Number(item.image.length) === 1 ? (
+            <ImgContain>
+              <ModalImg src={item.image} onError={errorImg}></ModalImg>
+            </ImgContain>
+          ) : (
+            <ImgContain>
+              <Swiper
+                style={swiperStyle}
+                className='banner'
+                spaceBetween={50}
+                slidesPerView={1}
+                navigation
+                pagination={{ clickable: true }}
+              >
+                {item.image.map((img) => {
+                  return (
+                    <SwiperSlide key={img}>
+                      <ModalImg src={img} onError={errorImg}></ModalImg>
+                    </SwiperSlide>
+                  );
+                })}
+              </Swiper>
+            </ImgContain>
+          )}
 
-                  >
-                    {item.image.map((img) => {
-                      return (
-                        <SwiperSlide key={img}>
-                           
-                          <ModalImg src={img} onError={errorImg}></ModalImg>
-                        
-                        </SwiperSlide>
-                      );
-                    })}
-                  </Swiper>
-                  </ImgContain>
-              )}
-                
-                <ModalCommentBox>
-                    <ModalTitle>
-                        <Titlebox>
-                            <TitleImg />
-                            <Textbox>
-                                <Text color="black" fontSize="14px">{item.userName}</Text>
-                                <Text color="black" fontSize="12px">파일형태</Text>
-                            </Textbox>
-                        </Titlebox>
-                        <ModalMenu>
-                            <FiMoreHorizontal />
-                        </ModalMenu>
-                    </ModalTitle>
-                    <ModalComment>
-                            <Postboxme>
-                                <TitleImg />
-                            <PostText><TextName>{item.userName}</TextName>{item.content}</PostText>
-                            </Postboxme>
-                            {item.commentList.map((item)=>(
-                              <DetailComment key={item.commentId} item={item}></DetailComment>
-                            ))}
-                            
-                    </ModalComment>
-                    <ModalIcon>
-                        <Iconbox>
-                            <Icon>
-                                <BsHeart size="22" />
-                            </Icon>
-                            <Icon>
-                                <BiMessageRounded size="25" />
-                            </Icon>
-                            <Icon>
-                                <HiOutlinePaperAirplane size="25" />
-                            </Icon>
-                            <Icon style={{ marginLeft: 'auto' }}>
-                                <BsBookmark size="22"></BsBookmark>
-                            </Icon>
-                        </Iconbox>
-                    </ModalIcon>
-                    <TextboxLike>
-                        <Text fontSize="15px" color="black" fontWeight="bold">좋아요 {item.likeCount}개</Text>
-                        <Text fontSize="8px" color="gray" >{item.createAt}</Text>
-                    </TextboxLike>
-                    <SubmitBox>
-                        <BsEmojiSmile size="24" />
-                        <InputSubmit placeholder="댓글달기..." value={comments} onChange={commentHandler} ></InputSubmit>
-                        <Button text="게시" fontcolor='#0d6efd' bgcolor="#fff" onClick={addCommentSubmit} disabled={commentBtn}></Button>
-                    </SubmitBox>
-                </ModalCommentBox>
-            </ModalContain>
-        </ModalBg>
+          <ModalCommentBox>
+            <ModalTitle>
+              <Titlebox>
+                <TitleImg />
+                <Textbox>
+                  <Text color='black' fontSize='14px'>
+                    {item.userName}
+                  </Text>
+                  <Text color='black' fontSize='12px'>
+                    파일형태
+                  </Text>
+                </Textbox>
+              </Titlebox>
+              <ModalMenu>
+                <FiMoreHorizontal />
+              </ModalMenu>
+            </ModalTitle>
+            <ModalComment>
+              <Postboxme>
+                <TitleImg />
+                <PostText>
+                  <TextName>{item.userName}</TextName>
+                  {item.content}
+                </PostText>
+              </Postboxme>
+              {item.commentList.map((item) => (
+                <DetailComment key={item.commentId} item={item}></DetailComment>
+              ))}
+            </ModalComment>
+            <ModalIcon>
+              <Iconbox>
+                <Icon>
+                  <BsHeart size='22' />
+                </Icon>
+                <Icon>
+                  <BiMessageRounded size='25' />
+                </Icon>
+                <Icon>
+                  <HiOutlinePaperAirplane size='25' />
+                </Icon>
+                <Icon style={{ marginLeft: 'auto' }}>
+                  <BsBookmark size='22'></BsBookmark>
+                </Icon>
+              </Iconbox>
+            </ModalIcon>
+            <TextboxLike>
+              <Text fontSize='15px' color='black' fontWeight='bold'>
+                좋아요 {item.likeCount}개
+              </Text>
+              <Text fontSize='8px' color='gray'>
+                {item.createAt}
+              </Text>
+            </TextboxLike>
+            <SubmitBox>
+              <BsEmojiSmile size='24' />
+              <InputSubmit
+                placeholder='댓글달기...'
+                value={comments}
+                onChange={commentHandler}
+              ></InputSubmit>
+              <Button
+                text='게시'
+                fontcolor='#0d6efd'
+                bgcolor='#fff'
+                onClick={addCommentSubmit}
+                disabled={commentBtn}
+              ></Button>
+            </SubmitBox>
+          </ModalCommentBox>
+        </ModalContain>
+      </ModalBg>
     );
 };
 
@@ -179,7 +204,7 @@ const ModalContain = styled.div`
   top: 50%;
   transform: translate(-50%, -50%);
   max-height: 90%;
-  max-width: 1100px;
+  /* max-width: 1100px; */
   min-width: 1100px;
   height: 90%;
   /* padding: 10px; */
@@ -189,17 +214,18 @@ const ModalContain = styled.div`
 `;
 
 const ImgContain = styled.div`
-  width : 650px;
+  width: 650px;
   /* height: 500px; */
   /* background-image: url(item.image);
    background-repeat: no-repeat;
   background-size: cover;
   background-position: center; */
-`
+`;
 
 const ModalImg = styled.img`
-   width: 100%;
-  height: 100%; 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 const ModalCommentBox = styled.div`
   width: 450px;

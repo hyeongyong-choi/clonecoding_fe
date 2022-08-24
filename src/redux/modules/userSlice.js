@@ -12,17 +12,20 @@ const config = {
   },
 };
 
-export const __loginUser = createAsyncThunk(
-  "LOGIN_USER",
-  async (payload, thunkAPI) => {
-    console.log(payload);
-    try {
-      const data = await axios.post(`${BASE_URL}/api/login`, payload);
-      // console.log('data', data)
-      console.log("token", data.data.token);
-      console.log("userName", data.data.userName);
-      setCookie("token", `${data.data.token}`);
-      setCookie("userName", `${data.data.userName}`);
+
+  export const __loginUser = createAsyncThunk(
+    
+    'LOGIN_USER',
+    async (payload, thunkAPI) => {
+      console.log(payload)
+      try {
+        const data = await axios.post(`${BASE_URL}/api/login`, payload);
+        // console.log('data', data)
+        console.log('token', data.data.token)
+        console.log('userName' , data.data.userName)
+        setCookie('token', `${data.data.token}`);
+        setCookie('userName', `${data.data.userName}`);
+
 
       // setCookie('userId', data.data.userId);
       // setCookie('userEmail', data.data.userEmail);

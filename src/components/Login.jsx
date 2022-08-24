@@ -81,6 +81,7 @@ const Login = () => {
         window.location.reload();
       });
     }
+
   };
 
   useEffect(() => {
@@ -92,6 +93,7 @@ const Login = () => {
       setLoginBtn(false);
     } else {
       setLoginBtn(true);
+
     }
     // console.log('error' , error)
     if (error === null && !isLogin) {
