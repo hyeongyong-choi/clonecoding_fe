@@ -13,11 +13,12 @@ import { useDropzone } from 'react-dropzone';
 import { __postContent, __postImage } from '../redux/modules/InstaSlice';
 import { getCookie } from '../shared/cookies';
 
-const ModalForm = ({ ModalHandler, setIsModal }) => {
+const ModalForm = ({ ModalHandler }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState('');
-  const username = getCookie('userName')
+  const userName = getCookie('userName')
+  const token = getCookie('token')
 
   const onChangeTextarea = (e) => {
     setContent(e.target.value);
@@ -45,12 +46,14 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
     },
   });
 
+
   const formdata = new FormData();
 
   //공유하기
-  const sendImageToServer = (e) => {
+  const sendImageToServer = () => {
     const newForm = {
       content: content,
+      userName: userName,
     };
     files.map((image) => {
       formdata.append('multipartFile', image);
@@ -60,7 +63,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
       new Blob([JSON.stringify(newForm)], { type: 'application/json' })
     );
     dispatch(__postImage(formdata));
-    window.location.reload();
+    // window.location.reload();
   };
 
   useEffect(() => {
@@ -71,6 +74,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
   useEffect(() => {
     getCookie('token');
   }, []);
+
   return (
     <StForm>
       <IoMdClose
@@ -152,7 +156,7 @@ const ModalForm = ({ ModalHandler, setIsModal }) => {
                 <TitleImg />
                 <Textbox>
                   <Text color='black' fontSize='14px'>
-                    {username}
+                    {userName}
                   </Text>
                 </Textbox>
               </Titlebox>
@@ -297,7 +301,7 @@ const StImgContainer = styled.div`
   scrollbar-width: none;
   /* border: 1px solid red; */
   > div {
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
   }
 `;
 

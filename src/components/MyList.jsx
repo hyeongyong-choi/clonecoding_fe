@@ -11,8 +11,11 @@ import { __getMyFeed } from '../redux/modules/MyPageSlice';
 const MyList = () => {
   const dispatch = useDispatch();
 
-  const myImages = useSelector((state) => state.myPage.articles)
-  console.log(myImages)
+  const user = useSelector((state) => state.user.user.headers.userName);
+  const imageList = useSelector((state) => state.myPage.articles)
+  console.log(user)
+  console.log(imageList)
+  const { isLoading } = useSelector((state) => state.myPage)
 
   // const myImages = [
   //   {
@@ -59,8 +62,8 @@ const MyList = () => {
         </Categories>
       </StCategory>
       <ProfileBottom>
-        {myImages.map((myImg) => (
-          <MyCard key={myImg.id} myImg={myImg} />
+        {imageList.map((image) => (
+          <MyCard key={image.id} image={image.image[0]} />
         ))}
       </ProfileBottom>
     </Container>
