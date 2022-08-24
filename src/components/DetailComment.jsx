@@ -1,9 +1,15 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Profile from "../assets/img/Profile.jpg"
 import Text from './elements/Text';
 
-const DetailComment = () => {
+
+const DetailComment = ({item}) => {
+   
+
+    
+
     return (
         <>
             <TitleBox>
@@ -12,23 +18,12 @@ const DetailComment = () => {
                 </ImgBox>
                 <TextBox>
                     <TextComment>
-                    <TextContent><TextName>사용자명</TextName>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur eaque porro quidem quisquam libero iure praesentium distinctio quod qui, corporis deleniti nesciunt aliquam deserunt maiores. Recusandae officia aliquid sunt iusto!</TextContent>
+                    <TextContent><TextName>{item.userName}</TextName>{item.comment}</TextContent>
                     </TextComment>
-                    <Text margin="-10px 0 0 0"><span>시간</span>    <span>좋아요</span></Text>
+                    <Text margin="-10px 0 0 0"><span style={{fontSize : "12px"}}>{item.createdAt}</span>  </Text>
                 </TextBox>
             </TitleBox>
 
-            <TitleBox>
-                <ImgBox>
-                    <TitleImg />
-                </ImgBox>
-                <TextBox>
-                    <TextComment>
-                    <TextContent><TextName>사용자명</TextName>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequatur eaque porro quidem quisquam libero iure praesentium distinctio quod qui, corporis deleniti nesciunt aliquam deserunt maiores. Recusandae officia aliquid sunt iusto!</TextContent>
-                    </TextComment>
-                    <Text margin="-10px 0 0 0"><span>시간</span>    <span>좋아요</span></Text>
-                </TextBox>
-            </TitleBox>
         </>
     );
 };
@@ -71,4 +66,5 @@ const TextName = styled.span`
 const TextContent = styled.p`
     text-align: start;
     width:100%;
+    font-size: 14px;
 `
