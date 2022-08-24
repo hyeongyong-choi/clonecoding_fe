@@ -1,22 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import styled from 'styled-components';
-import instagramLogo from '../assets/img/instagramLogo.png';
-import { MdHomeFilled } from 'react-icons/md';
-import { HiOutlinePaperAirplane } from 'react-icons/hi';
-import { CgAddR } from 'react-icons/cg';
-import { TiCompass } from 'react-icons/ti';
-import { BiHeart } from 'react-icons/bi';
-import { CgSearch } from 'react-icons/cg';
-import { useNavigate } from 'react-router-dom';
-import ModalForm from './ModalForm';
-import Profile from '../assets/img/Profile.jpg'
-import { getCookie, removeCookie } from '../shared/cookies';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import instagramLogo from "../assets/img/instagramLogo.png";
+import { MdHomeFilled } from "react-icons/md";
+import { HiOutlinePaperAirplane } from "react-icons/hi";
+import { CgAddR } from "react-icons/cg";
+import { TiCompass } from "react-icons/ti";
+import { BiHeart } from "react-icons/bi";
+import { CgSearch } from "react-icons/cg";
+import { useNavigate } from "react-router-dom";
+import ModalForm from "./ModalForm";
+import Profile from "../assets/img/Profile.jpg";
+import { getCookie, removeCookie } from "../shared/cookies";
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const [isModal , setIsModal] = useState(false)
-  const [user , setUser] = useState('')
-  const ModalHandler = () =>{
+  const [isModal, setIsModal] = useState(false);
+  const [user, setUser] = useState("");
+  const ModalHandler = () => {
     setIsModal(!isModal);
   };
   const logoClick = () => {
@@ -24,18 +24,16 @@ const NavBar = () => {
   };
 
   const ProfileClick = () => {
-    navigate('/mypage')
-  }
+    navigate("/mypage");
+  };
 
-  const onClickLogoutHandler = () =>{
-    removeCookie('token');
-    removeCookie('userName');
-    alert('로그아웃 되었습니다');
-    navigate('/login');
-    window.location.reload()
-  }
-
-
+  const onClickLogoutHandler = () => {
+    removeCookie("token");
+    removeCookie("userName");
+    alert("로그아웃 되었습니다");
+    navigate("/login");
+    window.location.reload();
+  };
 
   return (
     <StNav>
@@ -67,7 +65,7 @@ const NavBar = () => {
           <IconBiHeart>
             <BiHeart size="26" />
           </IconBiHeart>
-          <ProfileImg onClick={ProfileClick}/>
+          <ProfileImg onClick={ProfileClick} />
           <OutButton onClick={onClickLogoutHandler}>로그아웃</OutButton>
         </Icons>
       </StNavContainer>
@@ -100,7 +98,7 @@ const StNavContainer = styled.div`
   flex-direction: row;
   flex-shrink: 0;
   width: 100%;
-  z-index: 0;
+  z-index: 1;
   max-width: 975px;
   justify-content: space-between;
 `;
@@ -189,7 +187,7 @@ const ProfileImg = styled.div`
 
 const OutButton = styled.button`
   background-color: white;
-  border:none;
+  border: none;
   margin-left: 10px;
   font-size: 14px;
-`
+`;

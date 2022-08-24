@@ -15,6 +15,7 @@ import Button from "./elements/Button";
 import Modal from "./Modal";
 import ModalDetail from "./ModalDetail";
 import { useNavigate } from "react-router-dom";
+import { getCookie, setCookie } from "../shared/cookies";
 import {
   __deleteInstaCard,
   __getInstaList,
@@ -26,9 +27,11 @@ import { __getComment } from "../redux/modules/InstaSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
+// import "swiper/css/bundle";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+
 SwiperCore.use([Navigation, Pagination]);
 
 const InstaCard = ({ item }) => {
@@ -44,15 +47,14 @@ const InstaCard = ({ item }) => {
   const { like } = useSelector((state) => state.Insta);
   const { error } = useSelector((state) => state.Insta);
 
+  const [user, setUser] = useState("");
+
+
   console.log(item)
 
   // useEffect(() => {
   //   dispatch(__getComment(item.articlesId));
   // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(__getComment(item.articlesId));
-  // }, []);
 
   const ModalHandler = () => {
     setIsModal(!isModal);
@@ -68,7 +70,6 @@ const InstaCard = ({ item }) => {
   };
 
   const onClickDeleteHandler = (id) => {
-    // console.log("onClickDeleteHandler 동작");
     dispatch(__deleteInstaCard(id));
     setIsModal(!isModal);
   };
@@ -116,6 +117,7 @@ const InstaCard = ({ item }) => {
       <StHead>
         <StHeadUser>
           <StHeadImage src={item.image} onError={handleImgError}></StHeadImage>
+          {/* <div>{item.userName}</div> */}
           <div>{item.userName}</div>
         </StHeadUser>
         <StFiMoreHorizontal>
@@ -127,6 +129,7 @@ const InstaCard = ({ item }) => {
         <StBodyImage src={item.image} onError={handleImgError}></StBodyImage>
       ) : (
         <Swiper
+          // modules={[Navigation, Pagination, Scrollbar, A11y]}
           className="banner"
           spaceBetween={50}
           slidesPerView={1}
