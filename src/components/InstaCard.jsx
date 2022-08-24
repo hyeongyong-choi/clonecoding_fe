@@ -44,13 +44,13 @@ const InstaCard = ({ item }) => {
   const [value, setValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
+  console.log("articles", articles);
   const { like } = useSelector((state) => state.Insta);
+  // console.log(like);
+  const [likeState, setLikeState] = useState();
   const { error } = useSelector((state) => state.Insta);
 
   const [user, setUser] = useState("");
-
-
-  console.log(item)
 
   // useEffect(() => {
   //   dispatch(__getComment(item.articlesId));
@@ -81,8 +81,14 @@ const InstaCard = ({ item }) => {
         articlesId: id,
       })
     );
+    // const secondLike = like.filter((each) => each.articlesId === id);
+    // console.log(secondLike);
     setHeart(!heart);
+    dispatch(__getInstaList());
   };
+
+  // const secondLike = like.filter((each) => each.articlesId === item.articlesId);
+  // console.log("secondLike", secondLike);
 
   const onChangeCommentHandler = (e) => {
     setValue(e.target.value.substr(0, 100));
@@ -149,12 +155,17 @@ const InstaCard = ({ item }) => {
       {/* <StBodyImage src={item.image} onError={handleImgError}></StBodyImage> */}
       <StSection>
         <StButtonDiv>
+          {/* {like.filter((each) => each.articlesId === item.articlesId)} */}
           {heart ? (
-            <StHeartButton onClick={() => onClickAddLikeHandler(item.id)}>
+            <StHeartButton
+              onClick={() => onClickAddLikeHandler(item.articlesId)}
+            >
               <BsHeartFill size="28" color="red" />
             </StHeartButton>
           ) : (
-            <StHeartButton onClick={() => onClickAddLikeHandler(item.id)}>
+            <StHeartButton
+              onClick={() => onClickAddLikeHandler(item.articlesId)}
+            >
               <BsHeart size="28" />
             </StHeartButton>
           )}
