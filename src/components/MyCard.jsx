@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { __getMyFeed } from '../redux/modules/MyPageSlice';
 
-const MyCard = ({ myImg }) => {
+const MyCard = ({ image }) => {
   const dispatch = useDispatch();
-  console.log(myImg)
+  console.log(image)
   useEffect(()=> {
     dispatch(__getMyFeed());
   })
   return (
     <StCardBox>
-      <img src={myImg} alt='내 게시물 이미지' />
+      <img src={image.image} alt='내 게시물 이미지' />
     </StCardBox>
   );
 };

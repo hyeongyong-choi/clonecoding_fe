@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 const Register = () => {
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,6 +69,7 @@ const Register = () => {
       } else {
         setIsEmail(false);
       }
+
     }
     setInputValue((prev) => {
       return {
