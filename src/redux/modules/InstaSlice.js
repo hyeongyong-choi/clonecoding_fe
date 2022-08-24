@@ -6,13 +6,13 @@ const initialState = {
   articles: [],
   like: [],
   article: {
-    comments:[]
+    comments: [],
   },
   isLoading: false,
   error: null,
 };
 
-const BASE_URL = "";
+const BASE_URL = "http://3.39.231.99:8080";
 
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
@@ -34,12 +34,11 @@ export const __getInstaList = createAsyncThunk(
   }
 );
 
-
 //Comment Post
 export const __postComment = createAsyncThunk(
   "PostInstaComment",
   async (payload, thunkAPI) => {
-    console.log("__PostComment 동작" , payload);
+    console.log("__PostComment 동작", payload);
     try {
       const response = await axios({
         method: "Post",
@@ -50,11 +49,11 @@ export const __postComment = createAsyncThunk(
         },
         data: { comment: payload.comment },
       });
-      console.log(payload)
+      console.log(payload);
       console.log(response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
-      console.log('error' , error)
+      console.log("error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -253,7 +252,6 @@ export const InstaSlice = createSlice({
       state.error = payload;
     },
 
-
     //Post
     [__postComment.pending]: (state) => {
       state.isLoading = true;
@@ -266,7 +264,6 @@ export const InstaSlice = createSlice({
       state.isLoading = false;
       state.error = payload.response.data.error;
     },
-
 
     [__postInstaCard.pending]: (state) => {
       state.isLoading = true;

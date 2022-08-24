@@ -23,6 +23,13 @@ import {
 } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { __getComment } from "../redux/modules/InstaSlice";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+SwiperCore.use([Navigation, Pagination]);
 
 const InstaCard = ({ item }) => {
   const dispatch = useDispatch();
@@ -37,8 +44,6 @@ const InstaCard = ({ item }) => {
   const { like } = useSelector((state) => state.Insta);
   const { error } = useSelector((state) => state.Insta);
 
-  
-
   // console.log(item)
 
   // useEffect(() => {
@@ -49,14 +54,11 @@ const InstaCard = ({ item }) => {
   //   dispatch(__getComment(item.articlesId));
   // }, []);
 
-
-
   const ModalHandler = () => {
     setIsModal(!isModal);
   };
   const ModalDetailHandler = () => {
     setIsModalDetail(!isModalDetail);
-    
   };
   const onClickMoreViewHandler = () => {
     setMoreView(!moreView);
@@ -120,7 +122,28 @@ const InstaCard = ({ item }) => {
           <FiMoreHorizontal onClick={ModalHandler} />
         </StFiMoreHorizontal>
       </StHead>
-      <StBodyImage src={item.image} onError={handleImgError}></StBodyImage>
+
+      {item.image.length == 0 ? (
+        <StBodyImage src={item.image} onError={handleImgError}></StBodyImage>
+      ) : (
+        <Swiper
+          className="banner"
+          spaceBetween={50}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+        >
+          {item.image.map((img) => {
+            return (
+              <SwiperSlide key={img}>
+                <StBodyImage src={img} onError={handleImgError}></StBodyImage>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      )}
+
+      {/* <StBodyImage src={item.image} onError={handleImgError}></StBodyImage> */}
       <StSection>
         <StButtonDiv>
           {heart ? (
@@ -211,8 +234,9 @@ const InstaCard = ({ item }) => {
         />
       ) : null}
 
-      {isModalDetail ? <ModalDetail item={item} ModalDetailHandler={ModalDetailHandler} /> : null}
-
+      {isModalDetail ? (
+        <ModalDetail item={item} ModalDetailHandler={ModalDetailHandler} />
+      ) : null}
     </StCard>
   );
 };
