@@ -4,7 +4,7 @@ import { getCookie, setCookie } from "../../shared/cookies.js";
 
 
 
-const BASE_URL = '';
+const BASE_URL = 'http://3.39.231.99:8080';
 
 export const __getMyFeed = createAsyncThunk(
   "GET_MY_FEED",
