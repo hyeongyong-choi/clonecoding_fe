@@ -27,7 +27,7 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
   const [comments , setComments] = useState('')
   const [commentBtn , setCommentBtn] = useState(true)
 
-  const imgimg = item.image
+  
 
   const commentHandler = (e) =>{
     setComments(e.target.value)
@@ -109,9 +109,7 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
                   <Text color='black' fontSize='14px'>
                     {item.userName}
                   </Text>
-                  <Text color='black' fontSize='12px'>
-                    파일형태
-                  </Text>
+                 
                 </Textbox>
               </Titlebox>
               <ModalMenu>
@@ -242,6 +240,7 @@ const ModalTitle = styled.div`
 const Titlebox = styled.div`
   display: flex;
   width: 90%;
+  align-items: center;
 `;
 const TitleImg = styled.div`
   width: 35px;
@@ -252,7 +251,7 @@ const TitleImg = styled.div`
   background-size: cover;
 `;
 const Textbox = styled.div`
-  margin: 3px 0px 0px 10px;
+  margin-left : 10px;
 `;
 const ModalMenu = styled.div`
   width: 10%;

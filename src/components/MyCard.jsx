@@ -1,15 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { __getMyFeed } from '../redux/modules/MyPageSlice';
+import ModalDetail from './ModalDetail';
 
 const MyCard = ({ image }) => {
   const dispatch = useDispatch();
-  console.log(image)
+  const [isModal, setIsModal] = useState(false);
+  console.log(image.articlesId)
+
+
+  const ModalHandler = () => {
+    setIsModal(!isModal);
+  };
 
   return (
     <StCardBox>
-      <img src={image.image} alt='내 게시물 이미지' />
+      <img src={image.image} onClick={ModalHandler}alt='내 게시물 이미지' />
+
+      {/* {isModal ? <ModalDetail ModalHandler={ModalHandler} /> : null} */}
+      
     </StCardBox>
   );
 };

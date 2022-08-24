@@ -33,6 +33,8 @@ export default DetailComment;
 const TitleBox = styled.div`
     display: flex;
     width:95%;
+    margin: 10px 0;
+    align-items: center;
 `
 
 const ImgBox = styled.div`
