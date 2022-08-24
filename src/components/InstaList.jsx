@@ -3,7 +3,7 @@ import InstaCard from "./InstaCard";
 import styled from "styled-components";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getInstaList } from "../redux/modules/InstaSlice";
+import { __getInstaList ,__getComment} from "../redux/modules/InstaSlice";
 
 const InstaList = () => {
   const { articles } = useSelector((state) => state.Insta);
@@ -13,11 +13,13 @@ const InstaList = () => {
   const ModalHandler = () => {
     setIsModal(!isModal);
   };
+  
 
   useEffect(() => {
     dispatch(__getInstaList());
   }, []);
 
+  
   console.log("articles", articles);
   console.log("error", error);
 

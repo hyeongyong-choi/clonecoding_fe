@@ -17,13 +17,10 @@ const BASE_URL = "http://3.39.231.99:8080";
 export const __getInstaList = createAsyncThunk(
   "getInstaList",
   async (payload, thunkAPI) => {
-    console.log("__getInstaList 동작");
     try {
       const response = await axios({
         method: "get",
-
         url: `${BASE_URL}/api/articles`,
-
         headers: {
           "Content-Type": "application/json",
           Authorization: `${getCookie("token")}`,
@@ -32,6 +29,31 @@ export const __getInstaList = createAsyncThunk(
       console.log(response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+//Comment Post
+export const __postComment = createAsyncThunk(
+  "PostInstaComment",
+  async (payload, thunkAPI) => {
+    console.log("__PostComment 동작", payload);
+    try {
+      const response = await axios({
+        method: "Post",
+        url: `${BASE_URL}/api/articles/${payload.articlesId}/comments`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `${getCookie("token")}`,
+        },
+        data: { comment: payload.comment },
+      });
+      console.log(payload);
+      console.log(response.data);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      console.log("error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -52,10 +74,9 @@ export const __postImage = createAsyncThunk(
         headers: {
           "Content-Type": false,
           responseType: "blob",
-          Authorization: getCookie("token"),
+          Authorization: `${getCookie("token")}`,
         },
       });
-      console.log(payload);
       console.log("response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
@@ -230,6 +251,20 @@ export const InstaSlice = createSlice({
       state.isLoading = false;
       state.error = payload;
     },
+
+    //Post
+    [__postComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__postComment.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.article.comments.unshift(payload);
+    },
+    [__postComment.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload.response.data.error;
+    },
+
     [__postInstaCard.pending]: (state) => {
       state.isLoading = true;
     },

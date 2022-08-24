@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { __getMyFeed } from '../redux/modules/MyPageSlice';
 
 const MyCard = ({ myImg }) => {
+  const dispatch = useDispatch();
+  console.log(myImg)
+  useEffect(()=> {
+    dispatch(__getMyFeed());
+  })
   return (
     <StCardBox>
-      <img src={myImg.imgUrl} alt='내 게시물 이미지' />
+      <img src={myImg} alt='내 게시물 이미지' />
     </StCardBox>
   );
 };

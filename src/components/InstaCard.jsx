@@ -22,6 +22,7 @@ import {
   __postLike,
 } from "../redux/modules/InstaSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { __getComment } from "../redux/modules/InstaSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import "swiper/css";
@@ -31,6 +32,8 @@ import "swiper/css/scrollbar";
 SwiperCore.use([Navigation, Pagination]);
 
 const InstaCard = ({ item }) => {
+  const dispatch = useDispatch();
+  const mRef = useRef();
   const [isModal, setIsModal] = useState(false);
   const [isModalDetail, setIsModalDetail] = useState(false);
   const [heart, setHeart] = useState(false);
@@ -40,9 +43,16 @@ const InstaCard = ({ item }) => {
   const { articles } = useSelector((state) => state.Insta);
   const { like } = useSelector((state) => state.Insta);
   const { error } = useSelector((state) => state.Insta);
-  const user = useSelector((state) => state.user.user.headers);
-  const dispatch = useDispatch();
-  const mRef = useRef();
+
+  // console.log(item)
+
+  // useEffect(() => {
+  //   dispatch(__getComment(item.articlesId));
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(__getComment(item.articlesId));
+  // }, []);
 
   const ModalHandler = () => {
     setIsModal(!isModal);
@@ -223,6 +233,7 @@ const InstaCard = ({ item }) => {
           onClickDelete={onClickDeleteHandler}
         />
       ) : null}
+
       {isModalDetail ? (
         <ModalDetail item={item} ModalDetailHandler={ModalDetailHandler} />
       ) : null}

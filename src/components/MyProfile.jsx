@@ -1,13 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Profile from '../assets/img/Profile.jpg';
 import { colors } from '../theme/theme';
 import { __getName } from '../redux/modules/userSlice';
 import { getCookie, setCookie } from '../shared/cookies';
+import { __getMyFeed } from '../redux/modules/MyPageSlice';
 
 const MyProfile = () => {
-  const user = useSelector((state) => state.user.user.headers)
+  // const dispatch = useDispatch();
+  const [user, setUser] = useState('')
+
+  useEffect(()=>{
+    // dispatch(__getMyFeed());
+    const token = getCookie('token');
+    const userName = getCookie('userName');
+    if(token !== undefined) {
+      setUser(userName);
+    }
+  })
+  
 
   console.log(user)
 
@@ -20,7 +32,7 @@ const MyProfile = () => {
       </ProfileContainer>
       
       <StProfileWrap>
-        <StName>{user.userName}</StName>
+        <StName>{user}</StName>
         <StProfileInfo>
           <StProfileText>
             게시물<span> 50</span>
