@@ -31,6 +31,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import Profile from '../assets/img/Profile.jpg';
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -116,7 +117,7 @@ const InstaCard = ({ item }) => {
     <StCard key={item.id}>
       <StHead>
         <StHeadUser>
-          <StHeadImage src={item.image} onError={handleImgError}></StHeadImage>
+          <StHeadImage src={Profile} onError={handleImgError}></StHeadImage>
           {/* <div>{item.userName}</div> */}
           <div>{item.userName}</div>
         </StHeadUser>
@@ -291,12 +292,14 @@ const StHeadImage = styled.img`
   width: 42px;
   height: 42px;
   border-radius: 100px;
+  object-fit: cover;
   /* background-image: url(${instagram}); */
 `;
 
 const StBodyImage = styled.img`
   width: 472px;
-  height: 520px;
+  height: 472px;
+  object-fit: cover;
 `;
 
 const StSection = styled.section`

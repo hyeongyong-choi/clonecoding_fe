@@ -74,17 +74,17 @@ const handleSubmit = (e) => {
     if(userId.indexOf('@') === -1){
       console.log(userId.indexOf('@'))
       dispatch(__loginUser(Idform))
-      // .then(() => {
-      //   navigate('/');
-      //   window.location.reload();
-      // })
+      .then(() => {
+        navigate('/');
+        // window.location.reload();
+      })
     }else{
       console.log(value.indexOf('@'))
       dispatch(__loginUser(Emailform))
-      // .then(() => {
-      //   navigate('/');
-      //   window.location.reload();
-      // })
+      .then(() => {
+        navigate('/');
+        // window.location.reload();
+      })
     }
     
 };
