@@ -20,9 +20,9 @@ const MyProfile = () => {
     }
   })
 
-  const MyArticlesCount = useSelector((state)=> state.myPage.articles)
+  const MyArticlesCount = useSelector((state)=> state.myPage.articles.articlesCount)
 
-  console.log(MyArticlesCount)
+  // console.log(MyArticlesCount)
 
   return (
     <StProfile>
@@ -36,7 +36,7 @@ const MyProfile = () => {
         <StName>{user}</StName>
         <StProfileInfo>
           <StProfileText>
-            게시물<span></span>
+            게시물<span> {MyArticlesCount}</span>
           </StProfileText>
           <StProfileText>
             팔로워<span> 600</span>

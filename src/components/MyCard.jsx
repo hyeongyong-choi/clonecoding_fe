@@ -7,7 +7,7 @@ import ModalDetail from './ModalDetail';
 const MyCard = ({ image }) => {
   const dispatch = useDispatch();
   const [isModal, setIsModal] = useState(false);
-  console.log(image.articlesId)
+  console.log(image.images[0].image)
 
 
   const ModalHandler = () => {
@@ -16,7 +16,7 @@ const MyCard = ({ image }) => {
 
   return (
     <StCardBox>
-      <img src={image.image} onClick={ModalHandler}alt='내 게시물 이미지' />
+      <img src={image.images[0].image} onClick={ModalHandler}alt='내 게시물 이미지' />
 
       {/* {isModal ? <ModalDetail ModalHandler={ModalHandler} /> : null} */}
       
