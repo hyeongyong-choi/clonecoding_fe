@@ -99,13 +99,13 @@ const Login = () => {
 
     }
     // console.log('error' , error)
-    if (error === null && !isLogin) {
-      setFailLogin("");
+    if (error && error.status === 401 && !isLogin) {
+      setFailLogin("로그인 실패. 아이디와 비밀번호를 확인해주세요");
     } else if (error === null && isLogin) {
       setFailLogin("");
       navigate("/");
-    }
-  }, [userId, userEmail, password, isLogin]);
+    } 
+  }, [userId, userEmail, password, isLogin,error]);
 
   // console.log(handleSubmit)
   return (
@@ -134,6 +134,7 @@ const Login = () => {
             onChange={onChangePasswordHandler}
           />
         </StLoginInput>
+        
         <Button
           text="로그인"
           width="100%"

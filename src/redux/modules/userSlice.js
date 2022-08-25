@@ -97,8 +97,8 @@ export const userSlice = createSlice({
     },
     [__loginUser.rejected]: (state, action) => {
       state.isLoading = false;
-      // console.log(action.payload)
-      // state.error = action.payload.response.data;
+      console.log(action.payload)
+      state.error = action.payload.response.data;
     },
     [__signupUser.pending]: (state) => {
       state.isLoading = true;
