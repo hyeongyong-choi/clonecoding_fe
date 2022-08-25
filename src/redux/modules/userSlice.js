@@ -31,7 +31,7 @@ const config = {
       // setCookie('userEmail', data.data.userEmail);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
-      console.log("error", error);
+      console.log("error", error.message);
       return thunkAPI.rejectWithValue(error);
     }
   }
