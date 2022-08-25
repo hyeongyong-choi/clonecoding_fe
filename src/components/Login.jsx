@@ -19,7 +19,7 @@ const Login = () => {
   const [failLogin, setFailLogin] = useState("");
   const { error, isLogin } = useSelector((state) => state.user);
   
-  console.log(error)
+  // console.log(error)
   // console.log('error',error , 'isLogin',isLogin)
 
   const [formValue, setFormValue] = useState({

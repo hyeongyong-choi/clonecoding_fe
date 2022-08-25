@@ -70,6 +70,7 @@ const ModalForm = ({ ModalHandler }) => {
       new Blob([JSON.stringify(newForm)], { type: "application/json" })
     );
     dispatch(__postImage(formdata));
+    
     window.location.reload();
   };
 
@@ -141,7 +142,7 @@ const ModalForm = ({ ModalHandler }) => {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
-                              overFit: "cover"
+                              obectFit: "cover"
                             }}
                             onLoad={() => {
                               URL.revokeObjectURL(file.preview);
