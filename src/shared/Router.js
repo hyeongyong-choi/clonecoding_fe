@@ -7,6 +7,7 @@ import MainPage from "../pages/MainPage";
 import FormPage from "../pages/FormPage";
 import MyPage from "../pages/MyPage";
 import { getCookie, setCookie } from "./cookies";
+
 import ScrollToTop from './ScrollToTop';
 import { useSelector, useDispatch } from "react-redux";
 import { __getUser } from '../redux/modules/userSlice';

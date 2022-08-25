@@ -1,26 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import Profile from '../assets/img/Profile.jpg';
-import { colors } from '../theme/theme';
-import { __getName } from '../redux/modules/userSlice';
-import { getCookie, setCookie } from '../shared/cookies';
-import { __getMyFeed } from '../redux/modules/MyPageSlice';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import Profile from "../assets/img/Profile.jpg";
+import { colors } from "../theme/theme";
+import { __getName } from "../redux/modules/userSlice";
+import { getCookie, setCookie } from "../shared/cookies";
+import { __getMyFeed } from "../redux/modules/MyPageSlice";
 
 const MyProfile = () => {
   // const dispatch = useDispatch();
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState("");
 
-  useEffect(()=>{
+  useEffect(() => {
     // dispatch(__getMyFeed());
-    const token = getCookie('token');
-    const userName = getCookie('userName');
-    if(token !== undefined) {
+    const token = getCookie("token");
+    const userName = getCookie("userName");
+    if (token !== undefined) {
       setUser(userName);
     }
-  })
+  });
 
-  const MyArticlesCount = useSelector((state)=> state.myPage.articles.articlesCount)
+  const MyArticlesCount = useSelector(
+    (state) => state.myPage.articles.articlesCount
+  );
 
   // console.log(MyArticlesCount)
 
@@ -31,7 +33,7 @@ const MyProfile = () => {
           <img src={Profile} />
         </StProfileImg>
       </ProfileContainer>
-      
+
       <StProfileWrap>
         <StName>{user}</StName>
         <StProfileInfo>
@@ -49,7 +51,6 @@ const MyProfile = () => {
     </StProfile>
   );
 };
-
 
 export default MyProfile;
 
