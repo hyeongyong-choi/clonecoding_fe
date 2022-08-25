@@ -31,7 +31,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Profile from '../assets/img/Profile.jpg';
+import Profile from "../assets/img/Profile.jpg";
 
 SwiperCore.use([Navigation, Pagination]);
 
@@ -51,12 +51,7 @@ const InstaCard = ({ item }) => {
   const [likeState, setLikeState] = useState();
   const { error } = useSelector((state) => state.Insta);
 
-  console.log(like)
-
   const [user, setUser] = useState("");
-
-
-  // console.log(item)
 
   // useEffect(() => {
   //   dispatch(__getComment(item.articlesId));
@@ -110,7 +105,7 @@ const InstaCard = ({ item }) => {
       })
     );
     setValue("");
-    dispatch(__getInstaList())
+    dispatch(__getInstaList());
   };
 
   const clickOutside = (e) => {
@@ -124,8 +119,6 @@ const InstaCard = ({ item }) => {
   };
 
   document.addEventListener("mousedown", clickOutside);
-
-  console.log(item)
 
   return (
     <StCard key={item.id}>
@@ -175,7 +168,6 @@ const InstaCard = ({ item }) => {
             <StHeartButton
               onClick={() => onClickAddLikeHandler(item.articlesId)}
             >
-              
               <BsHeartFill size="28" color="red" />
             </StHeartButton>
           )}

@@ -26,7 +26,7 @@ export const __getInstaList = createAsyncThunk(
           Authorization: `${getCookie("token")}`,
         },
       });
-      console.log(response.data);
+      console.log(" __getInstaList reponse.data", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -49,11 +49,9 @@ export const __postComment = createAsyncThunk(
         },
         data: { comment: payload.comment },
       });
-      console.log(payload);
-      console.log(response.data);
+
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
-      console.log("error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -64,7 +62,7 @@ export const __postImage = createAsyncThunk(
   "POST_FORM",
   async (payload, thunkAPI) => {
     for (var value of payload.values()) {
-      console.log("formdata value", value);
+      // console.log("formdata value", value);
     }
     try {
       const response = await axios({
@@ -79,9 +77,7 @@ export const __postImage = createAsyncThunk(
         },
         data: payload,
       });
-      console.log("payload", response.headers.Authorization);
-      console.log("response", response.data);
-      console.log("headers", response.headers);
+
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -115,10 +111,7 @@ export const __postLike = createAsyncThunk(
     try {
       const response = await axios({
         method: "post",
-
         url: `${BASE_URL}/api/articles/${payload.articlesId}/like`,
-
-        // url: "http://localhost:3001/like",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${getCookie("token")}`,
@@ -245,7 +238,6 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__getInstaList.fulfilled]: (state, { payload }) => {
-      console.log("__getInstaList payload", payload);
       state.isLoading = false;
       state.articles = payload;
     },
