@@ -10,7 +10,7 @@ import { BiMessageRounded,BiArrowBack } from "react-icons/bi";
 import { BsHeart, BsBookmark, BsEmojiSmile } from "react-icons/bs";
 import { HiOutlinePaperAirplane } from "react-icons/hi";
 import DetailComment from "./DetailComment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { __postComment , __getInstaList} from "../redux/modules/InstaSlice";
 import instagram from "../assets/instagram2.jpg";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -27,13 +27,19 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
   const [comments , setComments] = useState('')
   const [commentBtn , setCommentBtn] = useState(true)
 
-  useEffect(()=>{
-    dispatch(__getInstaList())
-  },[dispatch])
+  const {articles} = useSelector((state) => state.Insta)
+
+  // console.log(item.commentList)
+
+  const articlecomment = articles.find((article)=> article.articlesId )
+  // console.log(articlecomment.commentList)
+
 
   const commentHandler = (e) =>{
     setComments(e.target.value)
   }
+
+  
 
 
   const addCommentSubmit = () =>{
@@ -43,6 +49,7 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
     }
     dispatch(__postComment(commentlist))
     dispatch(__getInstaList())
+    setComments("")
   }
 
   const errorImg = (e) =>{
@@ -61,6 +68,9 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
     width:"650px",
     height:"100%",
   }
+  useEffect(() => {
+    dispatch(__getInstaList());
+  }, [dispatch]);
 
 
 
@@ -125,8 +135,8 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
                   {item.content}
                 </PostText>
               </Postboxme>
-              {item.commentList.map((item) => (
-                <DetailComment key={item.commentId} item={item}></DetailComment>
+              {item.commentList?.map((item) => (
+                <DetailComment key={item.commentId} item={item} ></DetailComment>
               ))}
             </ModalComment>
             <ModalIcon>

@@ -7,7 +7,7 @@ import ModalDetail from './ModalDetail';
 const MyCard = ({ image }) => {
   const dispatch = useDispatch();
   const [isModal, setIsModal] = useState(false);
-  console.log(image.images[0].image)
+  // console.log(image.images[0].image)
 
 
   const ModalHandler = () => {

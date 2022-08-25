@@ -45,13 +45,17 @@ const InstaCard = ({ item }) => {
   const [value, setValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
-  console.log("useSelector articles", articles);
+  // console.log("useSelector articles", articles);
   const { like } = useSelector((state) => state.Insta);
-  console.log("useSelector like", like);
+  // console.log("useSelector like", like);
   const [likeState, setLikeState] = useState();
   const { error } = useSelector((state) => state.Insta);
 
   const [user, setUser] = useState("");
+
+  useEffect(()=>{
+    dispatch(__getInstaList())
+  },[dispatch])
 
   useEffect(() => {
     const token = getCookie("token");
@@ -132,8 +136,8 @@ const InstaCard = ({ item }) => {
           {/* <div>{item.userName}</div> */}
           <div>{item.userName}</div>
         </StHeadUser>
-        <StFiMoreHorizontal>
-          <FiMoreHorizontal onClick={ModalHandler} />
+        <StFiMoreHorizontal onClick={ModalHandler}>
+          <FiMoreHorizontal  />
         </StFiMoreHorizontal>
       </StHead>
 

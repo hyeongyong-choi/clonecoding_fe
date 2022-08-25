@@ -1,6 +1,7 @@
-import React, { forwardRef, useRef } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import { getCookie } from "../shared/cookies";
 
 const Modal = forwardRef((props, ref) => {
 
@@ -8,6 +9,16 @@ const Modal = forwardRef((props, ref) => {
     window.confirm('정말 삭제하시겠습니까?')
     props.onClickDelete(props.item.articlesId)
   }
+
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    const token = getCookie("token");
+    const userName = getCookie("userName");
+    if (token !== undefined) {
+      setUser(userName);
+    }
+  });
 
   console.log(props.item)
 
@@ -20,7 +31,7 @@ const Modal = forwardRef((props, ref) => {
         <ModalContainer ref={ref}>
       
 
-          {props.item.userName === articles.userName ? (
+          {props.item.userName === user ? (
                 <>
                 <StButton>수정</StButton>
             <StButton onClick={deleteHandler}>

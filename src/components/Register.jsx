@@ -134,7 +134,7 @@ const Register = () => {
         BASE_URL + "/api/register/userEmail",
         newEmail
       );
-      console.log(data);
+      // console.log(data);
       if (data.data) {
         setEmailMessage("사용할 수 있는 이메일입니다");
         setEmailDBCheck(true);
@@ -156,7 +156,7 @@ const Register = () => {
     };
     try {
       const data = await axios.post(BASE_URL + "/api/register/userId", newId);
-      console.log(data);
+      // console.log(data);
       if (data.data) {
         setIdMessage("사용할 수 있는 아이디입니다");
         setIdDBCheck(true);
@@ -182,7 +182,7 @@ const Register = () => {
 
   const onChangeUserIdHandler = (e) => {
     const { value } = e.target;
-    console.log(value);
+    // console.log(value);
     if (value.trim() === "") {
       setIdCheck(true);
     } else {

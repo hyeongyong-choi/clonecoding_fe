@@ -42,7 +42,7 @@ const ModalForm = ({ ModalHandler }) => {
     },
     maxFiles: 4,
     onDrop: (acceptedFiles) => {
-      console.log(files.length);
+      // console.log(files.length);
       setFiles(
         acceptedFiles.map((file) =>
           Object.assign(file, {
@@ -142,7 +142,7 @@ const ModalForm = ({ ModalHandler }) => {
                               display: "flex",
                               justifyContent: "center",
                               alignItems: "center",
-                              obectFit: "cover"
+                              objectFit: "cover"
                             }}
                             onLoad={() => {
                               URL.revokeObjectURL(file.preview);

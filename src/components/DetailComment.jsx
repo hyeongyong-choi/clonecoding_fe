@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Profile from "../assets/img/Profile.jpg"
+import { __getInstaList } from '../redux/modules/InstaSlice';
 import Text from './elements/Text';
 
 
-const DetailComment = ({item}) => {
-  
-    
+const DetailComment = ({ item }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(__getInstaList());
+      }, [dispatch]);
+
     return (
         <>
             <TitleBox>
@@ -15,9 +21,12 @@ const DetailComment = ({item}) => {
                 </ImgBox>
                 <TextBox>
                     <TextComment>
-                    <TextContent><TextName>{item.userName}</TextName>{item.comment}</TextContent>
+                        <TextContent>
+                            <TextName>{item.userName}</TextName>
+                            {item.comment}
+                        </TextContent>
                     </TextComment>
-                    <Text margin="-10px 0 0 0"><span style={{fontSize : "12px"}}>{item.createdAt}</span>  </Text>
+                    <Text margin="-10px 0 0 0"><span style={{ fontSize: "12px" }}>{item.createdAt}</span>  </Text>
                 </TextBox>
             </TitleBox>
 
