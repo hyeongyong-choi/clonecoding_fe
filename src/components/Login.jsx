@@ -18,7 +18,8 @@ const Login = () => {
   const [loginBtn, setLoginBtn] = useState(true);
   const [failLogin, setFailLogin] = useState("");
   const { error, isLogin } = useSelector((state) => state.user);
-
+  
+  console.log(error)
   // console.log('error',error , 'isLogin',isLogin)
 
   const [formValue, setFormValue] = useState({
@@ -71,17 +72,17 @@ const Login = () => {
     if(userId.indexOf('@') === -1){
       console.log(userId.indexOf('@'))
       dispatch(__loginUser(Idform))
-      .then(() => {
-        navigate('/');
+      // .then(() => {
+      //   navigate('/');
         
-      })
+      // })
     }else{
       console.log(value.indexOf('@'))
       dispatch(__loginUser(Emailform))
-      .then(() => {
-        navigate('/');
+      // .then(() => {
+      //   navigate('/');
         
-      })
+      // })
     }
 
   };
