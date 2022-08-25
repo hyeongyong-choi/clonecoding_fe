@@ -4,7 +4,7 @@ import { getCookie, setCookie } from "../../shared/cookies.js";
 
 const initialState = {
   articles: [],
-  like: [{ isArticlesLike: false }],
+  like: [],
   article: {
     comments: [],
   },
@@ -85,25 +85,25 @@ export const __postImage = createAsyncThunk(
   }
 );
 
-export const __editImage = createAsyncThunk(
-  "EDIT_IMAGE",
-  async (payload, thunkAPI) => {
-    try {
-      const response = await axios({
-        method: "patch",
-        url: `${BASE_URL}/api/articles/${payload.articlesId}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${getCookie("mycookie")}`,
-        },
-        data: payload,
-      });
-      return thunkAPI.fulfillWithValue(response.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+// export const __editImage = createAsyncThunk(
+//   "EDIT_IMAGE",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const response = await axios({
+//         method: "patch",
+//         url: `${BASE_URL}/api/articles/${payload.articlesId}`,
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `${getCookie("mycookie")}`,
+//         },
+//         data: payload,
+//       });
+//       return thunkAPI.fulfillWithValue(response.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const __postLike = createAsyncThunk(
   "postLike",
@@ -146,25 +146,25 @@ export const __postInstaCard = createAsyncThunk(
   }
 );
 
-export const __updateInstaCard = createAsyncThunk(
-  "updateInstaCard",
-  async (payload, thunkAPI) => {
-    try {
-      const response = await axios({
-        method: "patch",
-        url: `/api/articles/${payload.id}`,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `${getCookie("token")}`,
-        },
-        data: { content: payload.content },
-      });
-      return thunkAPI.fulfillWithValue(response.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+// export const __updateInstaCard = createAsyncThunk(
+//   "updateInstaCard",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const response = await axios({
+//         method: "patch",
+//         url: `/api/articles/${payload.id}`,
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `${getCookie("token")}`,
+//         },
+//         data: { content: payload.content },
+//       });
+//       return thunkAPI.fulfillWithValue(response.data);
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error);
+//     }
+//   }
+// );
 
 export const __deleteInstaCard = createAsyncThunk(
   "deleteInstaCard",
@@ -269,17 +269,17 @@ export const InstaSlice = createSlice({
       state.isLoading = false;
       state.error = payload.response.data.error;
     },
-    [__updateInstaCard.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__updateInstaCard.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.articles.content = payload.content;
-    },
-    [__updateInstaCard.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      state.error = payload.response.data.error;
-    },
+    // [__updateInstaCard.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__updateInstaCard.fulfilled]: (state, { payload }) => {
+    //   state.isLoading = false;
+    //   state.articles.content = payload.content;
+    // },
+    // [__updateInstaCard.rejected]: (state, { payload }) => {
+    //   state.isLoading = false;
+    //   state.error = payload.response.data.error;
+    // },
     [__deleteInstaCard.pending]: (state) => {
       state.isLoading = true;
     },
@@ -323,7 +323,7 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__postLike.fulfilled]: (state, { payload }) => {
-      console.log("extraReducers payload", state.like, payload);
+      console.log("__postLike.fulfilled", payload);
       state.isLoading = false;
       state.like.unshift(payload);
     },
@@ -343,16 +343,16 @@ export const InstaSlice = createSlice({
       state.isLoading = false;
       state.error = payload.response.data.error;
     },
-    [__editImage.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__editImage.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-    },
-    [__editImage.rejected]: (state, { payload }) => {
-      state.isLoading = false;
-      state.error = payload.response.data.error;
-    },
+    // [__editImage.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__editImage.fulfilled]: (state, { payload }) => {
+    //   state.isLoading = false;
+    // },
+    // [__editImage.rejected]: (state, { payload }) => {
+    //   state.isLoading = false;
+    //   state.error = payload.response.data.error;
+    // },
   },
 });
 

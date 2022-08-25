@@ -45,17 +45,21 @@ const InstaCard = ({ item }) => {
   const [value, setValue] = useState("");
   const [textareaHeight, setTextareaHeight] = useState(0);
   const { articles } = useSelector((state) => state.Insta);
-  console.log("articles", articles);
+  console.log("useSelector articles", articles);
   const { like } = useSelector((state) => state.Insta);
-  // console.log(like);
+  console.log("useSelector like", like);
   const [likeState, setLikeState] = useState();
   const { error } = useSelector((state) => state.Insta);
 
   const [user, setUser] = useState("");
 
-  // useEffect(() => {
-  //   dispatch(__getComment(item.articlesId));
-  // }, [dispatch]);
+  useEffect(() => {
+    const token = getCookie("token");
+    const userName = getCookie("userName");
+    if (token !== undefined) {
+      setUser(userName);
+    }
+  });
 
   const ModalHandler = () => {
     setIsModal(!isModal);
@@ -78,7 +82,7 @@ const InstaCard = ({ item }) => {
   const onClickAddLikeHandler = (id) => {
     dispatch(
       __postLike({
-        userName: "로그인중인 사용자1",
+        userName: user,
         articlesId: id,
       })
     );
@@ -121,7 +125,7 @@ const InstaCard = ({ item }) => {
   document.addEventListener("mousedown", clickOutside);
 
   return (
-    <StCard key={item.id}>
+    <StCard key={item.articlesId}>
       <StHead>
         <StHeadUser>
           <StHeadImage src={Profile} onError={handleImgError}></StHeadImage>
@@ -158,17 +162,20 @@ const InstaCard = ({ item }) => {
       <StSection>
         <StButtonDiv>
           {/* {like.filter((each) => each.articlesId === item.articlesId)} */}
-          {!heart ? (
+          {/* like.length !== 0 && item.articlesId == like[0].articlesId && like[0].articlesLike */}
+          {like.length !== 0 &&
+          item.articlesId == like[0].articlesId &&
+          like[0].articlesLike ? (
             <StHeartButton
               onClick={() => onClickAddLikeHandler(item.articlesId)}
             >
-              <BsHeart size="28" />
+              <BsHeartFill size="28" color="red" />
             </StHeartButton>
           ) : (
             <StHeartButton
               onClick={() => onClickAddLikeHandler(item.articlesId)}
             >
-              <BsHeartFill size="28" color="red" />
+              <BsHeart size="28" />
             </StHeartButton>
           )}
           <StHeartButton onClick={() => console.log("버튼동작")}>
@@ -184,7 +191,7 @@ const InstaCard = ({ item }) => {
       </StSection>
 
       <StContent>
-        <div>좋아요 {item.likeCount}개</div>
+        <div>좋아요 {(like.length !== 0 && like[0].likeCount) || 0}개</div>
         <StUserContent>
           {moreView ? (
             <div>
