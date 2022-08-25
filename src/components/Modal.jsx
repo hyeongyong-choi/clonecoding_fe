@@ -1,4 +1,5 @@
 import React, { forwardRef, useRef } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const Modal = forwardRef((props, ref) => {
@@ -8,14 +9,27 @@ const Modal = forwardRef((props, ref) => {
     props.onClickDelete(props.item.articlesId)
   }
 
+  console.log(props.item)
+
+  const {articles} = useSelector((state)=> state.myPage)
+  console.log(articles.userName)
+
   return (
     <div>
       <ModalBg>
         <ModalContainer ref={ref}>
-          <StButton>수정</StButton>
-          <StButton onClick={deleteHandler}>
+      
+
+          {props.item.userName === articles.userName ? (
+                <>
+                <StButton>수정</StButton>
+            <StButton onClick={deleteHandler}>
             삭제
           </StButton>
+          </>
+          ) : null}
+          
+          
           <StButton>신고</StButton>
           <StButton>팔로우취소</StButton>
           <StButton>즐겨찾기에 추가</StButton>

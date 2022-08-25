@@ -1,15 +1,12 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Profile from "../assets/img/Profile.jpg"
 import Text from './elements/Text';
 
 
 const DetailComment = ({item}) => {
-   
-
+  
     
-
     return (
         <>
             <TitleBox>

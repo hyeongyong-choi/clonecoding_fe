@@ -27,7 +27,9 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
   const [comments , setComments] = useState('')
   const [commentBtn , setCommentBtn] = useState(true)
 
-  
+  useEffect(()=>{
+    dispatch(__getInstaList())
+  },[dispatch])
 
   const commentHandler = (e) =>{
     setComments(e.target.value)
@@ -41,7 +43,6 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
     }
     dispatch(__postComment(commentlist))
     dispatch(__getInstaList())
-  
   }
 
   const errorImg = (e) =>{
@@ -54,13 +55,13 @@ const ModalDetail = ({item,ModalDetailHandler}) => {
     }else{
       setCommentBtn(true)
     }
-
   },[comments])
-    
+
   const swiperStyle = {
     width:"650px",
     height:"100%",
   }
+
 
 
     return (
@@ -205,14 +206,16 @@ const ModalContain = styled.div`
   /* max-width: 1100px; */
   min-width: 1100px;
   height: 90%;
+  
   /* padding: 10px; */
   /* background: rgb(25, 31, 44); */
-  border-radius: 10px;
+
   text-align: start;
 `;
 
 const ImgContain = styled.div`
   width: 650px;
+  
   /* height: 500px; */
   /* background-image: url(item.image);
    background-repeat: no-repeat;
@@ -226,6 +229,7 @@ const ModalImg = styled.img`
   object-fit: cover;
 `;
 const ModalCommentBox = styled.div`
+  /* border-radius: 20px; */
   width: 450px;
   height: 100%;
   background-color: #fff;
@@ -233,6 +237,7 @@ const ModalCommentBox = styled.div`
 const ModalTitle = styled.div`
   /* width:90%; */
   height: 70px;
+  /* border-radius: 20px; */
   padding: 14px 4px 14px 16px;
   background-color: #fff;
   display: flex;
