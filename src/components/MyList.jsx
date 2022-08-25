@@ -14,8 +14,8 @@ const MyList = () => {
   const user = useSelector((state) => state.user.user.headers.userName);
   const myImageList = useSelector((state) => state.myPage.articles.imageList)
 
-  console.log(user)
-  console.log(myImageList)
+  // console.log(user)
+  // console.log(myImageList)
 
   useEffect(()=> {
     dispatch(__getMyFeed());

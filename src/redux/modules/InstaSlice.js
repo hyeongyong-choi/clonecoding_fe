@@ -26,7 +26,7 @@ export const __getInstaList = createAsyncThunk(
           Authorization: `${getCookie("token")}`,
         },
       });
-      console.log(" __getInstaList reponse.data", response.data);
+      // console.log(" __getInstaList reponse.data", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -118,7 +118,7 @@ export const __postLike = createAsyncThunk(
         },
         data: payload,
       });
-      console.log("__postLike response", response.data);
+      // console.log("__postLike response", response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -323,7 +323,7 @@ export const InstaSlice = createSlice({
       state.isLoading = true;
     },
     [__postLike.fulfilled]: (state, { payload }) => {
-      console.log("__postLike.fulfilled", payload);
+      // console.log("__postLike.fulfilled", payload);
       state.isLoading = false;
       state.like.unshift(payload);
     },

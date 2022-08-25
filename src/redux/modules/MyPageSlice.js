@@ -16,7 +16,7 @@ export const __getMyFeed = createAsyncThunk(
           Authorization: `Bearer ${getCookie("token")}`,
         },
       })
-      console.log(response.data);
+      // console.log(response.data);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -17,12 +17,12 @@ const config = {
     
     'LOGIN_USER',
     async (payload, thunkAPI) => {
-      console.log(payload)
+      // console.log(payload)
       try {
         const data = await axios.post(`${BASE_URL}/api/login`, payload);
         // console.log('data', data)
-        console.log('token', data.data.token)
-        console.log('userName' , data.data.userName)
+        // console.log('token', data.data.token)
+        // console.log('userName' , data.data.userName)
         setCookie('token', `${data.data.token}`);
         setCookie('userName', `${data.data.userName}`);
 
@@ -41,8 +41,8 @@ export const __signupUser = createAsyncThunk(
   "Register_USER",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload);
-      console.log("payload", payload);
+      // console.log(payload);
+      // console.log("payload", payload);
       const data = await axios.post(`${BASE_URL}/api/register`, payload);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
